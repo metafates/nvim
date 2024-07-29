@@ -219,9 +219,7 @@ vim.opt.rtp:prepend(lazypath)
 --  To update plugins you can run
 --    :Lazy update
 --
--- NOTE: Here is where you install your plugins.
 require('lazy').setup({
-  -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
   'rubiin/fortune.nvim',
   {
@@ -235,7 +233,6 @@ require('lazy').setup({
     version = false,
     opts = {
       header = 'Welcome back',
-      -- footer = 'Code is like humor. When you have to explain it, it’s bad.',
       footer = function()
         local fortune = require('fortune').get_fortune()
 
@@ -251,6 +248,14 @@ require('lazy').setup({
 
       leap.add_default_mappings(true)
     end,
+  },
+  {
+    'akinsho/toggleterm.nvim',
+    version = '*',
+    opts = {
+      open_mapping = [[<C-\>]],
+      direction = 'float',
+    },
   },
 
   -- NOTE: Plugins can also be added by using a table,
