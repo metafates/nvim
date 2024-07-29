@@ -148,8 +148,12 @@ if vim.g.neovide then
     scale()
   end)
 
-  vim.keymap.set({ 'n', 'i' }, '<D-v>', '"+p')
-  vim.keymap.set({ 'n', 'i' }, '<D-c>', '"+y')
+  vim.keymap.set('v', '<D-c>', '"+y', { noremap = true })
+  vim.keymap.set('n', '<D-v>', '"+p', { noremap = true })
+  vim.keymap.set('v', '<D-v>', '"+p', { noremap = true })
+  vim.keymap.set('c', '<D-v>', '<C-o>l<C-o>"+<C-o>p<C-o>l', { noremap = true })
+  vim.keymap.set('i', '<D-v>', '<ESC>"+pi', { noremap = true })
+  vim.keymap.set('t', '<D-v>', '<C-\\><C-n>"+pi', { noremap = true })
 end
 
 -- TODO: delete ctrl+r
@@ -282,6 +286,12 @@ require('lazy').setup({
       },
     },
   },
+  {
+    'ahmedkhalf/project.nvim',
+    config = function()
+      require('project_nvim').setup {}
+    end,
+  },
 
   -- NOTE: Plugins can also be configured to run Lua code when they are loaded.
   --
@@ -349,6 +359,7 @@ require('lazy').setup({
       { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
     },
     config = function()
+      local telescope = require 'telescope'
       -- Telescope is a fuzzy finder that comes with a lot of different things that
       -- it can fuzzy find! It's more than just a "file finder", it can search
       -- many different aspects of Neovim, your workspace, LSP, and more!
@@ -370,7 +381,7 @@ require('lazy').setup({
 
       -- [[ Configure Telescope ]]
       -- See `:help telescope` and `:help telescope.setup()`
-      require('telescope').setup {
+      telescope.setup {
         -- You can put your default mappings / updates / etc. in here
         --  All the info you're looking for is in `:help telescope.setup()`
         --
@@ -388,8 +399,9 @@ require('lazy').setup({
       }
 
       -- Enable Telescope extensions if they are installed
-      pcall(require('telescope').load_extension, 'fzf')
-      pcall(require('telescope').load_extension, 'ui-select')
+      pcall(telescope.load_extension, 'fzf')
+      pcall(telescope.load_extension, 'ui-select')
+      pcall(telescope.load_extension, 'projects')
 
       -- See `:help telescope.builtin`
       local builtin = require 'telescope.builtin'
@@ -401,6 +413,7 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
       vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
       vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
+      vim.keymap.set('n', '<leader>sp', telescope.extensions.projects.projects, { desc = '[S]earch [R]esume' })
       vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
       vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
 
@@ -600,6 +613,7 @@ require('lazy').setup({
               gofumpt = true,
               usePlaceholders = false,
               staticcheck = true,
+              buildFlags = { '-tags', 'mage,integration' },
               hints = {
                 assignVariableTypes = true,
                 compositeLiteralFields = true,
