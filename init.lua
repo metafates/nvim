@@ -147,13 +147,6 @@ if vim.g.neovide then
   vim.keymap.set({ 'n', 'v', 'i' }, '<D-0>', function()
     scale()
   end)
-
-  vim.keymap.set('v', '<D-c>', '"+y', { noremap = true })
-  vim.keymap.set('n', '<D-v>', '"+p', { noremap = true })
-  vim.keymap.set('v', '<D-v>', '"+p', { noremap = true })
-  vim.keymap.set('c', '<D-v>', '<C-o>l<C-o>"+<C-o>p<C-o>l', { noremap = true })
-  vim.keymap.set('i', '<D-v>', '<ESC>"+pi', { noremap = true })
-  vim.keymap.set('t', '<D-v>', '<C-\\><C-n>"+pi', { noremap = true })
 end
 
 -- TODO: delete ctrl+r
@@ -381,15 +374,20 @@ require('lazy').setup({
 
       -- [[ Configure Telescope ]]
       -- See `:help telescope` and `:help telescope.setup()`
+      local actions = require 'telescope.actions'
       telescope.setup {
         -- You can put your default mappings / updates / etc. in here
         --  All the info you're looking for is in `:help telescope.setup()`
         --
-        -- defaults = {
-        --   mappings = {
-        --     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
-        --   },
-        -- },
+        defaults = {
+          mappings = {
+            i = {
+              ['<C-enter>'] = 'to_fuzzy_refine',
+              ['<C-j>'] = actions.move_selection_next,
+              ['<C-k>'] = actions.move_selection_previous,
+            },
+          },
+        },
         -- pickers = {}
         extensions = {
           ['ui-select'] = {
@@ -439,6 +437,10 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>sn', function()
         builtin.find_files { cwd = vim.fn.stdpath 'config' }
       end, { desc = '[S]earch [N]eovim files' })
+
+      vim.keymap.set('n', '<leader>sF', function()
+        builtin.find_files { cwd = vim.fn.expand '%:p:h' }
+      end, { desc = '[S]earch [F]iles in current buffer directory' })
     end,
   },
 
@@ -836,24 +838,14 @@ require('lazy').setup({
     end,
   },
 
-  { -- You can easily change to a different colorscheme.
-    -- Change the name of the colorscheme plugin below, and then
-    -- change the command in the config to whatever the name of that colorscheme is.
-    --
-    -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
+  {
     'folke/tokyonight.nvim',
-    priority = 1000, -- Make sure to load this before all the other start plugins.
+    priority = 1000,
     init = function()
-      -- Load the colorscheme here.
-      -- Like many other themes, this one has different styles, and you could load
-      -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
       vim.cmd.colorscheme 'tokyonight-night'
-
-      -- You can configure highlights by doing something like:
       vim.cmd.hi 'Comment gui=none'
     end,
   },
-
   -- Highlight todo, notes, etc in comments
   { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
 
@@ -924,6 +916,47 @@ require('lazy').setup({
       --    - Incremental selection: Included, see `:help nvim-treesitter-incremental-selection-mod`
       --    - Show your current context: https://github.com/nvim-treesitter/nvim-treesitter-context
       --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
+    end,
+  },
+  {
+    'nvim-neotest/neotest',
+    dependencies = {
+      'nvim-neotest/neotest-go',
+      'nvim-neotest/nvim-nio',
+    },
+    config = function()
+      -- get neotest namespace (api call creates or returns namespace)
+      local neotest_ns = vim.api.nvim_create_namespace 'neotest'
+      vim.diagnostic.config({
+        virtual_text = {
+          format = function(diagnostic)
+            local message = diagnostic.message:gsub('\n', ' '):gsub('\t', ' '):gsub('%s+', ' '):gsub('^%s+', '')
+            return message
+          end,
+        },
+      }, neotest_ns)
+
+      local neotest = require 'neotest'
+      neotest.setup {
+        adapters = {
+          require 'neotest-go',
+        },
+      }
+
+      require('which-key').add {
+        { '<leader>ct', group = '[C]ode [T]est' },
+      }
+
+      vim.keymap.set('n', '<leader>ctf', neotest.run.run, { desc = '[C]ode [T]est [f]unction' })
+      vim.keymap.set('n', '<leader>ctF', function()
+        neotest.run.run(vim.fn.expand '%')
+      end, { desc = '[C]ode [T]est [F]ile' })
+      vim.keymap.set('n', '<leader>ctd', function()
+        neotest.run.run(vim.fn.expand '%:p:h')
+      end, { desc = '[C]ode [T]est [D]irectory' })
+
+      vim.keymap.set('n', '<leader>cts', neotest.summary.toggle, { desc = '[C]ode [T]est [S]ummary' })
+      vim.keymap.set('n', '<leader>cto', neotest.output_panel.toggle, { desc = '[C]ode [T]est [O]utput' })
     end,
   },
 
