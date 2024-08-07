@@ -239,12 +239,15 @@ require('lazy').setup({
     },
   },
   {
-    'ggandor/leap.nvim',
-    opts = {},
-    config = function(_, _)
-      local leap = require 'leap'
+    'phaazon/hop.nvim',
+    branch = 'v2',
+    config = function()
+      local hop = require 'hop'
+      hop.setup { keys = 'etovxqpdygfblzhckisuran' }
 
-      leap.add_default_mappings(true)
+      vim.keymap.set('', 'f', function()
+        hop.hint_words {}
+      end)
     end,
   },
   {
@@ -619,6 +622,7 @@ require('lazy').setup({
               buildFlags = { '-tags', 'mage,integration' },
               templateExtensions = { '.gohtml', '.tmpl' },
               vulncheck = 'Imports',
+              symbolScope = 'workspace',
               hints = {
                 assignVariableTypes = true,
                 compositeLiteralFields = true,
@@ -865,10 +869,10 @@ require('lazy').setup({
 
       -- Add/delete/replace surroundings (brackets, quotes, etc.)
       --
-      -- - saiw) - [S]urround [A]dd [I]nner [W]ord [)]Paren
+      -- - saiw) - [[ S ]]urround [A]dd [I]nner [W]ord [)]Paren
       -- - sd'   - [S]urround [D]elete [']quotes
       -- - sr)'  - [S]urround [R]eplace [)] [']
-      require('mini.surround').setup()
+      -- require('mini.surround').setup()
 
       -- Simple and easy statusline.
       --  You could remove this setup call if you don't like it,
@@ -972,7 +976,7 @@ require('lazy').setup({
   --  Here are some example plugins that I've included in the Kickstart repository.
   --  Uncomment any of the lines below to enable them (you will need to restart nvim).
   --
-  -- require 'kickstart.plugins.debug',
+  require 'kickstart.plugins.debug',
   require 'kickstart.plugins.indent_line',
   require 'kickstart.plugins.lint',
   require 'kickstart.plugins.autopairs',
