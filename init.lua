@@ -617,6 +617,8 @@ require('lazy').setup({
               usePlaceholders = false,
               staticcheck = true,
               buildFlags = { '-tags', 'mage,integration' },
+              templateExtensions = { '.gohtml', '.tmpl' },
+              vulncheck = 'Imports',
               hints = {
                 assignVariableTypes = true,
                 compositeLiteralFields = true,
