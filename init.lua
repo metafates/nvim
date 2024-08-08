@@ -14,13 +14,6 @@ vim.g.have_nerd_font = true
 -- NOTE: You can change these options as you wish!
 --  For more options, you can see `:help option-list`
 
-local guifont = 'JetBrainsMono Nerd Font Mono'
-local guifont_size = 14
-
-local function update_guifont()
-  vim.opt.guifont = { guifont, ':h' .. guifont_size }
-end
-
 -- Make line numbers default
 vim.opt.number = true
 -- You can also add relative line numbers, to help with jumping.
@@ -125,29 +118,7 @@ vim.api.nvim_create_autocmd('BufWritePre', {
 })
 
 if vim.g.neovide then
-  update_guifont()
-
-  local original_guifont_size = guifont_size
-
-  local function scale(amount)
-    if not amount then
-      guifont_size = original_guifont_size
-    else
-      guifont_size = guifont_size + amount
-    end
-
-    update_guifont()
-  end
-
-  vim.keymap.set({ 'n', 'v', 'i' }, '<D-=>', function()
-    scale(1)
-  end)
-  vim.keymap.set({ 'n', 'v', 'i' }, '<D-->', function()
-    scale(-1)
-  end)
-  vim.keymap.set({ 'n', 'v', 'i' }, '<D-0>', function()
-    scale()
-  end)
+  require 'custom.gui'
 end
 
 -- TODO: delete ctrl+r
