@@ -95,6 +95,8 @@ vim.keymap.set('n', ',Q', ':q!<CR>')
 vim.keymap.set('n', ',x', ':x<CR>')
 vim.keymap.set('n', ',c', ':bd<CR>', { silent = true })
 vim.keymap.set('n', ',C', ':bd!<CR>', { silent = true })
+vim.keymap.set('n', ',o', ':tabo<CR>', { silent = true })
+vim.keymap.set('n', ',O', ':tabo!<CR>', { silent = true })
 vim.keymap.set('n', 'L', ':bnext<CR>', { silent = true })
 vim.keymap.set('n', 'H', ':bprevious<CR>', { silent = true })
 
@@ -190,24 +192,11 @@ vim.opt.rtp:prepend(lazypath)
 --
 require('lazy').setup({
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
-  'rubiin/fortune.nvim',
   {
     'akinsho/bufferline.nvim',
     version = '*',
     dependencies = 'nvim-tree/nvim-web-devicons',
     opts = {},
-  },
-  {
-    'echasnovski/mini.starter',
-    version = false,
-    opts = {
-      header = 'Welcome back',
-      footer = function()
-        local fortune = require('fortune').get_fortune()
-
-        return table.concat(fortune, '\n')
-      end,
-    },
   },
   {
     'phaazon/hop.nvim',
@@ -830,6 +819,10 @@ require('lazy').setup({
   { -- Collection of various small independent plugins/modules
     'echasnovski/mini.nvim',
     config = function()
+      require('mini.starter').setup {
+        header = 'Welcome back',
+      }
+
       -- Better Around/Inside textobjects
       --
       -- Examples:

@@ -36,3 +36,15 @@ local function paste_from_primary_clipboard()
 end
 
 vim.keymap.set(all_modes, '<D-v>', paste_from_primary_clipboard, { noremap = true, silent = true })
+
+vim.keymap.set(all_modes, '<D-}>', function()
+  vim.cmd 'bnext'
+end)
+
+vim.keymap.set(all_modes, '<D-{>', function()
+  vim.cmd 'bprevious'
+end)
+
+vim.keymap.set(all_modes, '<D-w>', function()
+  vim.cmd 'bd'
+end)
