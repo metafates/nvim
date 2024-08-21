@@ -34,7 +34,7 @@ return { -- LSP Configuration & Plugins
 
 				map("<leader>d", telescope_builtin.diagnostics, "Search Diagnostics")
 
-				local symbols_options = { symbol_width = 42, ignore_symbols = "object", fname_width = 0 }
+				local symbols_options = { ignore_symbols = "object", fname_width = 12 }
 				map("<leader>s", function()
 					telescope_builtin.lsp_document_symbols(symbols_options)
 				end, "Document symbols")

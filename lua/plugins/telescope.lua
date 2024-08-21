@@ -19,6 +19,8 @@ return {
 		local actions = require("telescope.actions")
 		telescope.setup({
 			defaults = {
+				file_ignore_patterns = { "node_modules", "mocks" },
+				path_display = { "truncate" },
 				mappings = {
 					i = {
 						["<C-enter>"] = "to_fuzzy_refine",
@@ -48,13 +50,12 @@ return {
 			builtin.find_files({ cwd = vim.fn.expand("%:p:h") })
 		end, { desc = "Search Files in current buffer directory" })
 
-		map("n", "<leader>sh", builtin.help_tags, { desc = "Search Help" })
 		map("n", "<leader>sk", builtin.keymaps, { desc = "Search Keymaps" })
 		map("n", "<leader>ss", builtin.builtin, { desc = "Search Select Telescope" })
 		map("n", "<leader>sw", builtin.grep_string, { desc = "Search current Word" })
 		map("n", "<leader>sg", builtin.live_grep, { desc = "Search by Grep" })
 		map("n", "<leader>sr", builtin.resume, { desc = "Search Resume" })
-		map("n", "<leader>sp", telescope.extensions.projects.projects, { desc = "Search Resume" })
+		map("n", "<leader>sp", telescope.extensions.projects.projects, { desc = "Search Projects" })
 		map("n", "<leader>s.", builtin.oldfiles, { desc = 'Search Recent Files ("." for repeat)' })
 		map("n", "<leader><leader>", builtin.buffers, { desc = "Find existing buffers" })
 
