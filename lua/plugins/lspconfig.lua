@@ -1,4 +1,4 @@
-return { -- LSP Configuration & Plugins
+return {
 	"neovim/nvim-lspconfig",
 	dependencies = {
 		{ "williamboman/mason.nvim", config = true },
@@ -34,7 +34,7 @@ return { -- LSP Configuration & Plugins
 
 				map("<leader>d", telescope_builtin.diagnostics, "Search Diagnostics")
 
-				local symbols_options = { ignore_symbols = "object", fname_width = 12 }
+				local symbols_options = { ignore_symbols = { "object", "string", "boolean" }, fname_width = 12 }
 				map("<leader>s", function()
 					telescope_builtin.lsp_document_symbols(symbols_options)
 				end, "Document symbols")
@@ -81,7 +81,7 @@ return { -- LSP Configuration & Plugins
 				end
 
 				if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
-					map("<C-h>", function()
+					map("<leader>h", function()
 						vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
 					end, "Toggle Inlay Hints")
 				end
