@@ -6,7 +6,7 @@ require("keymap")
 require("autocmd")
 
 if vim.g.neovide then
-	require("custom.gui")
+	require("gui")
 end
 
 require("plugins")
