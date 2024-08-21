@@ -8,6 +8,11 @@ map("n", ",Q", ":q!<CR>")
 map("n", ",x", ":x<CR>")
 map("n", ",c", ":bd<CR>", { silent = true })
 map("n", ",C", ":bd!<CR>", { silent = true })
+
+-- TODO: use this plugin maybe https://github.com/kazhala/close-buffers.nvim
+-- because this command will reopen current buffer with all the consequences (cursor reset, highlight reload, etc.)
+map("n", ",o", ":%bd|e#|bd#<CR>", { silent = true, desc = "Close other buffers" })
+
 map("n", "L", ":bnext<CR>", { silent = true })
 map("n", "H", ":bprevious<CR>", { silent = true })
 map("n", "<C-h>", "<C-w>h", { silent = true })
