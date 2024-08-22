@@ -30,4 +30,5 @@ require("lazy").setup({
 	require("plugins.lint"),
 	require("plugins.indent-line"),
 	require("plugins.autopairs"),
+	require("plugins.code-runner"),
 })
