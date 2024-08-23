@@ -25,7 +25,7 @@ return {
 				"MunifTanjim/nui.nvim",
 			},
 			keys = {
-				{ "E", ":Navbuddy<CR>" },
+				{ "E", ":Navbuddy<CR>", silent = true },
 			},
 			opts = { lsp = { auto_attach = true } },
 		},
