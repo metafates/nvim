@@ -20,7 +20,7 @@ require("lazy").setup({
 	require("plugins.lspconfig"),
 	require("plugins.conform"),
 	require("plugins.cmp"),
-	require("plugins.tokyonight"),
+	require("plugins.theme"),
 	require("plugins.todo-comments"),
 	require("plugins.mini"),
 	require("plugins.treesitter"),
@@ -31,4 +31,5 @@ require("lazy").setup({
 	require("plugins.indent-line"),
 	require("plugins.autopairs"),
 	require("plugins.code-runner"),
+	require("plugins.barbecue"),
 })
