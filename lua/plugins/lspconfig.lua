@@ -27,7 +27,12 @@ return {
 			keys = {
 				{ "E", ":Navbuddy<CR>", silent = true },
 			},
-			opts = { lsp = { auto_attach = true } },
+			opts = {
+				window = {
+					size = "80%",
+				},
+				lsp = { auto_attach = true },
+			},
 		},
 	},
 	config = function()
