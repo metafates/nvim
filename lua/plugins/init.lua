@@ -32,4 +32,6 @@ require("lazy").setup({
 	require("plugins.autopairs"),
 	require("plugins.code-runner"),
 	require("plugins.barbecue"),
+	require("plugins.lualine"),
+	require("plugins.dashboard"),
 })

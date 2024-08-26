@@ -10,11 +10,13 @@ update_guifont()
 local original_guifont_size = guifont_size
 
 local function scale(delta)
-	if not delta then
-		guifont_size = original_guifont_size
-	else
-		guifont_size = guifont_size + delta
-	end
+	guifont_size = guifont_size + delta
+
+	update_guifont()
+end
+
+local function reset()
+	guifont_size = original_guifont_size
 
 	update_guifont()
 end
@@ -30,7 +32,7 @@ map(all_modes, "<D-->", function()
 	scale(-1)
 end)
 map(all_modes, "<D-0>", function()
-	scale()
+	reset()
 end)
 
 local function paste_from_primary_clipboard()

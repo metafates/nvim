@@ -1,7 +1,7 @@
 return {
 	"akinsho/bufferline.nvim",
 	version = "*",
-	event = "BufRead",
+	event = "BufEnter",
 	dependencies = "nvim-tree/nvim-web-devicons",
 	keys = {
 		{ ",o", ":BufferLineCloseOthers<CR>" },
@@ -9,6 +9,8 @@ return {
 	},
 	opts = {
 		options = {
+			numbers = "ordinal",
+			diagnostics = "nvim_lsp",
 			offsets = {
 				{
 					filetype = "neo-tree",
