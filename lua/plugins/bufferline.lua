@@ -1,15 +1,15 @@
 return {
 	"akinsho/bufferline.nvim",
 	version = "*",
-	event = { "BufReadPost", "BufNewFile" },
+	-- event = { "BufReadPost", "BufNewFile" },
+	event = "VimEnter",
 	dependencies = "nvim-tree/nvim-web-devicons",
 	keys = {
-		{ ",o", ":BufferLineCloseOthers<CR>" },
-		{ ",p", ":BufferLineTogglePin<CR>" },
+		{ ",o", "<cmd>BufferLineCloseOthers<CR>" },
+		{ ",p", "<cmd>BufferLineTogglePin<CR>" },
 	},
 	opts = {
 		options = {
-			numbers = "ordinal",
 			diagnostics = "nvim_lsp",
 			offsets = {
 				{

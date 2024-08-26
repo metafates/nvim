@@ -1,6 +1,5 @@
 return {
 	"nvim-telescope/telescope.nvim",
-	-- event = "VimEnter",
 	cmd = "Telescope",
 	branch = "0.1.x",
 	dependencies = {
@@ -56,10 +55,10 @@ return {
 			end,
 		},
 	},
-	config = function()
-		local telescope = require("telescope")
+	opts = function()
 		local actions = require("telescope.actions")
-		telescope.setup({
+
+		return {
 			defaults = {
 				file_ignore_patterns = { "node_modules", "mocks" },
 				path_display = { "truncate" },
@@ -73,13 +72,22 @@ return {
 			},
 			extensions = {
 				["ui-select"] = {
-					require("telescope.themes").get_dropdown(),
+					-- require("telescope.themes").get_dropdown(),
+					require("telescope.themes").get_cursor(),
 				},
 			},
-		})
+		}
+	end,
+	config = function(_, opts)
+		local telescope = require("telescope")
 
-		-- Enable Telescope extensions if they are installed
-		for _, extension in ipairs({ "fzf", "ui-select", "projects" }) do
+		telescope.setup(opts)
+
+		for _, extension in ipairs({
+			"fzf",
+			"ui-select",
+			"projects",
+		}) do
 			pcall(telescope.load_extension, extension)
 		end
 	end,
