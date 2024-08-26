@@ -1,6 +1,7 @@
 return {
 	"nvim-telescope/telescope.nvim",
-	event = "VimEnter",
+	-- event = "VimEnter",
+	cmd = "Telescope",
 	branch = "0.1.x",
 	dependencies = {
 		"nvim-lua/plenary.nvim",
@@ -13,6 +14,47 @@ return {
 		},
 		{ "nvim-telescope/telescope-ui-select.nvim" },
 		{ "nvim-tree/nvim-web-devicons", enabled = vim.g.have_nerd_font },
+	},
+	keys = {
+		{
+			"<leader>f",
+			function()
+				require("telescope.builtin").find_files()
+			end,
+		},
+		{
+			"<leader>F",
+			function()
+				require("telescope.builtin").find_files({ cwd = vim.fn.expand("%:p:h") })
+			end,
+		},
+		{
+			"<leader>w",
+			function()
+				require("telescope.builtin").grep_string()
+			end,
+		},
+		{
+			"<leader>g",
+			function()
+				require("telescope.builtin").live_grep()
+			end,
+		},
+		{
+			"<leader>g",
+			function()
+				require("telescope.builtin").live_grep()
+			end,
+		},
+		{
+			"<leader>/",
+			function()
+				require("telescope.builtin").current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
+					winblend = 10,
+					previewer = false,
+				}))
+			end,
+		},
 	},
 	config = function()
 		local telescope = require("telescope")
@@ -37,47 +79,8 @@ return {
 		})
 
 		-- Enable Telescope extensions if they are installed
-		pcall(telescope.load_extension, "fzf")
-		pcall(telescope.load_extension, "ui-select")
-		pcall(telescope.load_extension, "projects")
-
-		-- See `:help telescope.builtin`
-		local builtin = require("telescope.builtin")
-		local map = vim.keymap.set
-
-		map("n", "<leader>f", builtin.find_files, { desc = "Search Files" })
-		map("n", "<leader>F", function()
-			builtin.find_files({ cwd = vim.fn.expand("%:p:h") })
-		end, { desc = "Search Files in current buffer directory" })
-
-		map("n", "<leader>sk", builtin.keymaps, { desc = "Search Keymaps" })
-		map("n", "<leader>ss", builtin.builtin, { desc = "Search Select Telescope" })
-		map("n", "<leader>sw", builtin.grep_string, { desc = "Search current Word" })
-		map("n", "<leader>sg", builtin.live_grep, { desc = "Search by Grep" })
-		map("n", "<leader>sr", builtin.resume, { desc = "Search Resume" })
-		map("n", "<leader>sp", telescope.extensions.projects.projects, { desc = "Search Projects" })
-		map("n", "<leader>s.", builtin.oldfiles, { desc = 'Search Recent Files ("." for repeat)' })
-		map("n", "<leader><leader>", builtin.buffers, { desc = "Find existing buffers" })
-
-		map("n", "<leader>/", function()
-			builtin.current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
-				winblend = 10,
-				previewer = false,
-			}))
-		end, { desc = "Fuzzily search in current buffer" })
-
-		-- It's also possible to pass additional configuration options.
-		--  See `:help telescope.builtin.live_grep()` for information about particular keys
-		map("n", "<leader>s/", function()
-			builtin.live_grep({
-				grep_open_files = true,
-				prompt_title = "Live Grep in Open Files",
-			})
-		end, { desc = "Search in Open Files" })
-
-		-- Shortcut for searching your Neovim configuration files
-		map("n", "<leader>sn", function()
-			builtin.find_files({ cwd = vim.fn.stdpath("config") })
-		end, { desc = "[S]earch [N]eovim files" })
+		for _, extension in ipairs({ "fzf", "ui-select", "projects" }) do
+			pcall(telescope.load_extension, extension)
+		end
 	end,
 }

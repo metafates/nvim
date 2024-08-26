@@ -1,5 +1,7 @@
 local map = vim.keymap.set
 
+map("n", ";", ":")
+
 map("n", "<Esc>", "<cmd>nohlsearch<CR>")
 map("i", "jk", "<Esc>")
 map("n", ",w", "<cmd>w<CR>")

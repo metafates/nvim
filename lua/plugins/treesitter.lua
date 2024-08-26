@@ -1,6 +1,7 @@
 return { -- Highlight, edit, and navigate code
 	"nvim-treesitter/nvim-treesitter",
 	build = ":TSUpdate",
+	event = { "BufReadPost", "BufNewFile" },
 	opts = {
 		ensure_installed = {
 			"bash",
@@ -17,6 +18,8 @@ return { -- Highlight, edit, and navigate code
 			"go",
 			"rust",
 			"json",
+			"toml",
+			"yaml",
 		},
 		auto_install = true,
 		highlight = {
