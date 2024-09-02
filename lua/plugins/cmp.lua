@@ -3,6 +3,7 @@ return { -- Autocompletion
 	event = "InsertEnter",
 	dependencies = {
 		"hrsh7th/cmp-nvim-lsp-signature-help",
+		"onsails/lspkind.nvim",
 		-- Snippet Engine & its associated nvim-cmp source
 		{
 			"L3MON4D3/LuaSnip",
@@ -33,7 +34,6 @@ return { -- Autocompletion
 		"hrsh7th/cmp-path",
 	},
 	config = function()
-		-- See `:help cmp`
 		local cmp = require("cmp")
 		local luasnip = require("luasnip")
 		luasnip.config.setup({})
@@ -44,13 +44,27 @@ return { -- Autocompletion
 					luasnip.lsp_expand(args.body)
 				end,
 			},
-			preselect = cmp.PreselectMode.None,
+			-- preselect = cmp.PreselectMode.None,
+			preselect = cmp.PreselectMode.Item,
 			completion = { completeopt = "menu,menuone,noinsert" },
+			window = {
+				completion = {
+					winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,Search:None",
+					col_offset = -3,
+					side_padding = 0,
+				},
+			},
+			formatting = {
+				fields = { "kind", "abbr", "menu" },
+				format = function(entry, vim_item)
+					local kind = require("lspkind").cmp_format({ mode = "symbol_text", maxwidth = 50 })(entry, vim_item)
+					local strings = vim.split(kind.kind, "%s", { trimempty = true })
+					kind.kind = " " .. (strings[1] or "") .. " "
+					kind.menu = "    (" .. (strings[2] or "") .. ")"
 
-			-- For an understanding of why these mappings were
-			-- chosen, you will need to read `:help ins-completion`
-			--
-			-- No, but seriously. Please read `:help ins-completion`, it is really good!
+					return kind
+				end,
+			},
 			mapping = cmp.mapping.preset.insert({
 				-- Scroll the documentation window [b]ack / [f]orward
 				["<C-u>"] = cmp.mapping.scroll_docs(-4),

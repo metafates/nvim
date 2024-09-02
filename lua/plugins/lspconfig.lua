@@ -1,11 +1,15 @@
 return {
 	"neovim/nvim-lspconfig",
+	event = { "BufReadPre", "BufNewFile" },
+	cmd = "Mason",
 	dependencies = {
-		{ "williamboman/mason.nvim", config = true },
+		{
+			"williamboman/mason.nvim",
+			config = true,
+		},
 		"williamboman/mason-lspconfig.nvim",
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
 		{ "j-hui/fidget.nvim", opts = {} },
-
 		{
 			"folke/lazydev.nvim",
 			ft = "lua",
@@ -16,6 +20,22 @@ return {
 			},
 		},
 		{ "Bilal2453/luvit-meta", lazy = true },
+		{
+			"SmiteshP/nvim-navbuddy",
+			dependencies = {
+				"SmiteshP/nvim-navic",
+				"MunifTanjim/nui.nvim",
+			},
+			keys = {
+				{ "E", ":Navbuddy<CR>", silent = true },
+			},
+			opts = {
+				window = {
+					size = "80%",
+				},
+				lsp = { auto_attach = true },
+			},
+		},
 	},
 	config = function()
 		vim.api.nvim_create_autocmd("LspAttach", {
