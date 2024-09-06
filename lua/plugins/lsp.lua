@@ -9,7 +9,6 @@ return {
 		},
 		"williamboman/mason-lspconfig.nvim",
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
-		"artemave/workspace-diagnostics.nvim",
 		{
 			"j-hui/fidget.nvim",
 			opts = {},
@@ -118,9 +117,6 @@ return {
 					local server = servers[server_name] or {}
 
 					server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-					server.on_attach = function(client, bufnr)
-						require("workspace-diagnostics").populate_workspace_diagnostics(client, bufnr)
-					end
 
 					require("lspconfig")[server_name].setup(server)
 				end,

@@ -47,8 +47,16 @@ map("n", "gi", function()
 	require("mini.extra").pickers.lsp({ scope = "implementation" })
 end)
 
+map("n", "<leader>s", function()
+	require("mini.extra").pickers.lsp({ scope = "document_symbol" })
+end)
+
+map("n", "<leader>S", function()
+	require("mini.extra").pickers.lsp({ scope = "workspace_symbol" })
+end)
+
 map("n", "<leader>/", function()
-	require("mini.extra").pickers.buf_lines()
+	require("mini.extra").pickers.buf_lines({ scope = "current" })
 end)
 
 map("n", "<leader>g", function()
@@ -68,7 +76,11 @@ map("n", "<leader>D", function()
 end)
 
 map("n", "T", function()
-	require("mini.files").open()
+	local files = require("mini.files")
+
+	if not files.close() then
+		files.open(vim.api.nvim_buf_get_name(0))
+	end
 end)
 
 map("n", "<leader>a", vim.lsp.buf.code_action)

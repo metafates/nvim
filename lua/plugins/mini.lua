@@ -13,6 +13,19 @@ end
 local function setup_pick()
 	local pick = require("mini.pick")
 
+	local win_config = function()
+		local height = math.floor(0.5 * vim.o.lines)
+		local width = vim.o.columns
+
+		return {
+			anchor = "NW",
+			height = height,
+			width = width,
+			row = vim.o.lines - height,
+			col = 0,
+		}
+	end
+
 	pick.setup({
 		mappings = {
 			move_down = "<C-j>",
@@ -20,6 +33,9 @@ local function setup_pick()
 		},
 		options = {
 			use_cache = true,
+		},
+		window = {
+			config = win_config,
 		},
 	})
 
