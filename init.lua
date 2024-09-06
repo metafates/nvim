@@ -5,8 +5,8 @@ require("options")
 require("keymap")
 require("autocmd")
 
-if vim.g.neovide then
-	require("gui")
-end
+-- if vim.g.neovide then
+-- 	require("gui")
+-- end
 
 require("plugins")
