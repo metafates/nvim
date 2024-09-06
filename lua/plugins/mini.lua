@@ -45,6 +45,7 @@ end
 local function setup_jump2d()
 	require("mini.jump2d").setup({
 		view = {
+			dim = true,
 			n_steps_ahead = 1,
 		},
 		allowed_lines = {
