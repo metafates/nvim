@@ -119,6 +119,14 @@ local function setup_notify()
 	vim.notify = notify.make_notify()
 end
 
+local function setup_git()
+	require("mini.git").setup()
+end
+
+local function setup_surround()
+	require("mini.surround").setup()
+end
+
 return {
 	"echasnovski/mini.nvim",
 	version = false,
@@ -135,6 +143,8 @@ return {
 		setup_hipatterns()
 		setup_completion()
 		setup_notify()
+		setup_git()
+		setup_surround()
 
 		require("mini.pairs").setup()
 		require("mini.starter").setup()

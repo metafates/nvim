@@ -33,7 +33,15 @@ map({ "n", "v" }, "<leader>y", [["+y]], { desc = "Yank selection to clipboard" }
 
 map("n", "<leader>f", function()
 	require("mini.pick").builtin.files()
-end)
+end, { desc = "Search files" })
+
+map("n", "<leader>F", function()
+	local path = vim.api.nvim_buf_get_name(0)
+
+	require("mini.pick").builtin.files(nil, {
+		source = { cwd = vim.fs.dirname(path) },
+	})
+end, { desc = "Search files in current buffer directory" })
 
 map("n", "gr", function()
 	require("mini.extra").pickers.lsp({ scope = "references" })
@@ -41,6 +49,10 @@ end)
 
 map("n", "gd", function()
 	require("mini.extra").pickers.lsp({ scope = "definition" })
+end)
+
+map("n", "gD", function()
+	require("mini.extra").pickers.lsp({ scope = "type_definition" })
 end)
 
 map("n", "gi", function()
@@ -61,6 +73,10 @@ end)
 
 map("n", "<leader>g", function()
 	require("mini.pick").builtin.grep_live()
+end)
+
+map("n", "<leader>m", function()
+	require("mini.extra").pickers.git_files({ scope = "modified" })
 end)
 
 map("n", "<leader><leader>", function()
