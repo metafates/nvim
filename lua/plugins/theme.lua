@@ -13,8 +13,12 @@ return {
 	init = function()
 		vim.opt.background = "dark"
 		vim.g.gruvbox_material_enable_italic = true
+		vim.g.gruvbox_material_enable_bold = true
 
-		-- Available values: 'hard', 'medium'(default), 'soft'
+		-- Available values: 'grey background', 'high contrast background', 'bold', 'underline', 'italic'
+		vim.g.gruvbox_material_current_word = "underline"
+
+		-- Available values: 'hard', 'medium', 'soft'
 		vim.g.gruvbox_material_background = "hard"
 
 		vim.cmd.colorscheme("gruvbox-material")
