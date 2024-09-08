@@ -146,3 +146,8 @@ end)
 map("n", ",O", function()
 	close_other_buffers({ "force" })
 end)
+
+map("n", "<C-r>", function()
+	---@diagnostic disable-next-line: undefined-field
+	vim.opt.wrap = not vim.opt.wrap._value
+end)

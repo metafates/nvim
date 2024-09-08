@@ -2,4 +2,4 @@
 
 My neovim config. Has all the things I need and none I don't.
 
-Based on [kickstart.nvim](https://github.com/nvim-lua/kickstart.nvim)
+Mostly [`echasnovski/mini.nvim`](https://github.com/echasnovski/mini.nvim) plugins and some essentials like [neovim/nvim-lspconfig](https://github.com/neovim/nvim-lspconfig)
