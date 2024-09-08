@@ -34,3 +34,10 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		end
 	end,
 })
+
+vim.api.nvim_create_autocmd("TabNewEntered", {
+	nested = true,
+	callback = function()
+		require("mini.starter").open()
+	end,
+})

@@ -29,7 +29,7 @@ map("v", "<C-c>", "gc", { remap = true })
 
 map("n", "U", "<cmd>redo<CR>", { silent = true })
 
-map({ "n", "v" }, "<leader>y", [["+y]], { desc = "Yank selection to clipboard" })
+map({ "n", "x", "v" }, "<leader>y", [["+y]], { desc = "Yank selection to clipboard" })
 
 map("n", "<leader>f", function()
 	require("mini.pick").builtin.files()
@@ -125,4 +125,24 @@ map({ "n", "x", "v" }, "gG", function()
 	require("mini.git").show_at_cursor({
 		split = "vertical",
 	})
+end)
+
+local function close_other_buffers(opts)
+	local current = vim.api.nvim_get_current_buf()
+
+	for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+		if current ~= buf then
+			vim.api.nvim_buf_delete(buf, opts)
+		end
+	end
+
+	vim.cmd("redrawtabline")
+end
+
+map("n", ",o", function()
+	close_other_buffers({})
+end)
+
+map("n", ",O", function()
+	close_other_buffers({ "force" })
 end)

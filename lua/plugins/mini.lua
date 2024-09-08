@@ -136,6 +136,44 @@ local function setup_surround()
 	require("mini.surround").setup()
 end
 
+local function setup_pairs()
+	require("mini.pairs").setup()
+end
+
+local function setup_starter()
+	local starter = require("mini.starter")
+
+	starter.setup({
+		header = "",
+		footer = "",
+		evaluate_single = true,
+		items = {
+			starter.sections.builtin_actions(),
+			starter.sections.recent_files(5, false),
+			starter.sections.recent_files(5, true),
+			-- Use this if you set up 'mini.sessions'
+			starter.sections.sessions(5, true),
+		},
+		content_hooks = {
+			starter.gen_hook.adding_bullet(),
+			starter.gen_hook.indexing("all", { "Builtin actions" }),
+			starter.gen_hook.padding(3, 2),
+		},
+	})
+end
+
+local function setup_statusline()
+	require("mini.statusline").setup()
+end
+
+local function setup_tabline()
+	require("mini.tabline").setup()
+end
+
+local function setup_sessions()
+	require("mini.sessions").setup()
+end
+
 return {
 	"echasnovski/mini.nvim",
 	version = false,
@@ -154,10 +192,10 @@ return {
 		setup_notify()
 		setup_git()
 		setup_surround()
-
-		require("mini.pairs").setup()
-		require("mini.starter").setup()
-		require("mini.statusline").setup()
-		require("mini.tabline").setup()
+		setup_pairs()
+		setup_starter()
+		setup_statusline()
+		setup_tabline()
+		setup_sessions()
 	end,
 }
