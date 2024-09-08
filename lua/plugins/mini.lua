@@ -80,7 +80,16 @@ local function setup_indentscope()
 end
 
 local function setup_diff()
-	require("mini.diff").setup()
+	require("mini.diff").setup({
+		view = {
+			style = "sign",
+			signs = { add = "+", change = "~", delete = "-" },
+		},
+		mappings = {
+			apply = "",
+			reset = "",
+		},
+	})
 end
 
 local function setup_hipatterns()
@@ -110,7 +119,7 @@ local function setup_notify()
 	local notify = require("mini.notify")
 
 	notify.setup({
-		-- we have a separate plugin for it
+		-- fidget.nvim is used instead
 		lsp_progress = {
 			enable = false,
 		},

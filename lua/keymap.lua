@@ -107,3 +107,22 @@ map("n", "f", function()
 
 	jump2d.start(jump2d.builtin_opts.word_start)
 end)
+
+map("n", "<C-f>", function()
+	require("mini.diff").toggle_overlay(0)
+end)
+
+map("n", "gD", function()
+	local line = unpack(vim.api.nvim_win_get_cursor(0))
+
+	require("mini.diff").do_hunks(0, "reset", {
+		line_start = line,
+		line_end = line,
+	})
+end)
+
+map({ "n", "x", "v" }, "gG", function()
+	require("mini.git").show_at_cursor({
+		split = "vertical",
+	})
+end)
