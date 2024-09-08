@@ -33,7 +33,7 @@ return {
 				"SmiteshP/nvim-navic",
 			},
 			keys = {
-				{ "E", ":Navbuddy<CR>", silent = true },
+				{ "E", "<cmd>Navbuddy<CR>", silent = true },
 			},
 			opts = {
 				window = {

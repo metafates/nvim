@@ -136,7 +136,7 @@ local function close_other_buffers(opts)
 		end
 	end
 
-	vim.cmd("redrawtabline")
+	vim.cmd.redrawtabline()
 end
 
 map("n", ",o", function()
