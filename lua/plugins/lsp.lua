@@ -86,22 +86,6 @@ return {
 			"Bilal2453/luvit-meta",
 			lazy = true,
 		},
-		{
-			"SmiteshP/nvim-navbuddy",
-			dependencies = {
-				"MunifTanjim/nui.nvim",
-				"SmiteshP/nvim-navic",
-			},
-			keys = {
-				{ "E", "<cmd>Navbuddy<CR>", silent = true },
-			},
-			opts = {
-				window = {
-					size = "80%",
-				},
-				lsp = { auto_attach = true },
-			},
-		},
 	},
 	config = function()
 		local capabilities = vim.lsp.protocol.make_client_capabilities()

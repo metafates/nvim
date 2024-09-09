@@ -43,6 +43,10 @@ map("n", "<leader>F", function()
 	})
 end, { desc = "Search files in current buffer directory" })
 
+map("n", "<leader>s", function()
+	require("mini.extra").pickers.lsp({ scope = "document_symbol" })
+end)
+
 map("n", "gr", function()
 	require("mini.extra").pickers.lsp({ scope = "references" })
 end)
