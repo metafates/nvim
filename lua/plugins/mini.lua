@@ -121,7 +121,7 @@ local function setup_notify()
 	notify.setup({
 		-- fidget.nvim is used instead
 		lsp_progress = {
-			enable = false,
+			enable = true,
 		},
 	})
 

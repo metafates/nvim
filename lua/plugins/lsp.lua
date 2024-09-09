@@ -1,3 +1,67 @@
+-- these servers will be installed automatically
+local servers = {
+	gopls = {
+		settings = {
+			gopls = {
+				semanticTokens = true,
+				gofumpt = true,
+				usePlaceholders = false,
+				staticcheck = true,
+				buildFlags = { "-tags", "mage,integration" },
+				templateExtensions = { ".gohtml", ".tmpl" },
+				vulncheck = "Imports",
+				symbolScope = "workspace",
+				experimentalPostfixCompletions = true,
+				hints = {
+					assignVariableTypes = true,
+					compositeLiteralFields = true,
+					constantValues = true,
+					functionTypeParameters = true,
+					parameterNames = true,
+					rangeVariableTypes = true,
+				},
+				analyses = {
+					unreachable = true,
+					unusedparams = true,
+					nilness = true,
+					shadow = true,
+					unusedwrite = true,
+					useany = true,
+					unusedvariable = true,
+				},
+			},
+		},
+	},
+	pyright = {},
+	rust_analyzer = {},
+	jsonls = {},
+	bashls = {},
+	marksman = {},
+	lua_ls = {
+		settings = {
+			Lua = {
+				runtime = {
+					version = "LuaJIT",
+				},
+				completion = {
+					callSnippet = "Replace",
+				},
+				hint = {
+					enable = true,
+					setType = true,
+				},
+			},
+		},
+	},
+}
+
+local other_tools = {
+	"stylua",
+	"shfmt",
+	"markdownlint",
+	"jsonlint",
+}
+
 return {
 	"neovim/nvim-lspconfig",
 	event = { "BufReadPre", "BufNewFile" },
@@ -9,10 +73,6 @@ return {
 		},
 		"williamboman/mason-lspconfig.nvim",
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
-		{
-			"j-hui/fidget.nvim",
-			opts = {},
-		},
 		{
 			"folke/lazydev.nvim",
 			ft = "lua",
@@ -46,64 +106,10 @@ return {
 	config = function()
 		local capabilities = vim.lsp.protocol.make_client_capabilities()
 
-		-- these servers will be installed automatically
-		local servers = {
-			gopls = {
-				settings = {
-					gopls = {
-						semanticTokens = true,
-						gofumpt = true,
-						usePlaceholders = false,
-						staticcheck = true,
-						buildFlags = { "-tags", "mage,integration" },
-						templateExtensions = { ".gohtml", ".tmpl" },
-						vulncheck = "Imports",
-						symbolScope = "workspace",
-						hints = {
-							assignVariableTypes = true,
-							compositeLiteralFields = true,
-							constantValues = true,
-							functionTypeParameters = true,
-							parameterNames = true,
-							rangeVariableTypes = true,
-						},
-						analyses = {
-							unreachable = true,
-							unusedparams = true,
-							nilness = true,
-							shadow = true,
-							unusedwrite = true,
-							useany = true,
-							unusedvariable = true,
-						},
-					},
-				},
-			},
-			pyright = {},
-			rust_analyzer = {},
-			jsonls = {},
-			bashls = {},
-			marksman = {},
-			lua_ls = {
-				settings = {
-					Lua = {
-						completion = {
-							callSnippet = "Replace",
-						},
-					},
-				},
-			},
-		}
-
 		require("mason").setup()
 
 		local ensure_installed = vim.tbl_keys(servers or {})
-		vim.list_extend(ensure_installed, {
-			"stylua",
-			"shfmt",
-			"markdownlint",
-			"jsonlint",
-		})
+		vim.list_extend(ensure_installed, other_tools)
 
 		require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 		require("mason-lspconfig").setup({
