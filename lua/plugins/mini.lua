@@ -1,9 +1,72 @@
+local function setup_clue()
+	local clue = require("mini.clue")
+
+	clue.setup({
+		window = {
+			delay = 0,
+			config = {
+				width = "auto",
+			},
+		},
+		triggers = {
+			-- Leader triggers
+			{ mode = "n", keys = "<Leader>" },
+			{ mode = "x", keys = "<Leader>" },
+
+			-- Built-in completion
+			{ mode = "i", keys = "<C-x>" },
+
+			-- `g` key
+			{ mode = "n", keys = "g" },
+			{ mode = "x", keys = "g" },
+
+			-- Marks
+			{ mode = "n", keys = "'" },
+			{ mode = "n", keys = "`" },
+			{ mode = "x", keys = "'" },
+			{ mode = "x", keys = "`" },
+
+			-- Registers
+			{ mode = "n", keys = '"' },
+			{ mode = "x", keys = '"' },
+			{ mode = "i", keys = "<C-r>" },
+			{ mode = "c", keys = "<C-r>" },
+
+			-- Window commands
+			{ mode = "n", keys = "<C-w>" },
+
+			-- `z` key
+			{ mode = "n", keys = "z" },
+			{ mode = "x", keys = "z" },
+
+			-- mini.basics toggles
+			{ mode = "n", keys = "\\" },
+
+			-- comma binds
+			{ mode = "n", keys = "," },
+		},
+
+		clues = {
+			-- Enhance this by adding descriptions for <Leader> mapping groups
+			clue.gen_clues.builtin_completion(),
+			clue.gen_clues.g(),
+			clue.gen_clues.marks(),
+			clue.gen_clues.registers(),
+			clue.gen_clues.windows(),
+			clue.gen_clues.z(),
+		},
+	})
+end
+
 local function setup_icons()
 	require("mini.icons").setup()
 end
 
 local function setup_basics()
 	require("mini.basics").setup({
+		options = {
+			extra_ui = true,
+		},
 		mappings = {
 			windows = true,
 		},
@@ -118,12 +181,7 @@ end
 local function setup_notify()
 	local notify = require("mini.notify")
 
-	notify.setup({
-		-- fidget.nvim is used instead
-		lsp_progress = {
-			enable = true,
-		},
-	})
+	notify.setup()
 
 	vim.notify = notify.make_notify()
 end
@@ -197,5 +255,6 @@ return {
 		setup_statusline()
 		setup_tabline()
 		setup_sessions()
+		setup_clue()
 	end,
 }
