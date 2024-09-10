@@ -59,7 +59,10 @@ local function setup_clue()
 end
 
 local function setup_icons()
-	require("mini.icons").setup()
+	local icons = require("mini.icons")
+	icons.setup()
+
+	icons.tweak_lsp_kind()
 end
 
 local function setup_basics()
@@ -137,8 +140,14 @@ local function setup_jump2d()
 end
 
 local function setup_indentscope()
-	require("mini.indentscope").setup({
+	local indentscope = require("mini.indentscope")
+
+	indentscope.setup({
 		symbol = "▏",
+		draw = {
+			delay = 50,
+			animation = indentscope.gen_animation.none(),
+		},
 	})
 end
 
@@ -174,7 +183,11 @@ end
 
 local function setup_completion()
 	require("mini.completion").setup({
-		delay = { completion = 30 },
+		delay = { completion = 0 },
+		lsp_completion = {
+			source_func = "omnifunc",
+			auto_setup = false,
+		},
 	})
 end
 
@@ -232,6 +245,14 @@ local function setup_sessions()
 	require("mini.sessions").setup()
 end
 
+local function setup_splitjoin()
+	require("mini.splitjoin").setup()
+end
+
+local function setup_visits()
+	require("mini.visits").setup()
+end
+
 return {
 	"echasnovski/mini.nvim",
 	version = false,
@@ -256,5 +277,7 @@ return {
 		setup_tabline()
 		setup_sessions()
 		setup_clue()
+		setup_splitjoin()
+		setup_visits()
 	end,
 }

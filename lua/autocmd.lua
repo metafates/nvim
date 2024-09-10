@@ -41,3 +41,18 @@ vim.api.nvim_create_autocmd("TabNewEntered", {
 		require("mini.starter").open()
 	end,
 })
+
+vim.api.nvim_create_autocmd("LspAttach", {
+	group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
+	callback = function(event)
+		local client = vim.lsp.get_client_by_id(event.data.client_id)
+
+		if client == nil then
+			return
+		end
+
+		if client.server_capabilities.completionProvider then
+			vim.bo[event.buf].omnifunc = "v:lua.MiniCompletion.completefunc_lsp"
+		end
+	end,
+})

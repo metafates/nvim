@@ -1,16 +1,16 @@
 local map = vim.keymap.set
 
-local function next_completion(keys, reverse)
-	map("i", keys, function()
-		return vim.fn.pumvisible() ~= 0 and (reverse and "<C-p>" or "<C-n>") or keys
+local function map_pum(lhs, rhs)
+	map("i", lhs, function()
+		return vim.fn.pumvisible() ~= 0 and rhs or lhs
 	end, { expr = true })
 end
 
-next_completion("<Tab>", false)
-next_completion("<C-j>", false)
+map_pum("<Tab>", "<C-n>")
+map_pum("<C-j>", "<C-n>")
 
-next_completion("<S-Tab>", true)
-next_completion("<C-k>", true)
+map_pum("<S-Tab>", "<C-p>")
+map_pum("<C-k>", "<C-p>")
 
 map("n", "<Esc>", "<cmd>nohlsearch<CR>")
 map("i", "jk", "<Esc>")
@@ -42,6 +42,10 @@ map("n", "<leader>F", function()
 		source = { cwd = vim.fs.dirname(path) },
 	})
 end, { desc = "Files in current buffer directory picker" })
+
+map("n", "<leader>v", function()
+	require("mini.extra").pickers.visit_paths()
+end)
 
 map("n", "<leader>s", function()
 	require("mini.extra").pickers.lsp({ scope = "document_symbol" })
@@ -108,7 +112,7 @@ map("n", "<C-f>", function()
 	require("mini.diff").toggle_overlay(0)
 end, { desc = "Toggle diff overlay" })
 
-map("n", "gD", function()
+map("n", "gR", function()
 	local line = unpack(vim.api.nvim_win_get_cursor(0))
 
 	require("mini.diff").do_hunks(0, "reset", {
