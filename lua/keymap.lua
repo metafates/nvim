@@ -1,3 +1,5 @@
+local utils = require("utils")
+
 local map = vim.keymap.set
 
 local function map_pum(lhs, rhs)
@@ -112,14 +114,7 @@ map("n", "<C-f>", function()
 	require("mini.diff").toggle_overlay(0)
 end, { desc = "Toggle diff overlay" })
 
-map("n", "gR", function()
-	local line = unpack(vim.api.nvim_win_get_cursor(0))
-
-	require("mini.diff").do_hunks(0, "reset", {
-		line_start = line,
-		line_end = line,
-	})
-end, { desc = "Reset diff under cursor" })
+map("n", "gR", utils.reset_diff_hunk_under_cursor, { desc = "Reset diff under cursor" })
 
 map({ "n", "x", "v" }, "gG", function()
 	require("mini.git").show_at_cursor({
@@ -127,22 +122,10 @@ map({ "n", "x", "v" }, "gG", function()
 	})
 end, { desc = "Git show at cursor" })
 
-local function close_other_buffers(opts)
-	local current = vim.api.nvim_get_current_buf()
-
-	for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-		if current ~= buf then
-			vim.api.nvim_buf_delete(buf, opts)
-		end
-	end
-
-	vim.cmd.redrawtabline()
-end
-
 map("n", ",o", function()
-	close_other_buffers({})
+	utils.close_other_buffers({})
 end, { desc = "Close other buffers" })
 
 map("n", ",O", function()
-	close_other_buffers({ "force" })
+	utils.close_other_buffers({ "force" })
 end, { desc = "Close other buffers (force)" })
