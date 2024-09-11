@@ -58,4 +58,8 @@ function M.close_other_buffers(opts)
 	end, opts)
 end
 
+function M.paste_from_primary_clipboard()
+	vim.api.nvim_paste(vim.fn.getreg("+"), true, -1)
+end
+
 return M

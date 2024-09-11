@@ -1,3 +1,5 @@
+local utils = require("utils")
+
 local font = {
 	name = "JetBrainsMono Nerd Font Mono",
 	size = 16,
@@ -39,11 +41,7 @@ map(all_modes, "<D-0>", function()
 	font:reset_size()
 end)
 
-local function paste_from_primary_clipboard()
-	vim.api.nvim_paste(vim.fn.getreg("+"), true, -1)
-end
-
-map(all_modes, "<D-v>", paste_from_primary_clipboard, { noremap = true, silent = true })
+map(all_modes, "<D-v>", utils.paste_from_primary_clipboard, { noremap = true, silent = true })
 
 map(all_modes, "<D-}>", vim.cmd.bnext)
 
