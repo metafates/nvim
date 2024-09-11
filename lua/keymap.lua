@@ -77,11 +77,15 @@ map("n", "<leader>g", function()
 	require("mini.pick").builtin.grep_live()
 end, { desc = "Live grep (workspace)" })
 
+map("n", "<leader><leader>", function()
+	require("mini.pick").builtin.resume()
+end, { desc = "Resume last picker" })
+
 map("n", "<leader>m", function()
 	require("mini.extra").pickers.git_files({ scope = "modified" })
 end, { desc = "Modified git files picker" })
 
-map("n", "<leader><leader>", function()
+map("n", "<leader>b", function()
 	require("mini.pick").builtin.buffers()
 end, { desc = "Buffers picker" })
 
@@ -114,7 +118,9 @@ map("n", "<C-f>", function()
 	require("mini.diff").toggle_overlay(0)
 end, { desc = "Toggle diff overlay" })
 
-map("n", "gR", utils.reset_diff_hunk_under_cursor, { desc = "Reset diff under cursor" })
+map("n", "gR", function()
+	utils.do_diff_hunk_under_cursor("reset")
+end, { desc = "Reset diff under cursor" })
 
 map({ "n", "x", "v" }, "gG", function()
 	require("mini.git").show_at_cursor({

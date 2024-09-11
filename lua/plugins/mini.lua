@@ -253,6 +253,14 @@ local function setup_visits()
 	require("mini.visits").setup()
 end
 
+local function setup_misc()
+	local misc = require("mini.misc")
+
+	misc.setup_auto_root()
+	misc.setup_termbg_sync()
+	misc.setup_restore_cursor()
+end
+
 return {
 	"echasnovski/mini.nvim",
 	version = false,
@@ -279,5 +287,6 @@ return {
 		setup_clue()
 		setup_splitjoin()
 		setup_visits()
+		setup_misc()
 	end,
 }

@@ -1,5 +1,6 @@
 local M = {}
 
+---@return {buf_start: integer, buf_count: integer}?
 function M.diff_hunk_under_cursor()
 	local diff = require("mini.diff")
 
@@ -20,7 +21,8 @@ function M.diff_hunk_under_cursor()
 	end
 end
 
-function M.reset_diff_hunk_under_cursor()
+---@param action "apply" | "reset" | "yank"
+function M.do_diff_hunk_under_cursor(action)
 	local hunk = M.diff_hunk_under_cursor()
 
 	if hunk == nil then
@@ -29,12 +31,14 @@ function M.reset_diff_hunk_under_cursor()
 
 	local diff = require("mini.diff")
 
-	diff.do_hunks(0, "reset", {
+	diff.do_hunks(0, action, {
 		line_start = hunk.buf_start,
 		line_end = hunk.buf_start + hunk.buf_count,
 	})
 end
 
+---@param filter fun(buf: integer): boolean
+---@param opts vim.api.keyset.buf_delete
 function M.close_buffers(filter, opts)
 	for _, buf in ipairs(vim.api.nvim_list_bufs()) do
 		if filter(buf) then
@@ -45,6 +49,7 @@ function M.close_buffers(filter, opts)
 	vim.cmd.redrawtabline()
 end
 
+---@param opts vim.api.keyset.buf_delete
 function M.close_other_buffers(opts)
 	local current = vim.api.nvim_get_current_buf()
 
