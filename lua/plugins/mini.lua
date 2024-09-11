@@ -44,6 +44,10 @@ local function setup_clue()
 
 			-- comma binds
 			{ mode = "n", keys = "," },
+
+			-- mini bracketed
+			{ mode = "n", keys = "[" },
+			{ mode = "n", keys = "]" },
 		},
 
 		clues = {
@@ -261,6 +265,10 @@ local function setup_misc()
 	misc.setup_restore_cursor()
 end
 
+local function setup_bracketed()
+	require("mini.bracketed").setup()
+end
+
 return {
 	"echasnovski/mini.nvim",
 	version = false,
@@ -288,5 +296,6 @@ return {
 		setup_splitjoin()
 		setup_visits()
 		setup_misc()
+		setup_bracketed()
 	end,
 }
