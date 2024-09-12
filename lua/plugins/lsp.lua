@@ -88,14 +88,14 @@ return {
 		},
 	},
 	config = function()
-		local capabilities = vim.lsp.protocol.make_client_capabilities()
-
-		require("mason").setup()
-
 		local ensure_installed = vim.tbl_keys(servers or {})
 		vim.list_extend(ensure_installed, other_tools)
 
+		require("mason").setup()
 		require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
+
+		local capabilities = vim.lsp.protocol.make_client_capabilities()
+
 		require("mason-lspconfig").setup({
 			handlers = {
 				function(server_name)

@@ -14,6 +14,7 @@ map_pum("<C-j>", "<C-n>")
 map_pum("<S-Tab>", "<C-p>")
 map_pum("<C-k>", "<C-p>")
 
+map("n", ";", ":")
 map("n", "<Esc>", "<cmd>nohlsearch<CR>")
 map("i", "jk", "<Esc>")
 map("n", ",w", "<cmd>w<CR>", { desc = "Write" })

@@ -159,7 +159,7 @@ local function setup_diff()
 	require("mini.diff").setup({
 		view = {
 			style = "sign",
-			signs = { add = "+", change = "~", delete = "-" },
+			-- signs = { add = "+", change = "~", delete = "-" },
 		},
 		mappings = {
 			apply = "",
@@ -226,7 +226,6 @@ local function setup_starter()
 			starter.sections.builtin_actions(),
 			starter.sections.recent_files(5, false),
 			starter.sections.recent_files(5, true),
-			-- Use this if you set up 'mini.sessions'
 			starter.sections.sessions(5, true),
 		},
 		content_hooks = {
