@@ -12,4 +12,16 @@ return {
 			require("symbol-usage").setup()
 		end,
 	},
+	{
+		"akinsho/toggleterm.nvim",
+		version = "*",
+		keys = {
+			{ [[<C-\>]], ":ToggleTerm" },
+		},
+		opts = {
+			open_mapping = [[<c-\>]],
+			autochdir = true,
+			direction = "tab",
+		},
+	},
 }

@@ -10,11 +10,7 @@ function font:sync()
 end
 
 function font:add_size(delta)
-	if self.current_size ~= nil then
-		self.current_size = self.current_size + delta
-	else
-		self.current_size = self.size + delta
-	end
+	self.current_size = (self.current_size or self.size) + delta
 
 	self:sync()
 end

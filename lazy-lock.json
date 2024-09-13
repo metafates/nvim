@@ -10,5 +10,6 @@
   "nvim-lspconfig": { "branch": "master", "commit": "bdbc65aadc708ce528efb22bca5f82a7cca6b54d" },
   "nvim-treesitter": { "branch": "master", "commit": "093b29f2b409278e2ed69a90462fee54714b5a84" },
   "symbol-usage.nvim": { "branch": "main", "commit": "2842380132e87d31853851be48760de6fb78bdbb" },
+  "toggleterm.nvim": { "branch": "main", "commit": "48be57eaba817f038d61bbf64d2c597f578c0827" },
   "tokyonight.nvim": { "branch": "main", "commit": "4b386e66a9599057587c30538d5e6192e3d1c181" }
 }

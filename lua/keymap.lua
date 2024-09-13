@@ -83,8 +83,8 @@ map("n", "<leader><leader>", function()
 end, { desc = "Resume last picker" })
 
 map("n", "<leader>m", function()
-	require("mini.extra").pickers.git_files({ scope = "modified" })
-end, { desc = "Modified git files picker" })
+	require("mini.extra").pickers.git_hunks()
+end, { desc = "Git hunks picker" })
 
 map("n", "<leader>b", function()
 	require("mini.pick").builtin.buffers()
