@@ -64,17 +64,26 @@ local other_tools = {
 
 return {
 	"neovim/nvim-lspconfig",
+	commit = "0d027de8820917db548486564d0d5b17af4b3db4",
 	event = { "BufReadPre", "BufNewFile" },
 	cmd = "Mason",
 	dependencies = {
 		{
 			"williamboman/mason.nvim",
 			config = true,
+			commit = "e2f7f9044ec30067bc11800a9e266664b88cda22",
 		},
-		"williamboman/mason-lspconfig.nvim",
-		"WhoIsSethDaniel/mason-tool-installer.nvim",
+		{
+			"williamboman/mason-lspconfig.nvim",
+			commit = "25c11854aa25558ee6c03432edfa0df0217324be",
+		},
+		{
+			"WhoIsSethDaniel/mason-tool-installer.nvim",
+			commit = "c5e07b8ff54187716334d585db34282e46fa2932",
+		},
 		{
 			"folke/lazydev.nvim",
+			commit = "491452cf1ca6f029e90ad0d0368848fac717c6d2",
 			ft = "lua",
 			opts = {
 				library = {
@@ -85,6 +94,7 @@ return {
 		{
 			"Bilal2453/luvit-meta",
 			lazy = true,
+			commit = "ce76f6f6cdc9201523a5875a4471dcfe0186eb60",
 		},
 	},
 	config = function()

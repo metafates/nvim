@@ -54,12 +54,31 @@ function M.close_other_buffers(opts)
 	local current = vim.api.nvim_get_current_buf()
 
 	M.close_buffers(function(buf)
-		return buf ~= current
+		local is_current = buf == current
+		local is_terminal = vim.bo[buf].filetype == "toggleterm"
+
+		return not is_current and not is_terminal
 	end, opts)
 end
 
 function M.paste_from_primary_clipboard()
 	vim.api.nvim_paste(vim.fn.getreg("+"), true, -1)
+end
+
+---@param contents string
+---@param notify boolean?
+function M.copy_to_primary_clipboard(contents, notify)
+	vim.fn.setreg("+", contents)
+
+	if notify then
+		local n = require("mini.notify")
+
+		local id = n.add(string.format("Copied %q", contents))
+
+		vim.defer_fn(function()
+			n.remove(id)
+		end, 1000)
+	end
 end
 
 ---@param action string
@@ -75,6 +94,44 @@ function M.apply_code_action(action)
 			else
 				vim.lsp.buf.execute_command(r.command)
 			end
+		end
+	end
+end
+
+-- Wrapper for vim.keymap.set with support for lhs array
+---@param mode string|string[]
+---@param lhs string|string[]
+---@param rhs string|function
+---@param opts vim.keymap.set.Opts?
+function M.map(mode, lhs, rhs, opts)
+	if type(lhs) == "string" then
+		vim.keymap.set(mode, lhs, rhs, opts)
+	else
+		for _, keys in ipairs(lhs) do
+			vim.keymap.set(mode, keys, rhs, opts)
+		end
+	end
+end
+
+-- Define insert mode mappings when popup menu is visible (for completion)
+---@param lhs string|string[]
+---@param rhs string|function
+function M.map_pum(lhs, rhs)
+	local mode = "i"
+	local opts = { expr = true }
+
+	---@param keys string
+	local function map(keys)
+		vim.keymap.set(mode, keys, function()
+			return vim.fn.pumvisible() ~= 0 and rhs or keys
+		end, opts)
+	end
+
+	if type(lhs) == "string" then
+		map(lhs)
+	else
+		for _, keys in ipairs(lhs) do
+			map(keys)
 		end
 	end
 end

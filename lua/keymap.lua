@@ -1,36 +1,42 @@
 local utils = require("utils")
 
-local map = vim.keymap.set
+local map = utils.map
+local map_pum = utils.map_pum
 
-local function map_pum(lhs, rhs)
-	map("i", lhs, function()
-		return vim.fn.pumvisible() ~= 0 and rhs or lhs
-	end, { expr = true })
-end
-
-map_pum("<Tab>", "<C-n>")
-map_pum("<C-j>", "<C-n>")
-
-map_pum("<S-Tab>", "<C-p>")
-map_pum("<C-k>", "<C-p>")
+map_pum({ "<Tab>", "<C-j>" }, "<C-n>")
+map_pum({ "<S-Tab>", "<C-k>" }, "<C-p>")
 
 map("n", ";", ":")
-map("n", "<Esc>", "<cmd>nohlsearch<CR>")
-map("i", "jk", "<Esc>")
-map("n", ",w", "<cmd>w<CR>", { desc = "Write" })
-map("n", ",q", "<cmd>q<CR>", { desc = "Quit" })
-map("n", ",Q", "<cmd>q!<CR>", { desc = "Quit force" })
-map("n", ",x", "<cmd>x<CR>", { desc = "Write and quit" })
-map("n", ",c", "<cmd>bd<CR>", { silent = true, desc = "Close buffer" })
-map("n", ",C", "<cmd>bd!<CR>", { silent = true, desc = "Close buffer force" })
 
-map("n", "L", "<cmd>bnext<CR>", { silent = true })
-map("n", "H", "<cmd>bprevious<CR>", { silent = true })
+map("n", "<Esc>", vim.cmd.nohlsearch)
+
+map("i", "jk", "<Esc>")
+
+map("n", ",w", vim.cmd.wa, { desc = "Write all" })
+
+map("n", ",q", vim.cmd.q, { desc = "Quit" })
+
+map("n", ",Q", function()
+	vim.cmd.q({ bang = true })
+end, { desc = "Quit force" })
+
+map("n", ",x", vim.cmd.xa, { desc = "Write all and quit" })
+
+map("n", ",c", vim.cmd.bd, { silent = true, desc = "Close buffer" })
+
+map("n", ",C", function()
+	vim.cmd.bd({ bang = true })
+end, { silent = true, desc = "Close buffer force" })
+
+map("n", { "<Tab>", "L" }, vim.cmd.bnext, { silent = true })
+
+map("n", { "<S-Tab>", "H" }, vim.cmd.bprevious, { silent = true })
 
 map("n", "<C-c>", "gcc<DOWN>", { remap = true })
+
 map("v", "<C-c>", "gc", { remap = true })
 
-map("n", "U", "<cmd>redo<CR>", { silent = true })
+map("n", "U", vim.cmd.redo, { silent = true })
 
 map({ "n", "x", "v" }, "<leader>y", [["+y]], { desc = "Yank selection to clipboard" })
 
@@ -107,6 +113,7 @@ map("n", "T", function()
 end)
 
 map("n", "<leader>a", vim.lsp.buf.code_action, { desc = "LSP code action" })
+
 map("n", "<leader>r", vim.lsp.buf.rename, { desc = "LSP rename" })
 
 map("n", "f", function()
@@ -116,7 +123,8 @@ map("n", "f", function()
 end, { desc = "Jump 2d" })
 
 map("n", "<C-f>", function()
-	require("mini.diff").toggle_overlay(0)
+	---@diagnostic disable-next-line: missing-parameter
+	require("mini.diff").toggle_overlay()
 end, { desc = "Toggle diff overlay" })
 
 map("n", "gR", function()
@@ -136,3 +144,19 @@ end, { desc = "Close other buffers" })
 map("n", ",O", function()
 	utils.close_other_buffers({ "force" })
 end, { desc = "Close other buffers (force)" })
+
+-- https://github.com/chrisgrieser/nvim-spider?tab=readme-ov-file#operator-pending-mode-the-case-of-cw
+map("n", "cw", "ce", { remap = true })
+
+map("n", "<leader>cd", function()
+	local path = vim.fn.expand("%:p")
+	local dirname = vim.fs.dirname(path)
+
+	utils.copy_to_primary_clipboard(dirname, true)
+end, { desc = "Copy buffer dir path to the clipboard" })
+
+map("n", "<leader>cp", function()
+	local path = vim.fn.expand("%:p")
+
+	utils.copy_to_primary_clipboard(path, true)
+end, { desc = "Copy buffer path to the clipboard" })

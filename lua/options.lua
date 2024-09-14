@@ -12,3 +12,8 @@ vim.opt.hlsearch = true
 
 vim.opt.list = false
 vim.opt.listchars = { tab = "| ", trail = "·" }
+
+vim.opt.autoread = true
+vim.opt.swapfile = false
+
+vim.opt.cmdheight = 0

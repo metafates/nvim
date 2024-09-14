@@ -268,9 +268,13 @@ local function setup_bracketed()
 	require("mini.bracketed").setup()
 end
 
+local function setup_ai()
+	require("mini.ai").setup()
+end
+
 return {
 	"echasnovski/mini.nvim",
-	version = false,
+	commit = "e50cf9de614500a20e47cfc50e30a100042f91c3",
 	config = function()
 		setup_icons()
 		setup_basics()
@@ -296,5 +300,6 @@ return {
 		setup_visits()
 		setup_misc()
 		setup_bracketed()
+		setup_ai()
 	end,
 }
