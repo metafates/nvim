@@ -16,6 +16,9 @@ return {
 	{
 		"chrisgrieser/nvim-spider",
 		commit = "b1c542a78522d59432a827f6ec2b28f9422c7e7f",
+		opts = {
+			subwordMovement = false,
+		},
 		keys = {
 			{
 				"w",

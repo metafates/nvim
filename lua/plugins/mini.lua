@@ -113,7 +113,9 @@ local function setup_pick()
 end
 
 local function setup_cursorword()
-	require("mini.cursorword").setup()
+	require("mini.cursorword").setup({
+		delay = 50,
+	})
 end
 
 local function setup_extra()
@@ -255,18 +257,16 @@ local function setup_bracketed()
 end
 
 local function setup_ai()
-	require("mini.ai").setup({
+	local ai = require("mini.ai")
+	local treesitter = ai.gen_spec.treesitter
+
+	ai.setup({
 		custom_textobjects = {
-			-- word with camelCase support
-			w = {
-				{
-					"%u[%l%d]+%f[^%l%d]",
-					"%f[%S][%l%d]+%f[^%l%d]",
-					"%f[%P][%l%d]+%f[^%l%d]",
-					"^[%l%d]+%f[^%l%d]",
-				},
-				"^().*()$",
-			},
+			F = treesitter({ a = "@function.outer", i = "@function.inner" }),
+			o = treesitter({
+				a = { "@conditional.outer", "@loop.outer" },
+				i = { "@conditional.inner", "@loop.inner" },
+			}),
 		},
 	})
 end
@@ -274,6 +274,10 @@ end
 return {
 	"echasnovski/mini.nvim",
 	commit = "e50cf9de614500a20e47cfc50e30a100042f91c3",
+	dependencies = {
+		-- for mini.ai
+		"nvim-treesitter/nvim-treesitter-textobjects",
+	},
 	config = function()
 		setup_icons()
 		setup_basics()

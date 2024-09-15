@@ -35,6 +35,10 @@ return {
 			"hrsh7th/cmp-path",
 			commit = "91ff86cd9c29299a64f968ebb45846c485725f23",
 		},
+		{
+			"hrsh7th/cmp-buffer",
+			commit = "3022dbc9166796b644a841a02de8dd1cc1d311fa",
+		},
 	},
 	config = function()
 		local cmp = require("cmp")
@@ -71,9 +75,6 @@ return {
 
 				["<Tab>"] = cmp.mapping.confirm({ select = true }),
 
-				-- Manually trigger a completion from nvim-cmp.
-				--  Generally you don't need this, because nvim-cmp will display
-				--  completions whenever it has completion options available.
 				["<C-Space>"] = cmp.mapping.complete({}),
 
 				["<C-l>"] = cmp.mapping(function()
@@ -96,6 +97,27 @@ return {
 				{ name = "nvim_lsp" },
 				{ name = "luasnip" },
 				{ name = "path" },
+				{
+					name = "buffer",
+					option = {
+						get_bufnrs = function()
+							-- visible buffers less than 1 MB
+							local size_limit = 1024 * 1024
+							local bufs = {}
+
+							for _, win in ipairs(vim.api.nvim_list_wins()) do
+								local buf = vim.api.nvim_win_get_buf(win)
+
+								local byte_size = vim.api.nvim_buf_get_offset(buf, vim.api.nvim_buf_line_count(buf))
+								if byte_size <= size_limit then
+									bufs[buf] = true
+								end
+							end
+
+							return vim.tbl_keys(bufs)
+						end,
+					},
+				},
 			},
 		})
 	end,
