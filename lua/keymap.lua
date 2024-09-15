@@ -162,7 +162,7 @@ map("n", "<leader>cp", function()
 end, { desc = "Copy buffer path to the clipboard" })
 
 map("n", "ciw", function()
-	require("mini.ai").select_textobject("i", "subword")
+	require("mini.ai").select_textobject("i", "subword", { vis_mode = "v" })
 
 	vim.api.nvim_feedkeys("c", "v", false)
 end, { remap = true })
