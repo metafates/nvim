@@ -2,6 +2,8 @@ local utils = require("utils")
 
 local map = utils.map
 
+map("n", "0", "^", { noremap = true })
+
 map("n", ";", ":")
 
 map("n", "<Esc>", vim.cmd.nohlsearch)
@@ -161,3 +163,11 @@ map("n", "<leader>cp", function()
 
 	utils.copy_to_primary_clipboard(path, true)
 end, { desc = "Copy buffer path to the clipboard" })
+
+map("i", "<BS>", utils.smart_backspace, {
+	expr = true,
+	noremap = true,
+	replace_keycodes = false,
+})
+
+map("i", "<S-BS>", "<BS>")
