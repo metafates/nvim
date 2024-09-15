@@ -271,7 +271,8 @@ end
 local function setup_ai()
 	require("mini.ai").setup({
 		custom_textobjects = {
-			subword = {
+			-- word with camelCase support
+			w = {
 				{
 					"%u[%l%d]+%f[^%l%d]",
 					"%f[%S][%l%d]+%f[^%l%d]",

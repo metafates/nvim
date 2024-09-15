@@ -28,6 +28,11 @@ map("n", ",C", function()
 	vim.cmd.bd({ bang = true })
 end, { silent = true, desc = "Close buffer force" })
 
+map("n", ",m", function()
+	vim.cmd.delm({ bang = true })
+	vim.cmd.delm("A-Z0-9")
+end, { desc = "Delete all marks" })
+
 map("n", { "<Tab>", "L" }, vim.cmd.bnext, { silent = true })
 
 map("n", { "<S-Tab>", "H" }, vim.cmd.bprevious, { silent = true })
@@ -89,8 +94,8 @@ map("n", "<leader><leader>", function()
 end, { desc = "Resume last picker" })
 
 map("n", "<leader>m", function()
-	require("mini.extra").pickers.git_hunks()
-end, { desc = "Git hunks picker" })
+	require("mini.extra").pickers.marks()
+end, { desc = "Marks picker" })
 
 map("n", "<leader>b", function()
 	require("mini.pick").builtin.buffers()
@@ -160,9 +165,3 @@ map("n", "<leader>cp", function()
 
 	utils.copy_to_primary_clipboard(path, true)
 end, { desc = "Copy buffer path to the clipboard" })
-
-map("n", "ciw", function()
-	require("mini.ai").select_textobject("i", "subword", { vis_mode = "v" })
-
-	vim.api.nvim_feedkeys("c", "v", false)
-end, { remap = true })
