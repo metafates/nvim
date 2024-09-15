@@ -51,10 +51,12 @@ return {
 			completion = { completeopt = "menu,menuone,noinsert" },
 			---@diagnostic disable-next-line: missing-fields
 			formatting = {
+				fields = { "kind", "abbr", "menu" },
 				format = function(_, item)
 					local icon, hl = require("mini.icons").get("lsp", item.kind)
 
-					item.kind = icon .. " " .. item.kind
+					item.menu = item.kind
+					item.kind = " " .. icon .. " "
 					item.kind_hl_group = hl
 
 					return item
