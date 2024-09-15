@@ -40,27 +40,4 @@ return {
 			},
 		},
 	},
-	{
-		--[[ TODO: replace it with mini.ai if possible
-		
-	local pattern = {
-		"()%w[%l%d]+([_%- ]?)", -- camelCase or lowercase
-		"()%u[%u%d]+([_%- ]?)", -- UPPER_CASE
-		"()%d+([_%- ]?)", -- number
-	}
-		--]]
-		"chrisgrieser/nvim-various-textobjs",
-		commit = "fcdec45b3bf33d3b279d2c5fee06abf4ce152008",
-		keys = {
-			{
-				"ciw",
-				function()
-					require("various-textobjs").subword("inner")
-
-					vim.api.nvim_feedkeys("c", "v", false)
-				end,
-				remap = true,
-			},
-		},
-	},
 }

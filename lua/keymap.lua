@@ -160,3 +160,9 @@ map("n", "<leader>cp", function()
 
 	utils.copy_to_primary_clipboard(path, true)
 end, { desc = "Copy buffer path to the clipboard" })
+
+map("n", "ciw", function()
+	require("mini.ai").select_textobject("i", "subword")
+
+	vim.api.nvim_feedkeys("c", "v", false)
+end, { remap = true })

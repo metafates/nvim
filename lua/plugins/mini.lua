@@ -269,7 +269,19 @@ local function setup_bracketed()
 end
 
 local function setup_ai()
-	require("mini.ai").setup()
+	require("mini.ai").setup({
+		custom_textobjects = {
+			subword = {
+				{
+					"%u[%l%d]+%f[^%l%d]",
+					"%f[%S][%l%d]+%f[^%l%d]",
+					"%f[%P][%l%d]+%f[^%l%d]",
+					"^[%l%d]+%f[^%l%d]",
+				},
+				"^().*()$",
+			},
+		},
+	})
 end
 
 return {
