@@ -150,27 +150,4 @@ function M.map(mode, lhs, rhs, opts)
 	end
 end
 
--- Define insert mode mappings when popup menu is visible (for completion)
----@param lhs string|string[]
----@param rhs string|function
-function M.map_pum(lhs, rhs)
-	local mode = "i"
-	local opts = { expr = true }
-
-	---@param keys string
-	local function map(keys)
-		vim.keymap.set(mode, keys, function()
-			return vim.fn.pumvisible() ~= 0 and rhs or keys
-		end, opts)
-	end
-
-	if type(lhs) == "string" then
-		map(lhs)
-	else
-		for _, keys in ipairs(lhs) do
-			map(keys)
-		end
-	end
-end
-
 return M

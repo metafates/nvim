@@ -1,10 +1,6 @@
 local utils = require("utils")
 
 local map = utils.map
-local map_pum = utils.map_pum
-
-map_pum({ "<Tab>", "<C-j>" }, "<C-n>")
-map_pum({ "<S-Tab>", "<C-k>" }, "<C-p>")
 
 map("n", ";", ":")
 

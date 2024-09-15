@@ -96,6 +96,7 @@ return {
 			lazy = true,
 			commit = "ce76f6f6cdc9201523a5875a4471dcfe0186eb60",
 		},
+		require("plugins.lsp.cmp"),
 	},
 	config = function()
 		local ensure_installed = vim.tbl_keys(servers or {})
@@ -105,6 +106,7 @@ return {
 		require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
 		local capabilities = vim.lsp.protocol.make_client_capabilities()
+		capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
 
 		require("mason-lspconfig").setup({
 			handlers = {

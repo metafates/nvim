@@ -26,17 +26,5 @@ vim.api.nvim_create_autocmd("LspAttach", {
 				vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
 			end, "Toggle inlay hints")
 		end
-
-		if client.server_capabilities.completionProvider then
-			vim.bo[event.buf].omnifunc = "v:lua.MiniCompletion.completefunc_lsp"
-		end
 	end,
 })
-
--- Conflicts with toggle term
--- vim.api.nvim_create_autocmd("TabNewEntered", {
--- 	nested = true,
--- 	callback = function()
--- 		require("mini.starter").open()
--- 	end,
--- })

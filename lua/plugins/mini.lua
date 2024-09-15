@@ -185,16 +185,6 @@ local function setup_hipatterns()
 	})
 end
 
-local function setup_completion()
-	require("mini.completion").setup({
-		delay = { completion = 0 },
-		lsp_completion = {
-			source_func = "omnifunc",
-			auto_setup = false,
-		},
-	})
-end
-
 local function setup_notify()
 	local notify = require("mini.notify")
 
@@ -209,10 +199,6 @@ end
 
 local function setup_surround()
 	require("mini.surround").setup()
-end
-
-local function setup_pairs()
-	require("mini.pairs").setup()
 end
 
 local function setup_starter()
@@ -299,11 +285,9 @@ return {
 		setup_indentscope()
 		setup_diff()
 		setup_hipatterns()
-		setup_completion()
 		setup_notify()
 		setup_git()
 		setup_surround()
-		setup_pairs()
 		setup_starter()
 		setup_statusline()
 		setup_tabline()

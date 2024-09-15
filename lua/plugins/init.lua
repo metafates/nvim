@@ -13,6 +13,7 @@ local plugins = {
 	require("plugins.treesitter"),
 	require("plugins.lsp"),
 	require("plugins.autoformat"),
+	require("plugins.autopairs"),
 	require("plugins.theme"),
 }
 
