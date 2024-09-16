@@ -3,7 +3,7 @@
 return {
 	{
 		"akinsho/toggleterm.nvim",
-		commit = "137d06fb103952a0fb567882bb8527e2f92d327d",
+		pin = true,
 		keys = {
 			{ [[<C-p>]], ":ToggleTerm" },
 		},

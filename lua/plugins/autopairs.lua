@@ -1,11 +1,11 @@
 return {
 	"windwp/nvim-autopairs",
-	commit = "ffc139f2a96640ca6c4d3dff9b95b7b9eace87ae",
+	pin = true,
 	event = "InsertEnter",
 	dependencies = {
 		{
 			"hrsh7th/nvim-cmp",
-			commit = "ae644feb7b67bf1ce4260c231d1d4300b19c6f30",
+			pin = true,
 		},
 	},
 	config = function()

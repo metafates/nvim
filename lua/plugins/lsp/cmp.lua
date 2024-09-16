@@ -1,11 +1,11 @@
 return {
 	"hrsh7th/nvim-cmp",
 	event = "InsertEnter",
-	commit = "ae644feb7b67bf1ce4260c231d1d4300b19c6f30",
+	pin = true,
 	dependencies = {
 		{
 			"L3MON4D3/LuaSnip",
-			commit = "e808bee352d1a6fcf902ca1a71cee76e60e24071",
+			pin = true,
 			build = (function()
 				if vim.fn.has("win32") == 1 or vim.fn.executable("make") == 0 then
 					return
@@ -16,7 +16,7 @@ return {
 			dependencies = {
 				{
 					"rafamadriz/friendly-snippets",
-					commit = "00ebcaa159e817150bd83bfe2d51fa3b3377d5c4",
+					pin = true,
 					config = function()
 						require("luasnip.loaders.from_vscode").lazy_load()
 					end,
@@ -25,19 +25,19 @@ return {
 		},
 		{
 			"saadparwaiz1/cmp_luasnip",
-			commit = "05a9ab28b53f71d1aece421ef32fee2cb857a843",
+			pin = true,
 		},
 		{
 			"hrsh7th/cmp-nvim-lsp",
-			commit = "39e2eda76828d88b773cc27a3f61d2ad782c922d",
+			pin = true,
 		},
 		{
 			"hrsh7th/cmp-path",
-			commit = "91ff86cd9c29299a64f968ebb45846c485725f23",
+			pin = true,
 		},
 		{
 			"hrsh7th/cmp-buffer",
-			commit = "3022dbc9166796b644a841a02de8dd1cc1d311fa",
+			pin = true,
 		},
 	},
 	config = function()

@@ -273,7 +273,7 @@ end
 
 return {
 	"echasnovski/mini.nvim",
-	commit = "e50cf9de614500a20e47cfc50e30a100042f91c3",
+	pin = true,
 	dependencies = {
 		-- for mini.ai
 		"nvim-treesitter/nvim-treesitter-textobjects",
