@@ -75,7 +75,7 @@ local function setup_basics()
 			extra_ui = true,
 		},
 		mappings = {
-			windows = true,
+			basic = false,
 		},
 	})
 end

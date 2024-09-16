@@ -22,7 +22,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		end
 
 		if client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
-			map("<leader>h", function()
+			map("\\h", function()
 				vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
 			end, "Toggle inlay hints")
 		end

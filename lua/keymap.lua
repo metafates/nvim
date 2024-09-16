@@ -10,15 +10,15 @@ map("n", "<Esc>", vim.cmd.nohlsearch)
 
 map("i", "jk", "<Esc>")
 
-map("n", ",w", vim.cmd.wa, { desc = "Write all" })
+map("n", ",w", vim.cmd.wall, "Write all")
 
-map("n", ",q", vim.cmd.q, { desc = "Quit" })
+map("n", ",q", vim.cmd.quit, "Quit")
 
 map("n", ",Q", function()
 	vim.cmd.q({ bang = true })
-end, { desc = "Quit force" })
+end, "Quit force")
 
-map("n", ",x", vim.cmd.xa, { desc = "Write all and quit" })
+map("n", ",x", vim.cmd.xa, "Write all and quit")
 
 map("n", ",c", vim.cmd.bd, { silent = true, desc = "Close buffer" })
 
@@ -29,7 +29,7 @@ end, { silent = true, desc = "Close buffer force" })
 map("n", ",m", function()
 	vim.cmd.delm({ bang = true })
 	vim.cmd.delm("A-Z0-9")
-end, { desc = "Delete all marks" })
+end, "Delete all marks")
 
 map("n", { "<Tab>", "L" }, vim.cmd.bnext, { silent = true })
 
@@ -41,11 +41,11 @@ map("v", "<C-c>", "gc", { remap = true })
 
 map("n", "U", vim.cmd.redo, { silent = true })
 
-map({ "n", "x", "v" }, "<leader>y", [["+y]], { desc = "Yank selection to clipboard" })
+map({ "n", "x", "v" }, "<leader>y", [["+y]], "Yank selection to clipboard")
 
 map("n", "<leader>f", function()
 	require("mini.pick").builtin.files()
-end, { desc = "Files picker" })
+end, "Files picker")
 
 map("n", "<leader>F", function()
 	local path = vim.api.nvim_buf_get_name(0)
@@ -53,7 +53,7 @@ map("n", "<leader>F", function()
 	require("mini.pick").builtin.files(nil, {
 		source = { cwd = vim.fs.dirname(path) },
 	})
-end, { desc = "Files in current buffer directory picker" })
+end, "Files in current buffer directory picker")
 
 map("n", "<leader>v", function()
 	require("mini.extra").pickers.visit_paths()
@@ -61,51 +61,51 @@ end)
 
 map("n", "<leader>s", function()
 	require("mini.extra").pickers.lsp({ scope = "document_symbol" })
-end, { desc = "Document symbols picker" })
+end, "Document symbols picker")
 
 map("n", "gr", function()
 	require("mini.extra").pickers.lsp({ scope = "references" })
-end, { desc = "References picker" })
+end, "References picker")
 
 map("n", "gd", function()
 	require("mini.extra").pickers.lsp({ scope = "definition" })
-end, { desc = "Definitions picker" })
+end, "Definitions picker")
 
 map("n", "gD", function()
 	require("mini.extra").pickers.lsp({ scope = "type_definition" })
-end, { desc = "Type definitions picker" })
+end, "Type definitions picker")
 
 map("n", "gi", function()
 	require("mini.extra").pickers.lsp({ scope = "implementation" })
-end, { desc = "Implementations picker" })
+end, "Implementations picker")
 
 map("n", "<leader>/", function()
 	require("mini.extra").pickers.buf_lines({ scope = "current" })
-end, { desc = "Live grep (buffer)" })
+end, "Live grep (buffer)")
 
 map("n", "<leader>g", function()
 	require("mini.pick").builtin.grep_live()
-end, { desc = "Live grep (workspace)" })
+end, "Live grep (workspace)")
 
 map("n", "<leader><leader>", function()
 	require("mini.pick").builtin.resume()
-end, { desc = "Resume last picker" })
+end, "Resume last picker")
 
 map("n", "<leader>m", function()
 	require("mini.extra").pickers.marks()
-end, { desc = "Marks picker" })
+end, "Marks picker")
 
 map("n", "<leader>b", function()
 	require("mini.pick").builtin.buffers()
-end, { desc = "Buffers picker" })
+end, "Buffers picker")
 
 map("n", "<leader>d", function()
 	require("mini.extra").pickers.diagnostic({ scope = "current" })
-end, { desc = "Diagnostic picker (buffer)" })
+end, "Diagnostic picker (buffer)")
 
 map("n", "<leader>D", function()
 	require("mini.extra").pickers.diagnostic()
-end, { desc = "Diagnostic picker (workspace)" })
+end, "Diagnostic picker (workspace)")
 
 map("n", "T", function()
 	local files = require("mini.files")
@@ -115,38 +115,38 @@ map("n", "T", function()
 	end
 end)
 
-map("n", "<leader>a", vim.lsp.buf.code_action, { desc = "LSP code action" })
+map("n", "<leader>a", vim.lsp.buf.code_action, "LSP code action")
 
-map("n", "<leader>r", vim.lsp.buf.rename, { desc = "LSP rename" })
+map("n", "<leader>r", vim.lsp.buf.rename, "LSP rename")
 
 map("n", "f", function()
 	local jump2d = require("mini.jump2d")
 
 	jump2d.start(jump2d.builtin_opts.word_start)
-end, { desc = "Jump 2d" })
+end, "Jump 2d")
 
 map("n", "<C-f>", function()
 	---@diagnostic disable-next-line: missing-parameter
 	require("mini.diff").toggle_overlay()
-end, { desc = "Toggle diff overlay" })
+end, "Toggle diff overlay")
 
 map("n", "gR", function()
 	utils.do_diff_hunk_under_cursor("reset")
-end, { desc = "Reset diff under cursor" })
+end, "Reset diff under cursor")
 
 map({ "n", "x", "v" }, "gG", function()
 	require("mini.git").show_at_cursor({
 		split = "vertical",
 	})
-end, { desc = "Git show at cursor" })
+end, "Git show at cursor")
 
 map("n", ",o", function()
 	utils.close_other_buffers({})
-end, { desc = "Close other buffers" })
+end, "Close other buffers")
 
 map("n", ",O", function()
 	utils.close_other_buffers({ "force" })
-end, { desc = "Close other buffers (force)" })
+end, "Close other buffers (force)")
 
 -- https://github.com/chrisgrieser/nvim-spider?tab=readme-ov-file#operator-pending-mode-the-case-of-cw
 map("n", "cw", "ce", { remap = true })
@@ -156,13 +156,13 @@ map("n", "<leader>cd", function()
 	local dirname = vim.fs.dirname(path)
 
 	utils.copy_to_primary_clipboard(dirname, true)
-end, { desc = "Copy buffer dir path to the clipboard" })
+end, "Copy buffer dir path to the clipboard")
 
 map("n", "<leader>cp", function()
 	local path = vim.fn.expand("%:p")
 
 	utils.copy_to_primary_clipboard(path, true)
-end, { desc = "Copy buffer path to the clipboard" })
+end, "Copy buffer path to the clipboard")
 
 map("i", "<BS>", utils.smart_backspace, {
 	expr = true,
@@ -171,3 +171,27 @@ map("i", "<BS>", utils.smart_backspace, {
 })
 
 map("i", "<S-BS>", "<BS>")
+
+map({ "n", "x" }, "j", function()
+	return vim.v.count == 0 and "gj" or "j"
+end, { expr = true })
+map({ "n", "x" }, "k", function()
+	return vim.v.count == 0 and "gk" or "k"
+end, { expr = true })
+
+map("n", "\\b", function()
+	vim.opt.bg = vim.opt.bg == "dark" and "light" or "dark"
+end, "Toggle 'background'")
+map("n", "\\c", "<cmd>setlocal cursorline! cursorline?<CR>", "Toggle 'cursorline'")
+map("n", "\\C", "<cmd>setlocal cursorcolumn! cursorcolumn?<CR>", "Toggle 'cursorcolumn'")
+map("n", "\\i", "<cmd>setlocal ignorecase! ignorecase?<CR>", "Toggle 'ignorecase'")
+map("n", "\\l", "<cmd>setlocal list! list?<CR>", "Toggle 'list'")
+map("n", "\\n", "<cmd>setlocal number! number?<CR>", "Toggle 'number'")
+map("n", "\\r", "<cmd>setlocal relativenumber! relativenumber?<CR>", "Toggle 'relativenumber'")
+map("n", "\\s", "<cmd>setlocal spell! spell?<CR>", "Toggle 'spell'")
+map("n", "\\w", "<cmd>setlocal wrap! wrap?<CR>", "Toggle 'wrap'")
+
+map("n", "<C-h>", "<C-w>h", "Focus on left window")
+map("n", "<C-j>", "<C-w>j", "Focus on below window")
+map("n", "<C-k>", "<C-w>k", "Focus on above window")
+map("n", "<C-l>", "<C-w>l", "Focus on right window")
