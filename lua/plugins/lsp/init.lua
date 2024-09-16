@@ -60,6 +60,7 @@ local other_tools = {
 	"shfmt",
 	"markdownlint",
 	"jsonlint",
+	"prettierd",
 }
 
 return {
