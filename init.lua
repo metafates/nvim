@@ -2,7 +2,7 @@
 
 local utils = require("utils.map")
 
-utils.setup_keymap_extender(utils.cyrrilic_extender)
+utils.setup_keymap_extender(utils.cyrillic_langmap)
 
 require("globals")
 require("options")

@@ -1,6 +1,6 @@
 local M = {}
 
-local langmap = {
+M.cyrillic_langmap = {
 	["A"] = "Ф",
 	["B"] = "И",
 	["C"] = "С",
@@ -79,9 +79,10 @@ local langmap = {
 	["9"] = "9",
 }
 
+---@param langmap table<string, string>
 ---@param keymap string
 ---@return string
-function M.cyrrilic_extender(keymap)
+function M.convert_keymap(langmap, keymap)
 	local res = ""
 
 	for _, key in ipairs(M.split_keymap(keymap)) do
@@ -151,23 +152,24 @@ function M.map(mode, lhs, rhs, opts)
 	end
 end
 
----@param convert fun(string): string
-function M.setup_keymap_extender(convert)
+---@param langmap table<string, string>
+function M.setup_keymap_extender(langmap)
 	local nvim_set_keymap = vim.api.nvim_set_keymap
 
 	---@diagnostic disable-next-line: duplicate-set-field
 	vim.api.nvim_set_keymap = function(mode, lhs, rhs, opts)
 		nvim_set_keymap(mode, lhs, rhs, opts)
-		nvim_set_keymap(mode, convert(lhs), rhs, opts)
+		nvim_set_keymap(mode, M.convert_keymap(langmap, lhs), rhs, opts)
 	end
 
-	local nvim_buf_set_keymap = vim.api.nvim_buf_set_keymap
+	-- FIXME: Weird behaviour for <C-n> <C-p> in completion popup
+	-- local nvim_buf_set_keymap = vim.api.nvim_buf_set_keymap
 
 	---@diagnostic disable-next-line: duplicate-set-field
-	vim.api.nvim_buf_set_keymap = function(buffer, mode, lhs, rhs, opts)
-		nvim_buf_set_keymap(buffer, mode, lhs, rhs, opts)
-		nvim_buf_set_keymap(buffer, mode, convert(lhs), rhs, opts)
-	end
+	-- vim.api.nvim_buf_set_keymap = function(buffer, mode, lhs, rhs, opts)
+	-- 	nvim_buf_set_keymap(buffer, mode, lhs, rhs, opts)
+	-- 	nvim_buf_set_keymap(buffer, mode, convert(lhs), rhs, opts)
+	-- end
 end
 
 return M
