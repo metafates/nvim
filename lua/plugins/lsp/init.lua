@@ -4,6 +4,9 @@ local servers = {
 		settings = {
 			gopls = {
 				semanticTokens = true,
+				-- treesitter will use it's own highlights instead so that printf strings can highlight %s %d ...
+				noSemanticString = true,
+				noSemanticNumber = true,
 				gofumpt = true,
 				usePlaceholders = false,
 				staticcheck = true,
