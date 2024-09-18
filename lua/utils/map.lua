@@ -60,6 +60,13 @@ local langmap = {
 	[";"] = "ж",
 	["{"] = "Х",
 	["}"] = "Ъ",
+	["["] = "х",
+	["]"] = "ъ",
+	["\\"] = "ё",
+	["@"] = '"',
+	["`"] = "]",
+	["'"] = "э",
+	['"'] = "Э",
 	["0"] = "0",
 	["1"] = "1",
 	["2"] = "2",
@@ -74,7 +81,7 @@ local langmap = {
 
 ---@param keymap string
 ---@return string
-function M.convert_keymap_to_cyrrilic(keymap)
+function M.cyrrilic_extender(keymap)
 	local res = ""
 
 	for _, key in ipairs(M.split_keymap(keymap)) do
@@ -125,33 +132,11 @@ function M.split_keymap(keymap)
 end
 
 -- Wrapper for vim.keymap.set with support for lhs array
--- It will also create exact same mappings for cyrillic layout
 ---@param mode string|string[]
 ---@param lhs string|string[]
 ---@param rhs string|function
 ---@param opts vim.keymap.set.Opts|string ?
 function M.map(mode, lhs, rhs, opts)
-	---@param keymap string
-	---@return string[]
-	local function with_cyrillic(keymap)
-		return { keymap, M.convert_keymap_to_cyrrilic(keymap) }
-	end
-
-	if type(lhs) == "string" then
-		lhs = with_cyrillic(lhs)
-	else
-		lhs = vim.iter(lhs):map(with_cyrillic):flatten():totable()
-	end
-
-	M.map_exact(mode, lhs, rhs, opts)
-end
-
--- Wrapper for vim.keymap.set with support for lhs array
----@param mode string|string[]
----@param lhs string|string[]
----@param rhs string|function
----@param opts vim.keymap.set.Opts|string ?
-function M.map_exact(mode, lhs, rhs, opts)
 	if type(opts) == "string" then
 		opts = { desc = opts }
 	end
@@ -163,6 +148,25 @@ function M.map_exact(mode, lhs, rhs, opts)
 
 	for _, keys in ipairs(lhs) do
 		vim.keymap.set(mode, keys, rhs, opts)
+	end
+end
+
+---@param convert fun(string): string
+function M.setup_keymap_extender(convert)
+	local nvim_set_keymap = vim.api.nvim_set_keymap
+
+	---@diagnostic disable-next-line: duplicate-set-field
+	vim.api.nvim_set_keymap = function(mode, lhs, rhs, opts)
+		nvim_set_keymap(mode, lhs, rhs, opts)
+		nvim_set_keymap(mode, convert(lhs), rhs, opts)
+	end
+
+	local nvim_buf_set_keymap = vim.api.nvim_buf_set_keymap
+
+	---@diagnostic disable-next-line: duplicate-set-field
+	vim.api.nvim_buf_set_keymap = function(buffer, mode, lhs, rhs, opts)
+		nvim_buf_set_keymap(buffer, mode, lhs, rhs, opts)
+		nvim_buf_set_keymap(buffer, mode, convert(lhs), rhs, opts)
 	end
 end
 
