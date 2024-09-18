@@ -2,9 +2,11 @@ local M = {}
 
 ---@alias diff_hunk {line_start: integer, line_end: integer}
 
+local H = {}
+
 ---@param buf_id integer?
 ---@return diff_hunk[]
-function M.adjacent_diff_hunks(buf_id)
+function H.adjacent_diff_hunks(buf_id)
 	local diff = require("mini.diff")
 	local data = diff.get_buf_data(buf_id or 0)
 
@@ -46,8 +48,8 @@ function M.adjacent_diff_hunks(buf_id)
 end
 
 ---@return diff_hunk?
-function M.diff_hunk_under_cursor()
-	local hunks = M.adjacent_diff_hunks(0)
+function H.diff_hunk_under_cursor()
+	local hunks = H.adjacent_diff_hunks(0)
 
 	local line = unpack(vim.api.nvim_win_get_cursor(0))
 

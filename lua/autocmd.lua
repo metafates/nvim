@@ -1,10 +1,8 @@
-local utils = require("utils")
-
 vim.api.nvim_create_autocmd("BufWritePre", {
 	desc = "Go organize imports on save",
 	pattern = { "*.go" },
 	callback = function()
-		utils.apply_code_action("source.organizeImports")
+		require("utils.lsp").apply_code_action("source.organizeImports")
 	end,
 })
 
@@ -18,7 +16,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		end
 
 		local map = function(lhs, rhs, desc)
-			vim.keymap.set("n", lhs, rhs, { buffer = event.buf, desc = desc })
+			require("utils.keymap").set("n", lhs, rhs, { buffer = event.buf, desc = desc })
 		end
 
 		if client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then

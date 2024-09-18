@@ -1,8 +1,8 @@
 -- imports order matters
 
-local utils = require("utils.map")
+local keymap = require("utils.keymap")
 
-utils.setup_keymap_extender(utils.cyrillic_langmap)
+keymap.setup_langmap(keymap.langmap.CYRILLIC)
 
 require("globals")
 require("options")

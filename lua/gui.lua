@@ -1,5 +1,3 @@
-local utils = require("utils")
-
 vim.g.neovide_remember_window_size = true
 vim.g.neovide_input_macos_option_key_is_meta = "both"
 vim.g.neovide_cursor_smooth_blink = true
@@ -43,7 +41,7 @@ map(all_modes, "<D-0>", function()
 	font:reset_size()
 end)
 
-map(all_modes, "<D-v>", utils.paste_from_primary_clipboard, { noremap = true, silent = true })
+map(all_modes, "<D-v>", require("utils.clipboard").paste, { noremap = true, silent = true })
 
 map(all_modes, "<D-}>", vim.cmd.bnext)
 

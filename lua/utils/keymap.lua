@@ -1,6 +1,11 @@
 local M = {}
 
-M.cyrillic_langmap = {
+---@alias langmap table<string, string>
+
+M.langmap = {}
+
+---@type langmap
+M.langmap.CYRILLIC = {
 	["A"] = "Ф",
 	["B"] = "И",
 	["C"] = "С",
@@ -79,13 +84,15 @@ M.cyrillic_langmap = {
 	["9"] = "9",
 }
 
+local H = {}
+
 ---@param langmap table<string, string>
 ---@param keymap string
 ---@return string
-function M.convert_keymap(langmap, keymap)
+function H.convert_keymap(langmap, keymap)
 	local res = ""
 
-	for _, key in ipairs(M.split_keymap(keymap)) do
+	for _, key in ipairs(H.split_keymap(keymap)) do
 		if vim.startswith(key, "<") then
 			-- Support <C-char> mappings
 			local mod, k = key:match([[<(.)%-(.)>]])
@@ -107,7 +114,7 @@ end
 -- For example "<leader>abc" will result {"<leader>", "a", "b", "c"}
 ---@param keymap string
 ---@return string[]
-function M.split_keymap(keymap)
+function H.split_keymap(keymap)
 	---@type string[]
 	local res = {}
 
@@ -136,8 +143,8 @@ end
 ---@param mode string|string[]
 ---@param lhs string|string[]
 ---@param rhs string|function
----@param opts vim.keymap.set.Opts|string ?
-function M.map(mode, lhs, rhs, opts)
+---@param opts vim.keymap.set.Opts|string ? Served as description if string is passed
+function M.set(mode, lhs, rhs, opts)
 	if type(opts) == "string" then
 		opts = { desc = opts }
 	end
@@ -152,17 +159,18 @@ function M.map(mode, lhs, rhs, opts)
 	end
 end
 
----@param langmap table<string, string>
-function M.setup_keymap_extender(langmap)
+-- Wraps `vim.api.nvim_set_keymap` so that it will also create an alternative mapping for the specified langmap
+---@param langmap langmap
+function M.setup_langmap(langmap)
 	local nvim_set_keymap = vim.api.nvim_set_keymap
 
 	---@diagnostic disable-next-line: duplicate-set-field
 	vim.api.nvim_set_keymap = function(mode, lhs, rhs, opts)
 		nvim_set_keymap(mode, lhs, rhs, opts)
-		nvim_set_keymap(mode, M.convert_keymap(langmap, lhs), rhs, opts)
+		nvim_set_keymap(mode, H.convert_keymap(langmap, lhs), rhs, opts)
 	end
 
-	-- FIXME: Weird behaviour for <C-n> <C-p> in completion popup
+	-- FIXME: Weird behavior for <C-n> <C-p> in completion popup
 	-- local nvim_buf_set_keymap = vim.api.nvim_buf_set_keymap
 
 	---@diagnostic disable-next-line: duplicate-set-field
