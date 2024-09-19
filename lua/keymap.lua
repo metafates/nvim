@@ -89,10 +89,6 @@ set("n", "<leader><leader>", function()
 	require("mini.pick").builtin.resume()
 end, "Resume last picker")
 
-set("n", "<leader>m", function()
-	require("mini.extra").pickers.marks()
-end, "Marks picker")
-
 set("n", "<leader>b", function()
 	require("mini.pick").builtin.buffers()
 end, "Buffers picker")
@@ -113,7 +109,7 @@ set("n", "T", function()
 	end
 end)
 
-set("n", "<leader>a", vim.lsp.buf.code_action, "LSP code action")
+set("n", "<leader>ca", vim.lsp.buf.code_action, "LSP code action")
 
 set("n", "<leader>r", vim.lsp.buf.rename, "LSP rename")
 
@@ -193,3 +189,26 @@ set("n", "<C-h>", "<C-w>h", "Focus on left window")
 set("n", "<C-j>", "<C-w>j", "Focus on below window")
 set("n", "<C-k>", "<C-w>k", "Focus on above window")
 set("n", "<C-l>", "<C-w>l", "Focus on right window")
+
+set("n", "<leader>a", function()
+	require("utils.harpoon").list():add()
+end, "Harpoon add")
+
+set("n", "<leader>l", function()
+	require("utils.harpoon").picker()
+end, "Harpoon list")
+
+set("n", "<leader>h", function()
+	require("utils.harpoon").list():clear()
+
+	local notify = require("mini.notify")
+	local id = notify.add("Harpoon list cleared")
+
+	vim.defer_fn(function()
+		notify.remove(id)
+	end, 1000)
+end, "Harpoon clear")
+
+set("n", "<leader>S", function()
+	require("mini.sessions").select()
+end, "Session picker")
