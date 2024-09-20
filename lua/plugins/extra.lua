@@ -75,12 +75,33 @@ return {
 				desc = "Re-run last test",
 			},
 			{
-				"<leader>ts",
+				"<leader>tS",
 				function()
 					local neotest = require("neotest")
 					neotest.run.stop(neotest.run.get_last_run())
 				end,
 				desc = "Stop last test",
+			},
+			{
+				"<leader>ts",
+				function()
+					require("neotest").summary.toggle()
+				end,
+				desc = "Show test summary",
+			},
+			{
+				"<leader>tp",
+				function()
+					require("neotest").output_panel.toggle()
+				end,
+				desc = "Show test output panel",
+			},
+			{
+				"<leader>to",
+				function()
+					require("neotest").output.open({ enter = true, last_run = true, auto_close = true })
+				end,
+				desc = "Show last test output",
 			},
 		},
 		config = function(_, opts)

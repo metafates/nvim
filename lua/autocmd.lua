@@ -1,4 +1,5 @@
 vim.api.nvim_create_autocmd("BufWritePre", {
+	group = vim.api.nvim_create_augroup("OrganizeImports", {}),
 	desc = "Go organize imports on save",
 	pattern = { "*.go" },
 	callback = function()
@@ -6,8 +7,21 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 	end,
 })
 
+vim.api.nvim_create_autocmd("FileType", {
+	desc = "Test output panel",
+	pattern = { "neotest-output-panel" },
+	callback = function(event)
+		require("utils.keymap").set("n", "q", function()
+			local neotest = require("neotest")
+
+			neotest.output_panel.clear()
+			neotest.output_panel.close()
+		end, { buffer = event.buf })
+	end,
+})
+
 vim.api.nvim_create_autocmd("LspAttach", {
-	group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
+	group = vim.api.nvim_create_augroup("Adjust LSP keymaps", { clear = true }),
 	callback = function(event)
 		local client = vim.lsp.get_client_by_id(event.data.client_id)
 
@@ -24,5 +38,13 @@ vim.api.nvim_create_autocmd("LspAttach", {
 				vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
 			end, "Toggle inlay hints")
 		end
+	end,
+})
+
+vim.api.nvim_create_autocmd({ "VimEnter", "DirChanged" }, {
+	group = vim.api.nvim_create_augroup("Update env", {}),
+	callback = function()
+		-- TODO: maybe unload previosly loaded variables?
+		require("utils.env").try_load_dotenv()
 	end,
 })
