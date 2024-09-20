@@ -190,30 +190,6 @@ set("n", "<C-j>", "<C-w>j", "Focus on below window")
 set("n", "<C-k>", "<C-w>k", "Focus on above window")
 set("n", "<C-l>", "<C-w>l", "Focus on right window")
 
-set("n", "<leader>a", function()
-	require("utils.harpoon").list():add()
-	require("utils.notify").add("Added to harpoon", 500)
-end, "Harpoon add")
-
-set("n", "<leader>l", function()
-	require("harpoon").ui:toggle_quick_menu(require("utils.harpoon"):list())
-end, "Harpoon list")
-
-set("n", "<leader>p", function()
-	require("utils.harpoon"):picker()
-end, "Harpoon picker")
-
-set("n", "<leader>hc", function()
-	require("utils.harpoon").list():clear()
-	require("utils.notify").add("Harpoon list cleared", 1000)
-end, "Harpoon clear list")
-
 set("n", "<leader>S", function()
 	require("mini.sessions").select()
 end, "Session picker")
-
-for i = 1, 9 do
-	set("n", "<leader>h" .. i, function()
-		require("utils.harpoon").list():select(i)
-	end, { desc = "Harpoon goto " .. i })
-end

@@ -23,6 +23,38 @@ return {
 				save_on_toggle = true,
 			},
 		},
+		keys = {
+			{
+				"<leader>a",
+				function()
+					require("utils.harpoon").list():add()
+					require("utils.notify").add("Added to harpoon", 500)
+				end,
+				desc = "Harpoon add",
+			},
+			{
+				"<leader>l",
+				function()
+					require("harpoon").ui:toggle_quick_menu(require("utils.harpoon"):list())
+				end,
+				desc = "Harpoon list",
+			},
+			{
+				"<leader>p",
+				function()
+					require("utils.harpoon"):picker()
+				end,
+				desc = "Harpoon picker",
+			},
+			{
+				"<leader>hc",
+				function()
+					require("utils.harpoon").list():clear()
+					require("utils.notify").add("Harpoon list cleared", 1000)
+				end,
+				desc = "Harpoon clear list",
+			},
+		},
 		config = function(_, opts)
 			local harpoon = require("harpoon")
 			local extensions = require("harpoon.extensions")
