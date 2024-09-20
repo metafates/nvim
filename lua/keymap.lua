@@ -195,7 +195,7 @@ set("n", "<leader>a", function()
 end, "Harpoon add")
 
 set("n", "<leader>l", function()
-	require("utils.harpoon").picker()
+	require("harpoon").ui:toggle_quick_menu(require("utils.harpoon"):list())
 end, "Harpoon list")
 
 set("n", "<leader>h", function()

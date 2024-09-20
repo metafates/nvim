@@ -19,4 +19,15 @@ local plugins = {
 
 vim.list_extend(plugins, require("plugins.extra"))
 
-require("lazy").setup(plugins)
+require("lazy").setup(plugins, {
+	rocks = {
+		enabled = false,
+		install = {
+			colorscheme = { "tokyonight", "habamax" },
+		},
+	},
+	profiling = {
+		loader = true,
+		require = true,
+	},
+})
