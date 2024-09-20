@@ -11,4 +11,3 @@ My neovim config. Has all the things I need and none I don't.
 ## TODO
 
 - [ ] Debugger
-- [ ] Test runner
