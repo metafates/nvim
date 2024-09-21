@@ -86,7 +86,30 @@ M.langmap.CYRILLIC = {
 
 local H = {}
 
----@param langmap table<string, string>
+---@param langmap langmap
+---@return string
+function H.generate_vim_langmap(langmap)
+	local latin_lower = "abcdefghijklmnopqrstuvwxyz"
+	local latin_upper = latin_lower:upper()
+
+	local res = {}
+
+	for c in latin_upper:gmatch(".") do
+		table.insert(res, langmap[c])
+	end
+
+	table.insert(res, ";" .. latin_upper .. ",")
+
+	for c in latin_lower:gmatch(".") do
+		table.insert(res, langmap[c])
+	end
+
+	table.insert(res, ";" .. latin_lower)
+
+	return table.concat(res)
+end
+
+---@param langmap langmap
 ---@param keymap string
 ---@return string
 function H.convert_keymap(langmap, keymap)
@@ -162,6 +185,8 @@ end
 -- Wraps `vim.api.nvim_set_keymap` so that it will also create an alternative mapping for the specified langmap
 ---@param langmap langmap
 function M.setup_langmap(langmap)
+	vim.opt.langmap = H.generate_vim_langmap(langmap)
+
 	local nvim_set_keymap = vim.api.nvim_set_keymap
 
 	---@diagnostic disable-next-line: duplicate-set-field
@@ -178,6 +203,11 @@ function M.setup_langmap(langmap)
 	-- 	nvim_buf_set_keymap(buffer, mode, lhs, rhs, opts)
 	-- 	nvim_buf_set_keymap(buffer, mode, convert(lhs), rhs, opts)
 	-- end
+
+	-- Some default keys do not work in different layout, idk why
+	-- This seems to fix it
+	M.set("n", "<C-u>", "<C-u>")
+	M.set("n", "<C-d>", "<C-d>")
 end
 
 return M

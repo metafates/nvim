@@ -10,13 +10,7 @@ function M.copy(contents, notify)
 	vim.fn.setreg("+", contents)
 
 	if notify then
-		local n = require("mini.notify")
-
-		local id = n.add(string.format("Copied %q", contents))
-
-		vim.defer_fn(function()
-			n.remove(id)
-		end, 1000)
+		require("utils.notify").add(string.format("Copied %q", contents), 1000)
 	end
 end
 

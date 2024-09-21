@@ -20,6 +20,14 @@ vim.api.nvim_create_autocmd("FileType", {
 	end,
 })
 
+vim.api.nvim_create_autocmd("FileType", {
+	desc = "Test output",
+	pattern = { "neotest-output" },
+	callback = function(event)
+		require("utils.keymap").set("n", "q", vim.cmd.quit, { buffer = event.buf })
+	end,
+})
+
 vim.api.nvim_create_autocmd("LspAttach", {
 	group = vim.api.nvim_create_augroup("Adjust LSP keymaps", { clear = true }),
 	callback = function(event)
@@ -29,12 +37,12 @@ vim.api.nvim_create_autocmd("LspAttach", {
 			return
 		end
 
-		local map = function(lhs, rhs, desc)
+		local set = function(lhs, rhs, desc)
 			require("utils.keymap").set("n", lhs, rhs, { buffer = event.buf, desc = desc })
 		end
 
 		if client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
-			map("\\h", function()
+			set("\\h", function()
 				vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
 			end, "Toggle inlay hints")
 		end

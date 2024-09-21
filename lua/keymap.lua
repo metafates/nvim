@@ -24,10 +24,17 @@ set("n", ",C", function()
 	vim.cmd.bd({ bang = true })
 end, { silent = true, desc = "Close buffer force" })
 
-set("n", ",m", function()
-	vim.cmd.delm({ bang = true })
-	vim.cmd.delm("A-Z0-9")
-end, "Delete all marks")
+for i = 1, 9 do
+	set("n", "<leader>" .. i, function()
+		local buffers = require("utils.buffers").listed_buffers()
+
+		if i > #buffers then
+			return
+		end
+
+		vim.cmd.buffer(buffers[i])
+	end, "Goto buffer " .. i)
+end
 
 set("n", { "<Tab>", "L" }, vim.cmd.bnext, { silent = true })
 
@@ -90,7 +97,7 @@ set("n", "<leader><leader>", function()
 end, "Resume last picker")
 
 set("n", "<leader>b", function()
-	require("mini.pick").builtin.buffers()
+	require("mini.pick").builtin.buffers({ include_current = false })
 end, "Buffers picker")
 
 set("n", "<leader>d", function()
@@ -176,6 +183,7 @@ end, { expr = true })
 set("n", "\\b", function()
 	vim.opt.bg = vim.opt.bg == "dark" and "light" or "dark"
 end, "Toggle 'background'")
+
 set("n", "\\c", "<cmd>setlocal cursorline! cursorline?<CR>", "Toggle 'cursorline'")
 set("n", "\\C", "<cmd>setlocal cursorcolumn! cursorcolumn?<CR>", "Toggle 'cursorcolumn'")
 set("n", "\\i", "<cmd>setlocal ignorecase! ignorecase?<CR>", "Toggle 'ignorecase'")

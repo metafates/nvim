@@ -16,6 +16,3 @@ vim.opt.listchars = { tab = "  ", trail = "·" }
 -- disable swap files and enable sync between multiple neovim instances
 vim.opt.autoread = true
 vim.opt.swapfile = false
-
-vim.opt.langmap =
-	"ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz"

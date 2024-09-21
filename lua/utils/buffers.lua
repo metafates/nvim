@@ -17,11 +17,23 @@ function M.close_other_buffers(opts)
 	local current = vim.api.nvim_get_current_buf()
 
 	M.close_buffers(function(buf)
+		local is_listed = M.is_listed(buf)
 		local is_current = buf == current
 		local is_terminal = vim.bo[buf].filetype == "toggleterm"
 
-		return not is_current and not is_terminal
+		return is_listed and not is_current and not is_terminal
 	end, opts)
+end
+
+---@param buf_id integer
+---@return boolean
+function M.is_listed(buf_id)
+	return vim.bo[buf_id].buflisted
+end
+
+---@return integer[]
+function M.listed_buffers()
+	return vim.iter(vim.api.nvim_list_bufs()):filter(M.is_listed):totable()
 end
 
 return M

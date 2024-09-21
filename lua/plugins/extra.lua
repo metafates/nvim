@@ -47,6 +47,34 @@ return {
 				desc = "Harpoon picker",
 			},
 			{
+				"<leader>h1",
+				function()
+					require("utils.harpoon"):list():select(1)
+				end,
+				desc = "Harpoon goto 1",
+			},
+			{
+				"<leader>h2",
+				function()
+					require("utils.harpoon"):list():select(2)
+				end,
+				desc = "Harpoon goto 2",
+			},
+			{
+				"<leader>h3",
+				function()
+					require("utils.harpoon"):list():select(3)
+				end,
+				desc = "Harpoon goto 3",
+			},
+			{
+				"<leader>h4",
+				function()
+					require("utils.harpoon"):list():select(4)
+				end,
+				desc = "Harpoon goto 4",
+			},
+			{
 				"<leader>hc",
 				function()
 					require("utils.harpoon").list():clear()
