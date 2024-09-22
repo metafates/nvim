@@ -21,8 +21,8 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 vim.api.nvim_create_autocmd("FileType", {
-	desc = "Test output",
-	pattern = { "neotest-output" },
+	desc = "Test/DAP float",
+	pattern = { "neotest-output", "dap-float" },
 	callback = function(event)
 		require("utils.keymap").set("n", "q", vim.cmd.quit, { buffer = event.buf })
 	end,

@@ -152,7 +152,7 @@ end, "Close other buffers (force)")
 -- https://github.com/chrisgrieser/nvim-spider?tab=readme-ov-file#operator-pending-mode-the-case-of-cw
 set("n", "cw", "ce", { remap = true })
 
-set("n", "<leader>cd", function()
+set("n", "<leader>cP", function()
 	local path = vim.fn.expand("%:p")
 	local dirname = vim.fs.dirname(path)
 

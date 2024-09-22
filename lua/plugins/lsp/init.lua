@@ -1,3 +1,5 @@
+local debug_adapters = { "delve" }
+
 -- these servers will be installed automatically
 local servers = {
 	gopls = {
@@ -139,6 +141,10 @@ return {
 			pin = true,
 		},
 		{
+			"jay-babu/mason-nvim-dap.nvim",
+			pin = true,
+		},
+		{
 			"williamboman/mason-lspconfig.nvim",
 			pin = true,
 		},
@@ -169,6 +175,7 @@ return {
 
 		require("mason").setup()
 		require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
+		require("mason-nvim-dap").setup({ ensure_installed = debug_adapters })
 
 		local capabilities = vim.lsp.protocol.make_client_capabilities()
 		capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())

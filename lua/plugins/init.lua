@@ -12,6 +12,7 @@ local plugins = {
 	require("plugins.mini"),
 	require("plugins.treesitter"),
 	require("plugins.lsp"),
+	require("plugins.dap"),
 	require("plugins.autoformat"),
 	require("plugins.autopairs"),
 	require("plugins.theme"),

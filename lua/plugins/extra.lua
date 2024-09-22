@@ -98,6 +98,7 @@ return {
 			"nvim-neotest/nvim-nio",
 			"nvim-lua/plenary.nvim",
 			"fredrikaverpil/neotest-golang",
+			"rouge8/neotest-rust",
 		},
 		opts = {
 			-- See all config options with :h neotest.Config
@@ -173,6 +174,7 @@ return {
 							"-race",
 						},
 					}),
+					require("neotest-rust"),
 				},
 			})
 
