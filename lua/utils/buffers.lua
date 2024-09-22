@@ -31,9 +31,9 @@ function M.is_listed(buf_id)
 	return vim.bo[buf_id].buflisted
 end
 
----@return integer[]
+---@return Iter
 function M.listed_buffers()
-	return vim.iter(vim.api.nvim_list_bufs()):filter(M.is_listed):totable()
+	return vim.iter(vim.api.nvim_list_bufs()):filter(M.is_listed)
 end
 
 return M

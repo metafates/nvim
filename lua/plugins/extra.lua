@@ -39,13 +39,13 @@ return {
 				end,
 				desc = "Harpoon list",
 			},
-			{
-				"<leader>p",
-				function()
-					require("utils.harpoon"):picker()
-				end,
-				desc = "Harpoon picker",
-			},
+			-- {
+			-- 	"<leader>p",
+			-- 	function()
+			-- 		require("utils.harpoon"):picker()
+			-- 	end,
+			-- 	desc = "Harpoon picker",
+			-- },
 			{
 				"<leader>h1",
 				function()

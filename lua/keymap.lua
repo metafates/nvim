@@ -26,7 +26,7 @@ end, { silent = true, desc = "Close buffer force" })
 
 for i = 1, 9 do
 	set("n", "<leader>" .. i, function()
-		local buffers = require("utils.buffers").listed_buffers()
+		local buffers = require("utils.buffers").listed_buffers():totable()
 
 		if i > #buffers then
 			return
@@ -35,6 +35,12 @@ for i = 1, 9 do
 		vim.cmd.buffer(buffers[i])
 	end, "Goto buffer " .. i)
 end
+
+set("n", "<leader>" .. 0, function()
+	local buffer = require("utils.buffers").listed_buffers():last()
+
+	vim.cmd.buffer(buffer)
+end, "Goto last buffer")
 
 set("n", { "<Tab>", "L" }, vim.cmd.bnext, { silent = true })
 

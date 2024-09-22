@@ -231,7 +231,26 @@ local function setup_statusline()
 end
 
 local function setup_tabline()
-	require("mini.tabline").setup()
+	local tabline = require("mini.tabline")
+
+	---@param buf_id number
+	---@param label string
+	---@return string
+	local function format(buf_id, label)
+		local suffix = vim.bo[buf_id].modified and "+ " or ""
+
+		local listed = require("utils.buffers").listed_buffers()
+		local idx = listed:enumerate():find(function(_, item)
+			return item == buf_id
+		end)
+
+		return " " .. idx .. tabline.default_format(buf_id, label) .. suffix
+	end
+
+	tabline.setup({
+		format = format,
+		tabpage_section = "right",
+	})
 end
 
 local function setup_sessions()
