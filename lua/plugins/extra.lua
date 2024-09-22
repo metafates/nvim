@@ -4,6 +4,7 @@ return {
 	{
 		"akinsho/toggleterm.nvim",
 		pin = true,
+		cmd = "TermExec",
 		keys = {
 			{ [[<C-p>]], ":ToggleTerm" },
 		},
@@ -193,6 +194,26 @@ return {
 					end
 				end,
 				desc = "Populate workspace diagnostics",
+			},
+		},
+	},
+	{
+		"CRAG666/code_runner.nvim",
+		pin = true,
+		cmd = { "RunCode", "RunFile", "RunProject" },
+		keys = {
+			{
+				"<leader>R",
+				function()
+					require("code_runner").run_code()
+				end,
+				desc = "Run code",
+			},
+		},
+		opts = {
+			mode = "toggleterm",
+			filetype = {
+				go = "go run $dir",
 			},
 		},
 	},

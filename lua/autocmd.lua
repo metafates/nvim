@@ -1,3 +1,11 @@
+vim.api.nvim_create_autocmd("User", {
+	group = vim.api.nvim_create_augroup("Lazy vim started", {}),
+	pattern = "LazyVimStarted",
+	callback = function()
+		require("mini.starter").refresh()
+	end,
+})
+
 vim.api.nvim_create_autocmd("BufWritePre", {
 	group = vim.api.nvim_create_augroup("OrganizeImports", {}),
 	desc = "Go organize imports on save",

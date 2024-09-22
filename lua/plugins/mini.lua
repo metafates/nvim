@@ -209,18 +209,23 @@ local function setup_starter()
 	local starter = require("mini.starter")
 
 	starter.setup({
+		silent = true,
 		header = "",
-		footer = "",
+		footer = function()
+			local stats = require("lazy").stats()
+
+			return string.format("Loaded %d/%d plugins in %d ms", stats.loaded, stats.count, stats.startuptime)
+		end,
 		evaluate_single = true,
 		items = {
 			starter.sections.builtin_actions(),
+			require("utils.sessions").starter_section,
 			starter.sections.recent_files(5, false),
 			starter.sections.recent_files(5, true),
-			starter.sections.sessions(5, true),
 		},
 		content_hooks = {
 			starter.gen_hook.adding_bullet(),
-			starter.gen_hook.indexing("all", { "Builtin actions" }),
+			starter.gen_hook.indexing("all", { "Builtin actions", "Sessions" }),
 			starter.gen_hook.padding(3, 2),
 		},
 	})
@@ -254,7 +259,10 @@ local function setup_tabline()
 end
 
 local function setup_sessions()
-	require("mini.sessions").setup()
+	require("mini.sessions").setup({
+		autoread = true,
+		autowrite = true,
+	})
 end
 
 local function setup_splitjoin()
