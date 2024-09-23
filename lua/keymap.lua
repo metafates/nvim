@@ -1,6 +1,6 @@
 local set = require("utils.keymap").set
 
-set("n", "0", "^", { noremap = true })
+set({ "n", "x" }, "0", "^", { noremap = true })
 
 set("n", ";", ":")
 

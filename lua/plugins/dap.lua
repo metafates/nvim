@@ -1,8 +1,9 @@
 return {
 	"mfussenegger/nvim-dap",
 	dependencies = {
-		"theHamsta/nvim-dap-virtual-text",
 		"leoluz/nvim-dap-go",
+		"rcarriga/nvim-dap-ui",
+		"nvim-neotest/nvim-nio",
 	},
 	keys = {
 		{
@@ -16,15 +17,16 @@ return {
 			"<leader>cdc",
 			function()
 				require("dap").continue()
+				require("dapui").open()
 			end,
 			desc = "Debug continue",
 		},
 		{
-			"<leader>cdR",
+			"<leader>cde",
 			function()
-				require("dap").run_last()
+				require("dap").stop()
+				require("dapui").close()
 			end,
-			desc = "Debug rerun",
 		},
 		{
 			"<leader>cds",
@@ -50,7 +52,40 @@ return {
 		},
 	},
 	config = function()
-		require("nvim-dap-virtual-text").setup({})
 		require("dap-go").setup()
+
+		---@diagnostic disable-next-line: missing-fields
+		require("dapui").setup({
+			layouts = {
+				{
+					elements = {
+						{
+							id = "breakpoints",
+							size = 0.5,
+						},
+						{
+							id = "stacks",
+							size = 0.5,
+						},
+					},
+					position = "left",
+					size = 40,
+				},
+				{
+					elements = {
+						{
+							id = "repl",
+							size = 0.5,
+						},
+						{
+							id = "console",
+							size = 0.5,
+						},
+					},
+					position = "bottom",
+					size = 10,
+				},
+			},
+		})
 	end,
 }

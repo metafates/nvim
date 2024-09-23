@@ -3,26 +3,33 @@ local M = {}
 function M.starter_section()
 	local section_name = "Sessions"
 
-	return {
-		{
-			name = string.format("Load session %q", M.name()),
+	local items = {}
+
+	local name = M.current_name() or require("mini.sessions").get_latest()
+
+	if name ~= nil then
+		table.insert(items, {
+			name = string.format("Load session %q", name),
 			action = function()
 				M.read({ force = true })
 			end,
 			section = section_name,
-		},
-		{
-			name = "Sessions picker",
-			action = function()
-				require("mini.sessions").select()
-			end,
-			section = section_name,
-		},
-	}
+		})
+	end
+
+	table.insert(items, {
+		name = "Sessions picker",
+		action = function()
+			require("mini.sessions").select()
+		end,
+		section = section_name,
+	})
+
+	return items
 end
 
----@return string
-function M.name()
+---@return string?
+function M.current_name()
 	local misc = require("mini.misc")
 
 	---@type string
@@ -38,16 +45,20 @@ function M.name()
 		name = vim.fs.basename(root)
 	end
 
+	if name == "" then
+		return nil
+	end
+
 	return name
 end
 
 ---@param opts table?
 function M.read(opts)
-	require("mini.sessions").read(M.name(), opts)
+	require("mini.sessions").read(M.current_name() or require("mini.sessions").get_latest(), opts)
 end
 
 function M.write()
-	require("mini.sessions").write(M.name())
+	require("mini.sessions").write(M.current_name())
 end
 
 return M
