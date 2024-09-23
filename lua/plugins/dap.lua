@@ -2,12 +2,10 @@ return {
 	"mfussenegger/nvim-dap",
 	dependencies = {
 		"leoluz/nvim-dap-go",
-		"rcarriga/nvim-dap-ui",
-		"nvim-neotest/nvim-nio",
 	},
 	keys = {
 		{
-			"<leader>B",
+			"<leader>cdb",
 			function()
 				require("dap").toggle_breakpoint()
 			end,
@@ -17,16 +15,43 @@ return {
 			"<leader>cdc",
 			function()
 				require("dap").continue()
-				require("dapui").open()
 			end,
 			desc = "Debug continue",
 		},
 		{
+			"<leader>cdr",
+			function()
+				require("dap").run_to_cursor()
+			end,
+			desc = "Debug run to cursor",
+		},
+		{
 			"<leader>cde",
 			function()
-				require("dap").stop()
-				require("dapui").close()
+				require("dap").close()
 			end,
+			desc = "Debug exit",
+		},
+		{
+			"<leader>cdl",
+			function()
+				require("dap").step_over()
+			end,
+			desc = "Debug step over",
+		},
+		{
+			"<leader>cdj",
+			function()
+				require("dap").step_into()
+			end,
+			desc = "Debug step into",
+		},
+		{
+			"<leader>cdk",
+			function()
+				require("dap").step_out()
+			end,
+			desc = "Debug step out",
 		},
 		{
 			"<leader>cds",
@@ -36,56 +61,8 @@ return {
 			end,
 			desc = "Debug scopes",
 		},
-		{
-			"<leader>cdr",
-			function()
-				require("dap").repl.toggle()
-			end,
-			desc = "Debug toggle REPL",
-		},
-		{
-			"<leader>cdK",
-			function()
-				require("dap.ui.widgets").hover()
-			end,
-			desc = "Debug hover",
-		},
 	},
 	config = function()
 		require("dap-go").setup()
-
-		---@diagnostic disable-next-line: missing-fields
-		require("dapui").setup({
-			layouts = {
-				{
-					elements = {
-						{
-							id = "breakpoints",
-							size = 0.5,
-						},
-						{
-							id = "stacks",
-							size = 0.5,
-						},
-					},
-					position = "left",
-					size = 40,
-				},
-				{
-					elements = {
-						{
-							id = "repl",
-							size = 0.5,
-						},
-						{
-							id = "console",
-							size = 0.5,
-						},
-					},
-					position = "bottom",
-					size = 10,
-				},
-			},
-		})
 	end,
 }

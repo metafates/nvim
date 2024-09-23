@@ -29,10 +29,20 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 vim.api.nvim_create_autocmd("FileType", {
-	desc = "Test/DAP float",
+	desc = "Quit with q",
 	pattern = { "neotest-output", "dap-float" },
 	callback = function(event)
 		require("utils.keymap").set("n", "q", vim.cmd.quit, { buffer = event.buf })
+	end,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+	desc = "DAP UI keys",
+	pattern = { "dap-float" },
+	callback = function()
+		require("utils.keymap").set("n", "t", function()
+			require("dap.ui").trigger_actions({ mode = "first" })
+		end)
 	end,
 })
 

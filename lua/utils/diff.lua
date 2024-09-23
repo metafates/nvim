@@ -62,7 +62,7 @@ end
 
 ---@param action "apply" | "reset" | "yank"
 function M.do_diff_hunk_under_cursor(action)
-	local hunk = M.diff_hunk_under_cursor()
+	local hunk = H.diff_hunk_under_cursor()
 
 	if hunk == nil then
 		return
