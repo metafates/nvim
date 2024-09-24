@@ -1,5 +1,6 @@
 return {
 	"mfussenegger/nvim-dap",
+	pin = true,
 	dependencies = {
 		"leoluz/nvim-dap-go",
 	},
