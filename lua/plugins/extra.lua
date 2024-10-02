@@ -173,6 +173,13 @@ return {
 						go_test_args = {
 							"-v",
 							"-race",
+							"-tags=integration",
+						},
+						go_list_args = { "-tags=integration" },
+						dap_go_opts = {
+							delve = {
+								build_flags = { "-tags=integration" },
+							},
 						},
 					}),
 					require("neotest-rust"),
@@ -198,7 +205,7 @@ return {
 		opts = {
 			mode = "toggleterm",
 			filetype = {
-				go = "go run $dir",
+				go = "go run",
 			},
 		},
 	},
