@@ -17,25 +17,51 @@ function H.parse_dotenv(contents)
 	local variables = {}
 
 	for _, line in ipairs(lines) do
-		line = vim.trim(line)
+		local pair = H.parse_line(line)
 
-		if line ~= "" then
-			local name, value = unpack(vim.split(line, "="))
-
-			variables[name] = H.normalize_value(value)
+		if pair ~= nil then
+			variables[pair.key] = pair.value
 		end
 	end
 
 	return variables
 end
 
+---@param line string
+---@return { key: string, value: string }?
+function H.parse_line(line)
+	line = vim.trim(line)
+
+	-- ignore empty lines and comments
+	if line == "" or line:sub(1, 1) == "#" then
+		return nil
+	end
+
+	-- split the line by the first `=` sign
+	local key, value = line:match("([^=]+)=(.*)")
+
+	key = vim.trim(key)
+	value = vim.trim(value)
+
+	return { key = key, value = H.normalize_value(value) }
+end
+
+-- Unquote the value and handle escape symbols
 ---@param value string
 ---@return string
 function H.normalize_value(value)
-	-- remove quotes
-	value = value:match("^[\"']*(.*[^\"'])") or ""
+	local double_quote = '"'
+	local single_quote = "'"
 
-	-- TODO: remove escape symbols
+	for _, quote in ipairs({ double_quote, single_quote }) do
+		if value:sub(1, 1) == quote and value:sub(-1, -1) == quote then
+			-- unquote
+			value = value:sub(2, -2)
+
+			-- handle escaped quotes
+			value = value:gsub("\\" .. quote, quote)
+		end
+	end
 
 	return value
 end
