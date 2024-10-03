@@ -130,6 +130,14 @@ return {
 				desc = "Run nearest test",
 			},
 			{
+				"<leader>td",
+				function()
+					---@diagnostic disable-next-line: missing-fields
+					require("neotest").run.run({ strategy = "dap" })
+				end,
+				desc = "Debug nearest test",
+			},
+			{
 				"<leader>tl",
 				function()
 					require("neotest").run.run_last()
