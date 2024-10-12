@@ -6,6 +6,22 @@ vim.api.nvim_create_autocmd("User", {
 	end,
 })
 
+vim.api.nvim_create_autocmd("User", {
+	pattern = "VeryLazy",
+	callback = function()
+		local session = require("utils.sessions").current_name()
+
+		if session ~= nil then
+			-- syntax highlight and other things won't work otherwise for some reason
+			vim.schedule_wrap(function()
+				if pcall(require("mini.sessions").read, session) then
+					require("utils.notify").add(string.format("Loaded session %q", session))
+				end
+			end)()
+		end
+	end,
+})
+
 vim.api.nvim_create_autocmd("BufWritePre", {
 	group = vim.api.nvim_create_augroup("OrganizeImports", {}),
 	desc = "Go organize imports on save",

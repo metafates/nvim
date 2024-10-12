@@ -1,5 +1,12 @@
 local M = {}
 
+-- Check if file or directory exists
+---@param path string
+---@return boolean
+function M.exists(path)
+	return vim.uv.fs_stat(path) ~= nil
+end
+
 ---@param path string
 ---@param callback {success: fun(data: string), error: fun(err: string)?}
 function M.read_file_async(path, callback)

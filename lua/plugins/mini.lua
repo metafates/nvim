@@ -262,6 +262,7 @@ local function setup_sessions()
 	require("mini.sessions").setup({
 		autoread = true,
 		autowrite = true,
+		directory = require("utils.sessions").dir(),
 	})
 end
 
