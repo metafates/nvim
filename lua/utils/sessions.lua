@@ -84,7 +84,7 @@ end
 
 ---@param opts table?
 function M.read(opts)
-	require("mini.sessions").read(M.current_name() or require("mini.sessions").get_latest(), opts)
+	require("mini.sessions").read(M.best_candidate(), opts)
 end
 
 function M.write()
