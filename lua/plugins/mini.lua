@@ -244,7 +244,7 @@ local function setup_tabline()
 	local function format(buf_id, label)
 		local suffix = vim.bo[buf_id].modified and "+ " or ""
 
-		local listed = require("utils.buffers").listed_buffers()
+		local listed = require("utils.buffers").list()
 		local idx = listed:enumerate():find(function(_, item)
 			return item == buf_id
 		end)

@@ -26,7 +26,7 @@ end, { silent = true, desc = "Close buffer force" })
 
 for i = 1, 9 do
 	set("n", "<leader>" .. i, function()
-		local buffers = require("utils.buffers").listed_buffers():totable()
+		local buffers = require("utils.buffers").list():totable()
 
 		if i > #buffers then
 			return
@@ -37,7 +37,7 @@ for i = 1, 9 do
 end
 
 set("n", "<leader>" .. 0, function()
-	local buffer = require("utils.buffers").listed_buffers():last()
+	local buffer = require("utils.buffers").list():last()
 
 	vim.cmd.buffer(buffer)
 end, "Goto last buffer")
@@ -147,13 +147,22 @@ set({ "n", "x", "v" }, "gG", function()
 	})
 end, "Git show at cursor")
 
-set("n", ",o", function()
-	require("utils.buffers").close_other_buffers({})
-end, "Close other buffers")
+for _, force in ipairs({ false, true }) do
+	local opts = force and { "force" } or {}
+	local suffix = force and " (force)" or ""
 
-set("n", ",O", function()
-	require("utils.buffers").close_other_buffers({ "force" })
-end, "Close other buffers (force)")
+	set("n", force and ",O" or ",o", function()
+		require("utils.buffers").close_other_buffers(opts)
+	end, "Close other buffers" .. suffix)
+
+	set("n", force and ",P" or ",p", function()
+		require("utils.buffers").close_right_buffers(opts)
+	end, "Close right buffers" .. suffix)
+
+	set("n", force and ",I" or ",i", function()
+		require("utils.buffers").close_left_buffers(opts)
+	end, "Close left buffers" .. suffix)
+end
 
 -- https://github.com/chrisgrieser/nvim-spider?tab=readme-ov-file#operator-pending-mode-the-case-of-cw
 set("n", "cw", "ce", { remap = true })
