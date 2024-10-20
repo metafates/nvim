@@ -216,3 +216,22 @@ set("n", "<C-l>", "<C-w>l", "Focus on right window")
 set("n", "<leader>Sw", function()
 	require("utils.sessions").write()
 end, "Write session")
+
+set("n", "<leader>Ss", function()
+	require("mini.sessions").select()
+end, "Select session")
+
+set("n", "<leader>Sd", function()
+	require("mini.sessions").select("delete")
+end, "Delete sessions")
+
+set("n", "<leader>Si", function()
+	local name = require("utils.sessions").current_name()
+
+	local message = "Not in session"
+	if name ~= nil then
+		message = name
+	end
+
+	require("utils.notify").add(message)
+end, "Show session name")

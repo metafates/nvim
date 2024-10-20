@@ -44,7 +44,7 @@ function M.current_name()
 	local misc = require("mini.misc")
 
 	---@type string
-	local name
+	local path
 
 	do
 		local root = misc.find_root()
@@ -53,14 +53,18 @@ function M.current_name()
 			root = vim.fs.dirname(vim.api.nvim_buf_get_name(0))
 		end
 
-		name = vim.fs.basename(root)
+		path = root
 	end
+
+	local name = vim.fs.basename(path)
 
 	if name == "" then
 		return nil
 	end
 
-	return name
+	local slug = require("utils.hash").slug(path)
+
+	return string.format("%s-%s", slug, name)
 end
 
 ---@return string

@@ -22,7 +22,7 @@ function M.close_other_buffers(opts)
 	local current = vim.api.nvim_get_current_buf()
 
 	M.close_buffers(function(buf)
-		return buf == current
+		return buf ~= current
 	end, opts)
 end
 

@@ -9,12 +9,23 @@ vim.api.nvim_create_autocmd("User", {
 vim.api.nvim_create_autocmd("User", {
 	pattern = "VeryLazy",
 	callback = function()
+		---@type string?
+		local file_to_load
+
+		if vim.bo.filetype ~= "ministarter" then
+			file_to_load = vim.api.nvim_buf_get_name(0)
+		end
+
 		local session = require("utils.sessions").current_name()
 
 		if session ~= nil then
 			-- syntax highlight and other things won't work otherwise for some reason
 			vim.schedule_wrap(function()
 				if pcall(require("mini.sessions").read, session) then
+					if file_to_load ~= nil then
+						vim.cmd.edit(file_to_load)
+					end
+
 					require("utils.notify").add(string.format("Loaded session %q", session))
 				end
 			end)()
