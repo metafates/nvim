@@ -71,23 +71,27 @@ set("n", "<leader>v", function()
 end)
 
 set("n", "<leader>s", function()
-	require("mini.extra").pickers.lsp({ scope = "document_symbol" })
+	require("utils.lsp").picker("document_symbol")
 end, "Document symbols picker")
 
 set("n", "gr", function()
-	require("mini.extra").pickers.lsp({ scope = "references" })
+	require("utils.lsp").picker("references", true)
 end, "References picker")
 
 set("n", "gd", function()
-	require("mini.extra").pickers.lsp({ scope = "definition" })
+	require("utils.lsp").picker("definition", true)
 end, "Definitions picker")
 
 set("n", "gD", function()
-	require("mini.extra").pickers.lsp({ scope = "type_definition" })
+	require("utils.lsp").picker("type_definition", true)
 end, "Type definitions picker")
 
+set("n", "<leader>w", function()
+	require("utils.lsp").picker("workspace_symbol")
+end, "Workspace symbols picker")
+
 set("n", "gi", function()
-	require("mini.extra").pickers.lsp({ scope = "implementation" })
+	require("utils.lsp").picker("implementation", true)
 end, "Implementations picker")
 
 set("n", "<leader>/", function()
