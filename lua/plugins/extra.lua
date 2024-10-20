@@ -211,7 +211,6 @@ return {
 			},
 		},
 		opts = {
-			mode = "toggleterm",
 			filetype = {
 				go = "go run",
 			},
