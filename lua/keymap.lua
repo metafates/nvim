@@ -235,3 +235,5 @@ set("n", "<leader>Si", function()
 
 	require("utils.notify").add(message)
 end, "Show session name")
+
+set("n", "<leader>ck", vim.diagnostic.open_float, "Hover diagnostic")

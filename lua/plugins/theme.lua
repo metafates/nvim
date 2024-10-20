@@ -12,6 +12,32 @@ return {
 }
 
 -- return {
+-- 	"rebelot/kanagawa.nvim",
+-- 	priority = 1000,
+-- 	opts = {
+-- 		background = {
+-- 			dark = "wave",
+-- 		},
+-- 	},
+-- 	config = function(_, opts)
+-- 		require("kanagawa").setup(opts)
+--
+-- 		vim.cmd.colorscheme("kanagawa")
+-- 	end,
+-- }
+
+-- return {
+-- 	"slugbyte/lackluster.nvim",
+-- 	priority = 1000,
+-- 	opts = {},
+-- 	config = function(_, opts)
+-- 		require("lackluster").setup(opts)
+--
+-- 		vim.cmd.colorscheme("lackluster")
+-- 	end,
+-- }
+
+-- return {
 -- 	"sainnhe/gruvbox-material",
 -- 	priority = 1000,
 -- 	init = function()
