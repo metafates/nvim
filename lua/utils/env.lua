@@ -80,7 +80,7 @@ function M.try_load_dotenv()
 					vim.env[key] = value
 				end
 
-				require("utils.notify").add(string.format("Loaded %q", path), 2000)
+				require("utils.notify").add(string.format("Loaded %q", path), { duration = 2000 })
 			end)
 		end,
 		error = function(_) end, -- ignore errors

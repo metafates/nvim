@@ -10,7 +10,7 @@ function M.copy(contents, notify)
 	vim.fn.setreg("+", contents)
 
 	if notify then
-		require("utils.notify").add(string.format("Copied %q", contents), 1000)
+		require("utils.notify").add(string.format("Copied %q", contents), { duration = 1000 })
 	end
 end
 

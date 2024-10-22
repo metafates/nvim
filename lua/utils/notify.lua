@@ -1,16 +1,23 @@
 local M = {}
 
+---@alias level "TRACE" | "DEBUG" | "INFO" | "WARN" | "ERROR" | "OFF"
+
+---@class NotifyOpts
+---@field duration number?
+---@field level level?
+
 ---@param msg string Notification message.
----@param duration number|nil Notification duration in ms. Default 2000 (2 seconds)
----@param level string|nil Notification level as key of |vim.log.levels|.
-function M.add(msg, duration, level)
+---@param opts NotifyOpts?
+function M.add(msg, opts)
+	opts = opts or {}
+
 	local notify = require("mini.notify")
 
-	local id = notify.add(msg, level)
+	local id = notify.add(msg, opts.level)
 
 	vim.defer_fn(function()
 		notify.remove(id)
-	end, duration or 2000)
+	end, opts.duration or 3000)
 end
 
 return M

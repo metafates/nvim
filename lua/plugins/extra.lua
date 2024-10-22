@@ -29,7 +29,7 @@ return {
 				"<leader>a",
 				function()
 					require("utils.harpoon").list():add()
-					require("utils.notify").add("Added to harpoon", 500)
+					require("utils.notify").add("Added to harpoon", { duration = 1000 })
 				end,
 				desc = "Harpoon add",
 			},
@@ -79,7 +79,7 @@ return {
 				"<leader>hc",
 				function()
 					require("utils.harpoon").list():clear()
-					require("utils.notify").add("Harpoon list cleared", 1000)
+					require("utils.notify").add("Harpoon list cleared", { duration = 1000 })
 				end,
 				desc = "Harpoon clear list",
 			},

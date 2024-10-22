@@ -38,7 +38,7 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 	desc = "Go organize imports on save",
 	pattern = { "*.go" },
 	callback = function()
-		require("utils.lsp").apply_code_action("source.organizeImports")
+		require("utils.lsp").apply_code_action_sync("source.organizeImports")
 	end,
 })
 
