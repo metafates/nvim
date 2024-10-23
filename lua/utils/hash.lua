@@ -57,10 +57,11 @@ local adjectives = {
 function M.hash(str)
 	local hash = 0
 	local prime = 31
+	local max_integer = 2 ^ 32
 
 	for i = 1, #str do
 		local char = str:sub(i, i)
-		hash = (hash * prime + string.byte(char)) % 2 ^ 32
+		hash = (hash * prime + string.byte(char)) % max_integer
 	end
 
 	return hash
