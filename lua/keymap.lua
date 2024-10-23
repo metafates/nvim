@@ -200,17 +200,9 @@ set({ "n", "x" }, "k", function()
 end, { expr = true })
 
 set("n", "\\b", function()
-	vim.opt.bg = vim.opt.bg == "dark" and "light" or "dark"
+	---@diagnostic disable-next-line: undefined-field
+	vim.opt.bg = vim.opt.bg._value == "dark" and "light" or "dark"
 end, "Toggle 'background'")
-
-set("n", "\\c", "<cmd>setlocal cursorline! cursorline?<CR>", "Toggle 'cursorline'")
-set("n", "\\C", "<cmd>setlocal cursorcolumn! cursorcolumn?<CR>", "Toggle 'cursorcolumn'")
-set("n", "\\i", "<cmd>setlocal ignorecase! ignorecase?<CR>", "Toggle 'ignorecase'")
-set("n", "\\l", "<cmd>setlocal list! list?<CR>", "Toggle 'list'")
-set("n", "\\n", "<cmd>setlocal number! number?<CR>", "Toggle 'number'")
-set("n", "\\r", "<cmd>setlocal relativenumber! relativenumber?<CR>", "Toggle 'relativenumber'")
-set("n", "\\s", "<cmd>setlocal spell! spell?<CR>", "Toggle 'spell'")
-set("n", "\\w", "<cmd>setlocal wrap! wrap?<CR>", "Toggle 'wrap'")
 
 set("n", "<C-h>", "<C-w>h", "Focus on left window")
 set("n", "<C-j>", "<C-w>j", "Focus on below window")

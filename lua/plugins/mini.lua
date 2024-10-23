@@ -74,10 +74,7 @@ end
 local function setup_basics()
 	require("mini.basics").setup({
 		options = {
-			extra_ui = false, -- depends on my mood =)
-		},
-		mappings = {
-			basic = false,
+			extra_ui = true, -- depends on my mood =)
 		},
 	})
 end

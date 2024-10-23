@@ -2,7 +2,8 @@ return {
 	"folke/tokyonight.nvim",
 	priority = 1000,
 	opts = {
-		style = "night",
+		-- style = "night",
+		day_brightness = 0.1,
 	},
 	config = function(_, opts)
 		require("tokyonight").setup(opts)

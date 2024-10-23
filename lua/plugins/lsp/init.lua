@@ -175,10 +175,26 @@ return {
 
 		require("mason").setup()
 		require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
-		require("mason-nvim-dap").setup({ ensure_installed = debug_adapters })
+		require("mason-nvim-dap").setup({ ensure_installed = debug_adapters, automatic_installation = true })
 
 		local capabilities = vim.lsp.protocol.make_client_capabilities()
 		capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
+
+		local border = {
+			{ "┏", "FloatBorder" },
+			{ "━", "FloatBorder" },
+			{ "┓", "FloatBorder" },
+			{ "┃", "FloatBorder" },
+			{ "┛", "FloatBorder" },
+			{ "━", "FloatBorder" },
+			{ "┗", "FloatBorder" },
+			{ "┃", "FloatBorder" },
+		}
+
+		local handlers = {
+			["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border }),
+			["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border }),
+		}
 
 		require("mason-lspconfig").setup({
 			handlers = {
@@ -191,6 +207,7 @@ return {
 					local server = servers[server_name] or {}
 
 					server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
+					server.handlers = handlers
 
 					require("lspconfig")[server_name].setup(server)
 				end,
