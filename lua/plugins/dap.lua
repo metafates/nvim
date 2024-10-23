@@ -1,3 +1,14 @@
+local function setup_notifier()
+	local ID = "notifier"
+
+	local dap = require("dap")
+	local notify = require("utils.notify")
+
+	dap.listeners.after.event_initialized[ID] = function(session, body)
+		notify.add("Debug session started")
+	end
+end
+
 return {
 	"mfussenegger/nvim-dap",
 	pin = true,
@@ -65,5 +76,6 @@ return {
 	},
 	config = function()
 		require("dap-go").setup()
+		setup_notifier()
 	end,
 }
