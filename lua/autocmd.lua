@@ -3,6 +3,18 @@ vim.api.nvim_create_autocmd("User", {
 	pattern = "LazyVimStarted",
 	callback = function()
 		require("mini.starter").refresh()
+
+		vim.api.nvim_create_autocmd({
+			"WinResized",
+			"BufWinEnter",
+			"CursorHold",
+			"InsertLeave",
+		}, {
+			group = vim.api.nvim_create_augroup("barbecue.updater", {}),
+			callback = function()
+				require("barbecue.ui").update()
+			end,
+		})
 	end,
 })
 

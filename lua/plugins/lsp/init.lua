@@ -196,6 +196,13 @@ return {
 			["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border }),
 		}
 
+		local function on_attach(client, bufnr)
+			if client.server_capabilities.documentSymbolProvider then
+				require("nvim-navic").attach(client, bufnr)
+				require("nvim-navbuddy").attach(client, bufnr)
+			end
+		end
+
 		require("mason-lspconfig").setup({
 			handlers = {
 				function(server_name)
@@ -208,6 +215,7 @@ return {
 
 					server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
 					server.handlers = handlers
+					server.on_attach = on_attach
 
 					require("lspconfig")[server_name].setup(server)
 				end,
