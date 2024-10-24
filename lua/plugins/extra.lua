@@ -216,4 +216,44 @@ return {
 			},
 		},
 	},
+	{
+		"utilyre/barbecue.nvim",
+		pin = true,
+		dependencies = {
+			{ "SmiteshP/nvim-navic", pin = true },
+		},
+		opts = {
+			attach_navic = false,
+			create_autocmd = false,
+			exclude_filetypes = { "netrw", "toggleterm", "ministarter" },
+		},
+	},
+	{
+		"SmiteshP/nvim-navbuddy",
+		pin = true,
+		dependencies = {
+			{ "MunifTanjim/nui.nvim", pin = true },
+		},
+		keys = {
+			{
+				"E",
+				function()
+					require("nvim-navbuddy").open()
+				end,
+			},
+		},
+		opts = function()
+			local actions = require("nvim-navbuddy.actions")
+
+			return {
+				window = {
+					size = "80%",
+				},
+				mappings = {
+					["E"] = actions.close(),
+					["e"] = actions.close(),
+				},
+			}
+		end,
+	},
 }
