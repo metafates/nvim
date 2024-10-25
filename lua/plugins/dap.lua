@@ -73,6 +73,13 @@ return {
 			end,
 			desc = "Debug scopes",
 		},
+		{
+			"<leader>cdr",
+			function()
+				require("dap").repl.toggle()
+			end,
+			desc = "Debug REPL toggle",
+		},
 	},
 	config = function()
 		require("dap-go").setup()

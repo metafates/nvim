@@ -240,6 +240,7 @@ return {
 				function()
 					require("nvim-navbuddy").open()
 				end,
+				desc = "Toggle navbuddy",
 			},
 		},
 		opts = function()
