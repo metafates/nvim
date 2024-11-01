@@ -93,7 +93,10 @@ function M.text()
 
 	local folded = {
 		{ " ", "FoldedPad" },
-		{ " " .. vim.v.foldend - vim.v.foldstart .. " lines ", "FoldedText" },
+		{
+			" " .. require("utils.text").pluralize(vim.v.foldend - vim.v.foldstart - 1, "line") .. " ",
+			"FoldedText",
+		},
 		{ " ", "FoldedPad" },
 	}
 

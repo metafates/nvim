@@ -74,7 +74,7 @@ return {
 			desc = "Debug scopes",
 		},
 		{
-			"<leader>cdr",
+			"<leader>cdR",
 			function()
 				require("dap").repl.toggle()
 			end,
