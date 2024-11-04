@@ -83,7 +83,7 @@ local function setup_pick()
 	local pick = require("mini.pick")
 
 	local win_config = function()
-		local height = math.floor(0.5 * vim.o.lines)
+		local height = math.floor(0.3 * vim.o.lines)
 		local width = vim.o.columns
 
 		return {

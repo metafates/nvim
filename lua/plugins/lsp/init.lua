@@ -187,22 +187,6 @@ return {
 		local capabilities = vim.lsp.protocol.make_client_capabilities()
 		capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
 
-		local border = {
-			{ "┏", "FloatBorder" },
-			{ "━", "FloatBorder" },
-			{ "┓", "FloatBorder" },
-			{ "┃", "FloatBorder" },
-			{ "┛", "FloatBorder" },
-			{ "━", "FloatBorder" },
-			{ "┗", "FloatBorder" },
-			{ "┃", "FloatBorder" },
-		}
-
-		local handlers = {
-			["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border }),
-			["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border }),
-		}
-
 		local function on_attach(client, bufnr)
 			if client.server_capabilities.documentSymbolProvider then
 				require("nvim-navic").attach(client, bufnr)
@@ -221,7 +205,6 @@ return {
 					local server = servers[server_name] or {}
 
 					server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-					server.handlers = handlers
 					server.on_attach = on_attach
 
 					require("lspconfig")[server_name].setup(server)
