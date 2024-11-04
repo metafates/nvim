@@ -94,7 +94,7 @@ function M.text()
 	local folded = {
 		{ " ", "FoldedPad" },
 		{
-			" " .. require("utils.text").pluralize(vim.v.foldend - vim.v.foldstart - 1, "line") .. " ",
+			" " .. require("utils.text").pluralize(vim.v.foldend - vim.v.foldstart, "line") .. " ",
 			"FoldedText",
 		},
 		{ " ", "FoldedPad" },
@@ -104,14 +104,14 @@ function M.text()
 		table.insert(result_start, item)
 	end
 
-	local result_end = H.parse_line(vim.v.foldend)
-	if result_end then
-		local first = result_end[1]
-		result_end[1] = { vim.trim(first[1]), first[2] }
-		for _, item in ipairs(result_end) do
-			table.insert(result_start, item)
-		end
-	end
+	-- local result_end = H.parse_line(vim.v.foldend)
+	-- if result_end then
+	-- 	local first = result_end[1]
+	-- 	result_end[1] = { vim.trim(first[1]), first[2] }
+	-- 	for _, item in ipairs(result_end) do
+	-- 		table.insert(result_start, item)
+	-- 	end
+	-- end
 
 	return result_start
 end
