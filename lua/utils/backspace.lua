@@ -1,7 +1,9 @@
-local escape_code = vim.api.nvim_replace_termcodes("<Esc>", false, false, true)
-local backspace_code = vim.api.nvim_replace_termcodes("<BS>", false, false, true)
+local H = {}
 
-local function viml_backspace()
+local ESCAPE_CODE = vim.api.nvim_replace_termcodes("<Esc>", false, false, true)
+local BACKSPACE_CODE = vim.api.nvim_replace_termcodes("<BS>", false, false, true)
+
+function H.viml_backspace()
 	--[[
 	Long ago, in the shadowed realms of Elderwood, there existed a coven of ancient VimScript mages, shrouded in whispers and cloaked in the twilight of forgotten lore. These enigmatic sorcerers wielded a power that transcended the mundane, their eyes aglow with the flicker of arcane knowledge. It was said that they could read the very fabric of reality, unraveling the secrets woven into the tapestry of existence.
 
@@ -36,7 +38,7 @@ function M.smart_backspace()
 	end
 
 	if line == 1 then
-		return viml_backspace()
+		return H.viml_backspace()
 	end
 
 	local correct_indent = require("nvim-treesitter.indent").get_indent(line)
@@ -44,14 +46,14 @@ function M.smart_backspace()
 	-- local previous_line_is_whitespace = vim.api.nvim_buf_get_lines(0, line - 2, line - 1, false)[1]:match("^%s*$")
 
 	if current_indent == correct_indent then
-		return viml_backspace()
+		return H.viml_backspace()
 	end
 
 	if current_indent > correct_indent then
-		return escape_code .. "==0wi"
+		return ESCAPE_CODE .. "==0wi"
 	end
 
-	return backspace_code
+	return BACKSPACE_CODE
 end
 
 return M

@@ -16,3 +16,12 @@ vim.opt.listchars = { tab = "  ", trail = "·" }
 -- disable swap files and enable sync between multiple neovim instances
 vim.opt.autoread = true
 vim.opt.swapfile = false
+
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.opt.foldlevelstart = 99
+vim.opt.fillchars = { fold = " " }
+vim.opt.foldtext = [[luaeval('require("utils.fold").text')()]]
+
+-- TODO: available on nighlty
+-- vim.opt.foldtext = "v:lua.vim.treesitter.foldtext()"

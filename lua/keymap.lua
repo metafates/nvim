@@ -233,3 +233,7 @@ set("n", "<leader>Si", function()
 end, "Show session name")
 
 set("n", "<leader>ck", vim.diagnostic.open_float, "Hover diagnostic")
+
+set("n", "F", "za")
+
+set("n", "<leader>pf", require("utils.pick").filetype, "Pick filetype")
