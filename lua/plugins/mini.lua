@@ -83,7 +83,7 @@ local function setup_pick()
 	local pick = require("mini.pick")
 
 	local win_config = function()
-		local height = math.floor(0.5 * vim.o.lines)
+		local height = math.floor(0.3 * vim.o.lines)
 		local width = vim.o.columns
 
 		return {
@@ -180,7 +180,7 @@ local function setup_hipatterns()
 			todo = { pattern = "%f[%w]()TODO()%f[%W]", group = "MiniHipatternsTodo" },
 			note = { pattern = "%f[%w]()NOTE()%f[%W]", group = "MiniHipatternsNote" },
 
-			-- Highlight hex color strings (`#rrggbb`) using that color
+			-- Highlight hex color strings (`#FFFFFF`) using that color
 			hex_color = hipatterns.gen_highlighter.hex_color(),
 		},
 	})

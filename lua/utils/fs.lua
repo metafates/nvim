@@ -19,6 +19,7 @@ function M.read_file_async(path, callback)
 			callback.error(err)
 			return
 		end
+		assert(fd ~= nil)
 
 		---@diagnostic disable-next-line: redefined-local
 		uv.fs_fstat(fd, function(err, stat)

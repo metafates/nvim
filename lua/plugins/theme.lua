@@ -9,6 +9,10 @@ return {
 		require("tokyonight").setup(opts)
 
 		vim.cmd.colorscheme("tokyonight")
+
+		local cl = vim.api.nvim_get_hl(0, { name = "Folded" })
+		vim.api.nvim_set_hl(0, "FoldedText", { bg = cl.bg, italic = true })
+		vim.api.nvim_set_hl(0, "Folded", { bg = "none" })
 	end,
 }
 
