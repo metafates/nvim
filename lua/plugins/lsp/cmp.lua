@@ -1,11 +1,9 @@
 return {
 	"hrsh7th/nvim-cmp",
 	event = "InsertEnter",
-	pin = true,
 	dependencies = {
 		{
 			"L3MON4D3/LuaSnip",
-			pin = true,
 			build = (function()
 				if vim.fn.has("win32") == 1 or vim.fn.executable("make") == 0 then
 					return
@@ -16,29 +14,16 @@ return {
 			dependencies = {
 				{
 					"rafamadriz/friendly-snippets",
-					pin = true,
 					config = function()
 						require("luasnip.loaders.from_vscode").lazy_load()
 					end,
 				},
 			},
 		},
-		{
-			"saadparwaiz1/cmp_luasnip",
-			pin = true,
-		},
-		{
-			"hrsh7th/cmp-nvim-lsp",
-			pin = true,
-		},
-		{
-			"hrsh7th/cmp-path",
-			pin = true,
-		},
-		{
-			"hrsh7th/cmp-buffer",
-			pin = true,
-		},
+		"saadparwaiz1/cmp_luasnip",
+		"hrsh7th/cmp-nvim-lsp",
+		"hrsh7th/cmp-path",
+		"hrsh7th/cmp-buffer",
 	},
 	config = function()
 		local cmp = require("cmp")

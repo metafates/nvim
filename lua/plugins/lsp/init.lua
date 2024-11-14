@@ -138,30 +138,18 @@ local other_tools = {
 
 return {
 	"neovim/nvim-lspconfig",
-	pin = true,
 	event = { "BufReadPre", "BufNewFile" },
 	cmd = "Mason",
 	dependencies = {
 		{
 			"williamboman/mason.nvim",
 			config = true,
-			pin = true,
 		},
-		{
-			"jay-babu/mason-nvim-dap.nvim",
-			pin = true,
-		},
-		{
-			"williamboman/mason-lspconfig.nvim",
-			pin = true,
-		},
-		{
-			"WhoIsSethDaniel/mason-tool-installer.nvim",
-			pin = true,
-		},
+		"jay-babu/mason-nvim-dap.nvim",
+		"williamboman/mason-lspconfig.nvim",
+		"WhoIsSethDaniel/mason-tool-installer.nvim",
 		{
 			"folke/lazydev.nvim",
-			pin = true,
 			ft = "lua",
 			opts = {
 				library = {
@@ -172,7 +160,6 @@ return {
 		{
 			"Bilal2453/luvit-meta",
 			lazy = true,
-			pin = true,
 		},
 		require("plugins.lsp.cmp"),
 	},

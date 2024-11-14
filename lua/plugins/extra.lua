@@ -3,7 +3,6 @@
 return {
 	{
 		"akinsho/toggleterm.nvim",
-		pin = true,
 		cmd = "TermExec",
 		keys = {
 			{ [[<C-p>]], ":ToggleTerm" },
@@ -17,7 +16,6 @@ return {
 	{
 		"ThePrimeagen/harpoon",
 		branch = "harpoon2",
-		pin = true,
 		dependencies = { "nvim-lua/plenary.nvim" },
 		opts = {
 			settings = {
@@ -94,7 +92,6 @@ return {
 	},
 	{
 		"nvim-neotest/neotest",
-		pin = true,
 		dependencies = {
 			"nvim-neotest/nvim-nio",
 			"nvim-lua/plenary.nvim",
@@ -199,7 +196,6 @@ return {
 	},
 	{
 		"CRAG666/code_runner.nvim",
-		pin = true,
 		cmd = { "RunCode", "RunFile", "RunProject" },
 		keys = {
 			{
@@ -218,9 +214,8 @@ return {
 	},
 	{
 		"utilyre/barbecue.nvim",
-		pin = true,
 		dependencies = {
-			{ "SmiteshP/nvim-navic", pin = true },
+			"SmiteshP/nvim-navic",
 		},
 		opts = {
 			attach_navic = false,
@@ -230,9 +225,8 @@ return {
 	},
 	{
 		"SmiteshP/nvim-navbuddy",
-		pin = true,
 		dependencies = {
-			{ "MunifTanjim/nui.nvim", pin = true },
+			"MunifTanjim/nui.nvim",
 		},
 		keys = {
 			{

@@ -1,12 +1,8 @@
 return {
 	"windwp/nvim-autopairs",
-	pin = true,
 	event = "InsertEnter",
 	dependencies = {
-		{
-			"hrsh7th/nvim-cmp",
-			pin = true,
-		},
+		"hrsh7th/nvim-cmp",
 	},
 	config = function()
 		require("nvim-autopairs").setup({

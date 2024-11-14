@@ -300,7 +300,6 @@ end
 
 return {
 	"echasnovski/mini.nvim",
-	pin = true,
 	dependencies = {
 		-- for mini.ai
 		"nvim-treesitter/nvim-treesitter-textobjects",
