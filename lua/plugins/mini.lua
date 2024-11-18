@@ -82,18 +82,31 @@ end
 local function setup_pick()
 	local pick = require("mini.pick")
 
-	local win_config = function()
-		local height = math.floor(0.3 * vim.o.lines)
-		local width = vim.o.columns
+	local win_config_center = function()
+		local height = math.floor(0.618 * vim.o.lines)
+		local width = math.floor(0.618 * vim.o.columns)
 
 		return {
 			anchor = "NW",
 			height = height,
 			width = width,
-			row = vim.o.lines - height,
-			col = 0,
+			row = math.floor(0.5 * (vim.o.lines - height)),
+			col = math.floor(0.5 * (vim.o.columns - width)),
 		}
 	end
+
+	-- local win_config_bottom = function()
+	-- 	local height = math.floor(0.3 * vim.o.lines)
+	-- 	local width = vim.o.columns
+	--
+	-- 	return {
+	-- 		anchor = "NW",
+	-- 		height = height,
+	-- 		width = width,
+	-- 		row = vim.o.lines - height,
+	-- 		col = 0,
+	-- 	}
+	-- end
 
 	pick.setup({
 		mappings = {
@@ -104,7 +117,7 @@ local function setup_pick()
 			use_cache = true,
 		},
 		window = {
-			config = win_config,
+			config = win_config_center,
 		},
 	})
 
