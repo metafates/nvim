@@ -128,6 +128,8 @@ end)
 
 set("n", "<leader>ca", vim.lsp.buf.code_action, "LSP code action")
 
+set("n", "<leader>cl", vim.lsp.codelens.run, "LSP codelens")
+
 set("n", "<leader>r", vim.lsp.buf.rename, "LSP rename")
 
 set("n", "f", function()

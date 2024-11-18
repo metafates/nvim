@@ -125,3 +125,9 @@ vim.api.nvim_create_autocmd({
 		require("barbecue.ui").update()
 	end,
 })
+
+vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
+	callback = function(event)
+		vim.lsp.codelens.refresh({ bufnr = event.buf })
+	end,
+})
