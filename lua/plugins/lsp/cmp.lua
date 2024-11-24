@@ -37,6 +37,9 @@ return {
 					luasnip.lsp_expand(args.body)
 				end,
 			},
+			experimental = {
+				ghost_text = true,
+			},
 			completion = { completeopt = "menu,menuone,noinsert" },
 			---@diagnostic disable-next-line: missing-fields
 			formatting = {
