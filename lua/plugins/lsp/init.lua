@@ -161,7 +161,8 @@ return {
 			"Bilal2453/luvit-meta",
 			lazy = true,
 		},
-		require("plugins.lsp.cmp"),
+		-- require("plugins.lsp.cmp"),
+		require("plugins.lsp.blink"),
 	},
 	config = function()
 		local ensure_installed = vim.tbl_keys(servers or {})
@@ -172,7 +173,9 @@ return {
 		require("mason-nvim-dap").setup({ ensure_installed = debug_adapters, automatic_installation = true })
 
 		local capabilities = vim.lsp.protocol.make_client_capabilities()
-		capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
+		capabilities = vim.tbl_deep_extend("force", capabilities, require("blink.cmp").get_lsp_capabilities())
+
+		-- local capabilities = require("blink.cmp").get_lsp_capabilities()
 
 		local function on_attach(client, bufnr)
 			if client.server_capabilities.documentSymbolProvider then
@@ -192,6 +195,7 @@ return {
 					local server = servers[server_name] or {}
 
 					server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
+					-- server.capabilities = capabilities
 					server.on_attach = on_attach
 
 					require("lspconfig")[server_name].setup(server)
