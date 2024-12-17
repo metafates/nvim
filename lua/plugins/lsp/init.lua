@@ -98,15 +98,15 @@ local servers = {
 			},
 		},
 	},
-	pyright = {},
-	rust_analyzer = {
-		-- I use rust nighlty and clippy is not applicable for it
-		-- ["rust-analyzer"] = {
-		-- 	checkOnSave = {
-		-- 		command = "clippy",
-		-- 	},
-		-- },
-	},
+	-- pyright = {},
+	-- rust_analyzer = {
+	-- 	-- I use rust nighlty and clippy is not applicable for it
+	-- 	-- ["rust-analyzer"] = {
+	-- 	-- 	checkOnSave = {
+	-- 	-- 		command = "clippy",
+	-- 	-- 	},
+	-- 	-- },
+	-- },
 	jsonls = {},
 	bashls = {},
 	marksman = {},
