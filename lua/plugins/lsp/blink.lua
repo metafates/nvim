@@ -89,6 +89,12 @@ return {
 			ghost_text = {
 				enabled = true,
 			},
+
+			menu = {
+				draw = {
+					treesitter = { "lsp" },
+				},
+			},
 		},
 
 		signature = {
