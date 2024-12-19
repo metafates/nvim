@@ -251,4 +251,12 @@ return {
 			}
 		end,
 	},
+	{
+		"ibhagwan/fzf-lua",
+		opts = {
+			"borderless",
+			winopts = { fullscreen = true },
+			defaults = { git_icons = true, file_icons = true },
+		},
+	},
 }

@@ -55,67 +55,62 @@ set("n", "U", vim.cmd.redo, { silent = true })
 set({ "n", "x", "v" }, "<leader>y", [["+y]], "Yank selection to clipboard")
 
 set("n", "<leader>f", function()
-	require("mini.pick").builtin.files()
+	require("fzf-lua").files()
 end, "Files picker")
 
 set("n", "<leader>F", function()
 	local path = vim.api.nvim_buf_get_name(0)
+	local cwd = vim.fs.dirname(path)
 
-	require("mini.pick").builtin.files(nil, {
-		source = { cwd = vim.fs.dirname(path) },
-	})
+	require("fzf-lua").files({ cwd = cwd })
 end, "Files in current buffer directory picker")
 
-set("n", "<leader>v", function()
-	require("mini.extra").pickers.visit_paths()
-end)
-
 set("n", "<leader>s", function()
-	require("utils.lsp").picker("document_symbol")
+	require("fzf-lua").lsp_document_symbols()
 end, "Document symbols picker")
 
 set("n", "gr", function()
-	require("utils.lsp").picker("references", true)
+	require("fzf-lua").lsp_references()
 end, "References picker")
 
 set("n", "gd", function()
-	require("utils.lsp").picker("definition", true)
+	require("fzf-lua").lsp_definitions()
 end, "Definitions picker")
 
 set("n", "gD", function()
-	require("utils.lsp").picker("type_definition", true)
+	require("fzf-lua").lsp_typedefs()
 end, "Type definitions picker")
 
 set("n", "<leader>w", function()
-	require("utils.lsp").picker("workspace_symbol")
+	require("fzf-lua").lsp_workspace_symbols()
 end, "Workspace symbols picker")
 
 set("n", "gi", function()
-	require("utils.lsp").picker("implementation", true)
+	require("fzf-lua").lsp_implementations()
 end, "Implementations picker")
 
 set("n", "<leader>/", function()
-	require("mini.extra").pickers.buf_lines({ scope = "current" })
+	require("fzf-lua").grep_curbuf()
 end, "Live grep (buffer)")
 
 set("n", "<leader>g", function()
-	require("mini.pick").builtin.grep_live()
+	require("fzf-lua").live_grep_native()
 end, "Live grep (workspace)")
 
 set("n", "<leader><leader>", function()
-	require("mini.pick").builtin.resume()
+	require("fzf-lua").resume()
 end, "Resume last picker")
 
 set("n", "<leader>b", function()
-	require("mini.pick").builtin.buffers({ include_current = false })
+	require("fzf-lua").buffers()
 end, "Buffers picker")
 
 set("n", "<leader>d", function()
-	require("mini.extra").pickers.diagnostic({ scope = "current" })
+	require("fzf-lua").diagnostics_document()
 end, "Diagnostic picker (buffer)")
 
 set("n", "<leader>D", function()
-	require("mini.extra").pickers.diagnostic()
+	require("fzf-lua").diagnostics_workspace()
 end, "Diagnostic picker (workspace)")
 
 set("n", "T", function()
@@ -238,4 +233,4 @@ set("n", "<leader>ck", vim.diagnostic.open_float, "Hover diagnostic")
 
 set("n", "F", "za")
 
-set("n", "<leader>pf", require("utils.pick").filetype, "Pick filetype")
+-- set("n", "<leader>pf", require("utils.pick").filetype, "Pick filetype")

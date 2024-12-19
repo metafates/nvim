@@ -323,7 +323,7 @@ return {
 	config = function()
 		setup_icons()
 		setup_basics()
-		setup_pick()
+		-- setup_pick()
 		setup_cursorword()
 		setup_extra()
 		setup_files()
