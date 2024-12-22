@@ -121,7 +121,9 @@ set("n", "T", function()
 	end
 end)
 
-set("n", "<leader>ca", vim.lsp.buf.code_action, "LSP code action")
+set("n", "<leader>ca", function()
+	require("fzf-lua").lsp_code_actions()
+end, "LSP code action")
 
 set("n", "<leader>cl", vim.lsp.codelens.run, "LSP codelens")
 

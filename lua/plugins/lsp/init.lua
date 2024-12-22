@@ -62,6 +62,7 @@ local servers = {
 					unreachable = true,
 					unsafeptr = true,
 					unusedresult = true,
+					yield = true,
 
 					-- not suitable for vet:
 					-- - some (nilness) use go/ssa; see #59714.

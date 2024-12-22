@@ -68,7 +68,7 @@ local function setup_icons()
 	local icons = require("mini.icons")
 	icons.setup()
 
-	icons.tweak_lsp_kind()
+	-- icons.tweak_lsp_kind()
 end
 
 local function setup_basics()
