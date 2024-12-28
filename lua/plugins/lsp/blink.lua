@@ -86,10 +86,6 @@ return {
 				auto_show = true,
 			},
 
-			ghost_text = {
-				enabled = true,
-			},
-
 			menu = {
 				draw = {
 					treesitter = { "lsp" },
