@@ -2,18 +2,6 @@
 
 return {
 	{
-		"akinsho/toggleterm.nvim",
-		cmd = "TermExec",
-		keys = {
-			{ [[<C-p>]], ":ToggleTerm" },
-		},
-		opts = {
-			open_mapping = [[<C-p>]],
-			autochdir = true,
-			direction = "tab",
-		},
-	},
-	{
 		"ThePrimeagen/harpoon",
 		branch = "harpoon2",
 		dependencies = { "nvim-lua/plenary.nvim" },
@@ -38,13 +26,6 @@ return {
 				end,
 				desc = "Harpoon list",
 			},
-			-- {
-			-- 	"<leader>p",
-			-- 	function()
-			-- 		require("utils.harpoon"):picker()
-			-- 	end,
-			-- 	desc = "Harpoon picker",
-			-- },
 			{
 				"<leader>h1",
 				function()
