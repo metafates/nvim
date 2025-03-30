@@ -1,5 +1,7 @@
 local set = require("util.keymap").set
 
+set("n", ";", ":")
+
 -- switch windows
 for _, key in ipairs({ "h", "j", "k", "l" }) do
 	set("n", "<c-" .. key .. ">", "<c-w>" .. key)
@@ -31,7 +33,7 @@ set("n", "<leader>bo", function()
 	end
 
 	vim.fn.win_gotoid(current_win)
-end)
+end, "buffers close other")
 
 -- remove conflicting builtin keymaps
 for _, lhs in pairs({ "gra", "gri", "grn", "grr" }) do
@@ -87,6 +89,12 @@ end, "picker files (buffer cwd)")
 set("n", "<leader>ff", function() MiniPick.builtin.files() end, "picker files")
 set("n", "<leader>fb", function() MiniPick.builtin.buffers() end, "picker buffers")
 set("n", "<leader>sg", function() MiniPick.builtin.grep_live() end, "picker grep live")
+
+set("n", "<leader>fe", function()
+	if not MiniFiles.close() then
+		MiniFiles.open()
+	end
+end, "files toggle")
 
 set({ "n", "x", "v" }, "<leader>y", [["+y]], "yank selection to system clipboard")
 

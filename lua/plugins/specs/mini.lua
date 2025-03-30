@@ -22,12 +22,6 @@ end
 
 local function setup_files()
 	require("mini.files").setup()
-
-	vim.keymap.set("n", "<leader>fe", function()
-		if not MiniFiles.close() then
-			MiniFiles.open()
-		end
-	end)
 end
 
 local function setup_pairs()
@@ -48,7 +42,9 @@ local function setup_tabline()
 end
 
 local function setup_starter()
-	require("mini.starter").setup()
+	require("mini.starter").setup({
+		evaluate_single = true,
+	})
 end
 
 local function setup_sessions()
@@ -92,6 +88,34 @@ local function setup_diff()
 	require("mini.diff").setup()
 end
 
+local function setup_trailspace()
+	require("mini.trailspace").setup()
+end
+
+local function setup_clue()
+	local clue = require("mini.clue")
+
+	clue.setup({
+		window = {
+			delay = 0,
+			config = { width = "auto" }
+		},
+
+		triggers = {
+			{ mode = 'n', keys = '<leader>' },
+			{ mode = 'v', keys = '<leader>' },
+			{ mode = 'x', keys = '<leader>' },
+
+			{ mode = 'n', keys = '<c-w>' },
+		},
+
+		clues = {
+			clue.gen_clues.builtin_completion(),
+			clue.gen_clues.windows(),
+		},
+	})
+end
+
 return {
 	"echasnovski/mini.nvim",
 	version = "*",
@@ -111,5 +135,7 @@ return {
 		setup_statusline()
 		setup_git()
 		setup_diff()
+		setup_trailspace()
+		setup_clue()
 	end,
 }
