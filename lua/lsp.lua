@@ -9,7 +9,7 @@ vim.lsp.config("*", {
 	root_markers = { ".git" },
 })
 
-vim.lsp.enable({ "gopls", "lua_ls" })
+vim.lsp.enable({ "gopls", "lua_ls", "bash_ls" })
 
 ---@param client vim.lsp.Client
 ---@param action string
