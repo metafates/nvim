@@ -85,7 +85,9 @@ local function setup_git()
 end
 
 local function setup_diff()
-	require("mini.diff").setup()
+	require("mini.diff").setup({
+		view = { style = "sign" }
+	})
 end
 
 local function setup_trailspace()
@@ -116,10 +118,21 @@ local function setup_clue()
 	})
 end
 
+local function setup_hipatterns()
+	local hi_words = require('mini.extra').gen_highlighter.words
+
+	require('mini.hipatterns').setup({
+		highlighters = {
+			todo = hi_words({ 'TODO', 'Todo', 'todo' }, 'MiniHipatternsTodo'),
+		},
+	})
+end
+
 return {
 	"echasnovski/mini.nvim",
 	version = "*",
 	config = function()
+		setup_extra()
 		setup_misc()
 		setup_pick()
 		setup_files()
@@ -129,7 +142,6 @@ return {
 		setup_sessions()
 		setup_extra()
 		setup_notify()
-		setup_extra()
 		setup_bufremove()
 		setup_indentscope()
 		setup_statusline()
@@ -137,5 +149,6 @@ return {
 		setup_diff()
 		setup_trailspace()
 		setup_clue()
+		setup_hipatterns()
 	end,
 }

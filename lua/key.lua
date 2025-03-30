@@ -21,6 +21,10 @@ set("n", { "H", "<s-tab>" }, vim.cmd.bprevious, { silent = true })
 set("n", "<leader>bd", vim.cmd.bd, "buffer delete")
 set("n", "<leader>bD", function() vim.cmd([[bd!]]) end, "buffer delete (force)")
 
+set("n", "<leader>sk", function() MiniExtra.pickers.keymaps() end, "picker keymaps")
+
+set("n", "<leader>bz", function() MiniMisc.zoom() end, "zoom")
+
 set("n", "<leader>bo", function()
 	local current_buf = vim.fn.bufnr()
 	local current_win = vim.fn.win_getid()
