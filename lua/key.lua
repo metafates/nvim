@@ -10,25 +10,27 @@
 -- 	end, { expr = true })
 -- end
 
+local set = vim.keymap.set
+
 -- switch windows
 for _, key in ipairs({ "h", "j", "k", "l" }) do
-	vim.keymap.set("n", "<c-" .. key .. ">", "<c-w>" .. key)
+	set("n", "<c-" .. key .. ">", "<c-w>" .. key)
 end
 
-vim.keymap.set("n", "<esc>", vim.cmd.nohlsearch)
+set("n", "<esc>", vim.cmd.nohlsearch)
 
-vim.keymap.set("i", "jk", "<esc>")
-vim.keymap.set("n", ",w", vim.cmd.wa)
-vim.keymap.set("n", ",q", vim.cmd.q)
-vim.keymap.set("n", "<leader>qq", vim.cmd.qa)
+set("i", "jk", "<esc>")
+set("n", ",w", vim.cmd.wa)
+set("n", ",q", vim.cmd.q)
+set("n", "<leader>qq", vim.cmd.qa)
 
-vim.keymap.set("n", "L", vim.cmd.bnext, { silent = true })
-vim.keymap.set("n", "H", vim.cmd.bprevious, { silent = true })
-vim.keymap.set("n", "<leader>bd", vim.cmd.bd)
-vim.keymap.set("n", "<leader>bD", function()
+set("n", "L", vim.cmd.bnext, { silent = true })
+set("n", "H", vim.cmd.bprevious, { silent = true })
+set("n", "<leader>bd", vim.cmd.bd)
+set("n", "<leader>bD", function()
 	vim.cmd([[bd!]])
 end)
-vim.keymap.set("n", "<leader>bo", function()
+set("n", "<leader>bo", function()
 	local current_buf = vim.fn.bufnr()
 	local current_win = vim.fn.win_getid()
 	local bufs = vim.fn.getbufinfo({ buflisted = 1 })
@@ -47,9 +49,9 @@ for _, lhs in pairs({ "gra", "gri", "grn", "grr" }) do
 	pcall(vim.keymap.del, "n", lhs)
 end
 
-vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action)
+set("n", "<leader>ca", vim.lsp.buf.code_action)
 
-vim.keymap.set("n", "<leader>uh", function()
+set("n", "<leader>uh", function()
 	vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
 end)
 
@@ -61,44 +63,44 @@ for lhs, scope in pairs({
 	["gy"] = "type_definition",
 	["<leader>fs"] = "document_symbol",
 }) do
-	vim.keymap.set("n", lhs, function()
+	set("n", lhs, function()
 		MiniExtra.pickers.lsp({ ["scope"] = scope })
 	end)
 end
 
-vim.keymap.set("n", "<leader>ud", function()
+set("n", "<leader>ud", function()
 	vim.diagnostic.enable(not vim.diagnostic.is_enabled())
 end)
 
-vim.keymap.set("n", "<leader>sd", function()
+set("n", "<leader>sd", function()
 	MiniExtra.pickers.diagnostic()
 end)
 
-vim.keymap.set("n", "<leader>cd", vim.diagnostic.open_float)
+set("n", "<leader>cd", vim.diagnostic.open_float)
 
-vim.keymap.set("n", "<leader>sw", function()
+set("n", "<leader>sw", function()
 	vim.ui.input({ prompt = "Enter session name: " }, function(input)
 		MiniSessions.write(input)
 	end)
 end)
 
-vim.keymap.set("n", "<leader>ff", function()
+set("n", "<leader>ff", function()
 	MiniPick.builtin.files()
 end)
-vim.keymap.set("n", "<leader>fb", function()
+set("n", "<leader>fb", function()
 	MiniPick.builtin.buffers()
 end)
-vim.keymap.set("n", "<leader>sg", function()
+set("n", "<leader>sg", function()
 	MiniPick.builtin.grep_live()
 end)
 
-vim.keymap.set({ "n", "x", "v" }, "<leader>y", [["+y]], { desc = "Yank selection to system clipboard" })
+set({ "n", "x", "v" }, "<leader>y", [["+y]], { desc = "Yank selection to system clipboard" })
 
 -- comments
-vim.keymap.set("n", "<c-c>", "gcc<down>", { remap = true })
-vim.keymap.set("v", "<c-c>", "gc", { remap = true })
+set("n", "<c-c>", "gcc<down>", { remap = true })
+set("v", "<c-c>", "gc", { remap = true })
 
-vim.keymap.set("n", "<leader>uD", function()
+set("n", "<leader>uD", function()
 	local config = assert(vim.diagnostic.config())
 
 	vim.diagnostic.config({
@@ -107,10 +109,11 @@ vim.keymap.set("n", "<leader>uD", function()
 	})
 end)
 
-vim.keymap.set("n", "U", vim.cmd.redo, { silent = true })
+set("n", "U", vim.cmd.redo, { silent = true })
 
-vim.keymap.set("n", "<leader>uh", function()
+set("n", "<leader>uh", function()
 	vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
 end)
 
-vim.keymap.set("n", "F", "za")
+set("n", "F", "za")
+set("n", "<leader>qs", function() MiniSessions.select("read") end)
