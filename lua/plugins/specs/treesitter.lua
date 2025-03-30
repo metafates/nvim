@@ -6,13 +6,27 @@ local ensure_installed = {
 	"query",
 	"markdown",
 	"markdown_inline",
+	"gitignore",
 
 	"go",
+	"gomod",
+	"gosum",
+	"gowork",
+	"gotmpl",
+
 	"proto",
 	"json",
 	"yaml",
+	"toml",
 	"bash",
-	"fish"
+	"fish",
+	"rust",
+	"sql",
+	"ssh_config",
+	"typst",
+
+	"just",
+	"make",
 }
 
 return {
