@@ -11,6 +11,33 @@ vim.lsp.config("*", {
 
 vim.lsp.enable({ "gopls", "lua_ls" })
 
+---@param client vim.lsp.Client
+---@param action string
+local function exec_code_action(client, action)
+	local encoding = "utf-8"
+
+	local params = vim.tbl_extend(
+		"force",
+		vim.lsp.util.make_range_params(nil, encoding),
+		{ context = { only = { action } } }
+	)
+
+	local result, err = client:request_sync("textDocument/codeAction", params, 3000)
+	assert(not err, err)
+	assert(result)
+	assert(not result.err, result.err)
+
+	if result.err == nil then
+		for _, r in pairs(result.result or {}) do
+			if r.edit then
+				vim.lsp.util.apply_workspace_edit(r.edit, encoding)
+			else
+				client:exec_cmd(r.command)
+			end
+		end
+	end
+end
+
 vim.api.nvim_create_autocmd("LspAttach", {
 	group = vim.api.nvim_create_augroup("my.lsp", {}),
 	callback = function(args)
@@ -21,30 +48,13 @@ vim.api.nvim_create_autocmd("LspAttach", {
 			desc = "Go organize imports on save",
 			pattern = { "*.go" },
 			callback = function()
-				local params = vim.tbl_extend(
-					"force",
-					vim.lsp.util.make_range_params(nil, "utf-8"),
-					{ context = { only = { "source.organizeImports" } } }
-				)
-
-				local result = client:request_sync("textDocument/codeAction", params, 3000)
-
-				for _, res in pairs(result or {}) do
-					if res.error == nil then
-						for _, r in pairs(res.result or {}) do
-							if r.edit then
-								vim.lsp.util.apply_workspace_edit(r.edit, "utf-8")
-							else
-								client:exec_cmd(r.command)
-							end
-						end
-					end
-				end
+				exec_code_action(client, "source.organizeImports")
 			end,
 		})
 
 		if client:supports_method('textDocument/foldingRange') then
 			local win = vim.api.nvim_get_current_win()
+
 			vim.wo[win][0].foldexpr = 'v:lua.vim.lsp.foldexpr()'
 		end
 

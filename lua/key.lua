@@ -1,21 +1,11 @@
--- pum keymaps
--- for lhs, rhs in pairs({
--- 	["<tab>"] = "<c-y>",
--- 	["<c-j>"] = "<c-n>",
--- 	["<c-k>"] = "<c-p>",
--- 	["<cr>"] = "<c-e><cr>",
--- }) do
--- 	vim.keymap.set("i", lhs, function()
--- 		return vim.fn.pumvisible() and rhs or lhs
--- 	end, { expr = true })
--- end
-
-local set = vim.keymap.set
+local set = require("util.keymap").set
 
 -- switch windows
 for _, key in ipairs({ "h", "j", "k", "l" }) do
 	set("n", "<c-" .. key .. ">", "<c-w>" .. key)
 end
+
+set({ "n", "x" }, "0", "^", { noremap = true })
 
 set("n", "<esc>", vim.cmd.nohlsearch)
 
@@ -24,12 +14,11 @@ set("n", ",w", vim.cmd.wa)
 set("n", ",q", vim.cmd.q)
 set("n", "<leader>qq", vim.cmd.qa)
 
-set("n", "L", vim.cmd.bnext, { silent = true })
-set("n", "H", vim.cmd.bprevious, { silent = true })
-set("n", "<leader>bd", vim.cmd.bd)
-set("n", "<leader>bD", function()
-	vim.cmd([[bd!]])
-end)
+set("n", { "L", "<tab>" }, vim.cmd.bnext, { silent = true })
+set("n", { "H", "<s-tab>" }, vim.cmd.bprevious, { silent = true })
+set("n", "<leader>bd", vim.cmd.bd, "buffer delete")
+set("n", "<leader>bD", function() vim.cmd([[bd!]]) end, "buffer delete (force)")
+
 set("n", "<leader>bo", function()
 	local current_buf = vim.fn.bufnr()
 	local current_win = vim.fn.win_getid()
@@ -49,11 +38,11 @@ for _, lhs in pairs({ "gra", "gri", "grn", "grr" }) do
 	pcall(vim.keymap.del, "n", lhs)
 end
 
-set("n", "<leader>ca", vim.lsp.buf.code_action)
+set("n", "<leader>ca", vim.lsp.buf.code_action, "code action")
 
 set("n", "<leader>uh", function()
 	vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
-end)
+end, "inlay hint toggle")
 
 for lhs, scope in pairs({
 	["gd"] = "definition",
@@ -64,37 +53,42 @@ for lhs, scope in pairs({
 	["<leader>fs"] = "document_symbol",
 }) do
 	set("n", lhs, function()
-		MiniExtra.pickers.lsp({ ["scope"] = scope })
-	end)
+		MiniExtra.pickers.lsp({ scope = scope })
+	end, "picker lsp " .. scope)
 end
+
+set("n", "<leader>cr", vim.lsp.buf.rename, "lsp rename")
 
 set("n", "<leader>ud", function()
 	vim.diagnostic.enable(not vim.diagnostic.is_enabled())
-end)
+end, "diagnostic toggle")
 
 set("n", "<leader>sd", function()
 	MiniExtra.pickers.diagnostic()
-end)
+end, "picker diagnostic")
 
-set("n", "<leader>cd", vim.diagnostic.open_float)
+set("n", "<leader>cd", vim.diagnostic.open_float, "diagnostic open float")
 
 set("n", "<leader>sw", function()
 	vim.ui.input({ prompt = "Enter session name: " }, function(input)
 		MiniSessions.write(input)
 	end)
-end)
+end, "session write")
 
-set("n", "<leader>ff", function()
-	MiniPick.builtin.files()
-end)
-set("n", "<leader>fb", function()
-	MiniPick.builtin.buffers()
-end)
-set("n", "<leader>sg", function()
-	MiniPick.builtin.grep_live()
-end)
+set("n", "<leader>fF", function()
+	local path = vim.api.nvim_buf_get_name(0)
+	local cwd = vim.fs.dirname(path)
 
-set({ "n", "x", "v" }, "<leader>y", [["+y]], { desc = "Yank selection to system clipboard" })
+	MiniPick.builtin.files(nil, {
+		source = { cwd = cwd }
+	})
+end, "picker files (buffer cwd)")
+
+set("n", "<leader>ff", function() MiniPick.builtin.files() end, "picker files")
+set("n", "<leader>fb", function() MiniPick.builtin.buffers() end, "picker buffers")
+set("n", "<leader>sg", function() MiniPick.builtin.grep_live() end, "picker grep live")
+
+set({ "n", "x", "v" }, "<leader>y", [["+y]], "yank selection to system clipboard")
 
 -- comments
 set("n", "<c-c>", "gcc<down>", { remap = true })
@@ -107,13 +101,9 @@ set("n", "<leader>uD", function()
 		virtual_text = not config.virtual_text,
 		virtual_lines = not config.virtual_lines,
 	})
-end)
+end, "change diagnostic view")
 
 set("n", "U", vim.cmd.redo, { silent = true })
 
-set("n", "<leader>uh", function()
-	vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
-end)
-
 set("n", "F", "za")
-set("n", "<leader>qs", function() MiniSessions.select("read") end)
+set("n", "<leader>qs", function() MiniSessions.select("read") end, "session picker")
