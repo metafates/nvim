@@ -26,4 +26,7 @@ vim.opt.foldtext = ""
 vim.opt.foldcolumn = "0"
 vim.opt.fillchars:append({ fold = " " })
 
+-- vim.opt.winborder = 'shadow'
+vim.opt.winborder = 'single'
+
 vim.cmd.colorscheme("retrobox")
