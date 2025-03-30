@@ -50,6 +50,8 @@ set("n", "<leader>uh", function()
 	vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
 end, "inlay hint toggle")
 
+set("n", "<leader>un", function() MiniNotify.clear() end, "hide notifications")
+
 for lhs, scope in pairs({
 	["gd"] = "definition",
 	["gD"] = "declaration",

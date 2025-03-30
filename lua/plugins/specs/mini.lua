@@ -12,8 +12,8 @@ local function setup_pick()
 			use_cache = true,
 		},
 		mappings = {
-			move_down = "<C-J>",
-			move_up = "<C-K>",
+			move_down = "<c-j>",
+			move_up = "<c-k>",
 		},
 	})
 
