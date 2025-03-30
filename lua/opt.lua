@@ -18,6 +18,8 @@ vim.opt.signcolumn = 'yes'
 
 vim.opt.completeopt:append({ "fuzzy", "menuone", "preview", "noinsert" })
 
+vim.opt.showmode = false
+
 vim.opt.foldenable = true
 vim.opt.foldlevel = 99
 vim.opt.foldmethod = 'expr'

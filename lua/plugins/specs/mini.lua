@@ -58,10 +58,7 @@ end
 local function setup_notify()
 	require("mini.notify").setup({
 		lsp_progress = {
-			-- Whether to enable showing
 			enable = true,
-
-			-- Duration (in ms) of how long last message should be shown
 			duration_last = 1000,
 		},
 	})
@@ -83,6 +80,18 @@ local function setup_indentscope()
 	})
 end
 
+local function setup_statusline()
+	require("mini.statusline").setup()
+end
+
+local function setup_git()
+	require("mini.git").setup()
+end
+
+local function setup_diff()
+	require("mini.diff").setup()
+end
+
 return {
 	"echasnovski/mini.nvim",
 	version = "*",
@@ -99,5 +108,8 @@ return {
 		setup_extra()
 		setup_bufremove()
 		setup_indentscope()
+		setup_statusline()
+		setup_git()
+		setup_diff()
 	end,
 }
