@@ -21,7 +21,9 @@ local function setup_pick()
 end
 
 local function setup_files()
-	require("mini.files").setup()
+	require("mini.files").setup({
+		windows = { preview = true }
+	})
 end
 
 local function setup_pairs()
