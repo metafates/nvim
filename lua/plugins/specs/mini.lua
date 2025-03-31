@@ -128,6 +128,25 @@ local function setup_hipatterns()
 	})
 end
 
+local function setup_cursorword()
+	require("mini.cursorword").setup()
+end
+
+local function setup_jump2d()
+	require("mini.jump2d").setup({
+		view = {
+			dim = true,
+			n_steps_ahead = 1,
+		},
+		allowed_lines = {
+			blank = false,
+		},
+		mappings = {
+			start_jumping = "",
+		},
+	})
+end
+
 return {
 	"echasnovski/mini.nvim",
 	version = "*",
@@ -150,5 +169,7 @@ return {
 		setup_trailspace()
 		setup_clue()
 		setup_hipatterns()
+		setup_cursorword()
+		setup_jump2d()
 	end,
 }

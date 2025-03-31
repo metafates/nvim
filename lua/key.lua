@@ -2,6 +2,8 @@ local set = require("util.keymap").set
 
 set("n", ";", ":")
 
+set("n", "f", function() MiniJump2d.start(MiniJump2d.builtin_opts.word_start) end)
+
 -- switch windows
 for _, key in ipairs({ "h", "j", "k", "l" }) do
 	set("n", "<c-" .. key .. ">", "<c-w>" .. key)
