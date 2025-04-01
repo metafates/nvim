@@ -28,4 +28,7 @@ require("lazy").setup({
 	install = { colorscheme = { vim.cmd.colorscheme() } },
 	-- automatically check for plugin updates
 	checker = { enabled = true },
+	performance = {
+		rtp = { disabled_plugins = { "netrwPlugin", "tohtml", "matchit" } }
+	}
 })

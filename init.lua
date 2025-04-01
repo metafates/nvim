@@ -1,3 +1,5 @@
+vim.loader.enable()
+
 require("auto")
 require("opt")
 require("key")
