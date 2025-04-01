@@ -25,6 +25,11 @@ local ensure_installed = {
 	"ssh_config",
 	"typst",
 
+	"dockerfile",
+
+	"html",
+	"xml",
+
 	"just",
 	"make",
 }
