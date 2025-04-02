@@ -54,6 +54,30 @@ end, "inlay hint toggle")
 
 set("n", "<leader>un", function() MiniNotify.clear() end, "hide notifications")
 
+set("n", "<leader>uw", function() vim.cmd([[set wrap!]]) end, "toggle wrap")
+
+set("n", "<leader>cc", function()
+	local file_path = vim.api.nvim_buf_get_name(0)
+	local dir_path = vim.fs.dirname(file_path)
+
+	local item = MiniPick.start({
+		source = {
+			name = "Copy to clipboard",
+			items = {
+				{ text = "file path",      value = file_path },
+				{ text = "directory path", value = dir_path },
+			},
+			preview = function(buf_id, item)
+				local lines = vim.split(item.value, '\n')
+				vim.api.nvim_buf_set_lines(buf_id, 0, -1, false, lines)
+			end,
+			choose = function(item)
+				vim.fn.setreg("+", item.value)
+			end,
+		},
+	})
+end, "copy")
+
 for lhs, scope in pairs({
 	["gd"] = "definition",
 	["gD"] = "declaration",

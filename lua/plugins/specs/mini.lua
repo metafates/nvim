@@ -126,6 +126,9 @@ local function setup_hipatterns()
 	require('mini.hipatterns').setup({
 		highlighters = {
 			todo = hi_words({ 'TODO', 'Todo', 'todo' }, 'MiniHipatternsTodo'),
+			note = hi_words({ 'NOTE', 'Note', 'note' }, 'MiniHipatternsNote'),
+			fixme = hi_words({ 'FIXME', 'Fixme', 'fixme' }, 'MiniHipatternsFixme'),
+			hack = hi_words({ 'HACK', 'Hack', 'hack' }, 'MiniHipatternsHack'),
 		},
 	})
 end
