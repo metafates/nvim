@@ -60,12 +60,13 @@ set("n", "<leader>cc", function()
 	local file_path = vim.api.nvim_buf_get_name(0)
 	local dir_path = vim.fs.dirname(file_path)
 
-	local item = MiniPick.start({
+	MiniPick.start({
 		source = {
 			name = "Copy to clipboard",
 			items = {
 				{ text = "file path",      value = file_path },
 				{ text = "directory path", value = dir_path },
+				{ text = "cwd",            value = vim.fn.getcwd() }
 			},
 			preview = function(buf_id, item)
 				local lines = vim.split(item.value, '\n')
@@ -73,6 +74,7 @@ set("n", "<leader>cc", function()
 			end,
 			choose = function(item)
 				vim.fn.setreg("+", item.value)
+				vim.notify(('copied "%s"'):format(item.value))
 			end,
 		},
 	})
