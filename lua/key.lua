@@ -126,7 +126,7 @@ set("n", "<leader>sg", function() MiniPick.builtin.grep_live() end, "picker grep
 
 set("n", "<leader>fe", function()
 	if not MiniFiles.close() then
-		MiniFiles.open()
+		MiniFiles.open(vim.api.nvim_buf_get_name(0), false)
 	end
 end, "files toggle")
 
