@@ -6,7 +6,7 @@ vim.lsp.config("*", {
 			},
 		},
 	},
-	root_markers = { ".git" },
+	root_markers = { ".git", ".arc" },
 })
 
 vim.lsp.enable({ "gopls", "lua_ls", "bash_ls", "rust_analyzer" })
@@ -23,17 +23,23 @@ local function exec_code_action(client, action)
 	)
 
 	local result, err = client:request_sync("textDocument/codeAction", params, 3000)
-	assert(not err, err)
-	assert(result)
-	assert(not result.err, result.err)
+	if err then
+		return
+	end
 
-	if result.err == nil then
-		for _, r in pairs(result.result or {}) do
-			if r.edit then
-				vim.lsp.util.apply_workspace_edit(r.edit, encoding)
-			else
-				client:exec_cmd(r.command)
-			end
+	if not result then
+		return
+	end
+
+	if result.err then
+		return
+	end
+
+	for _, r in pairs(result.result or {}) do
+		if r.edit then
+			vim.lsp.util.apply_workspace_edit(r.edit, encoding)
+		else
+			client:exec_cmd(r.command)
 		end
 	end
 end
