@@ -1,15 +1,7 @@
--- imports order matters
+vim.loader.enable()
 
-local keymap = require("utils.keymap")
-
-keymap.setup_langmap(keymap.langmap.CYRILLIC)
-
-require("autocmd")
-require("globals")
-require("options")
+require("auto")
+require("opt")
+require("key")
+require("lsp")
 require("plugins")
-require("keymap")
-
-if vim.g.neovide then
-	require("gui")
-end
