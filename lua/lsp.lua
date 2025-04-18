@@ -9,7 +9,7 @@ vim.lsp.config("*", {
 	root_markers = { ".git", ".arc" },
 })
 
-vim.lsp.enable({ "gopls", "lua_ls", "bash_ls", "rust_analyzer" })
+vim.lsp.enable({ "gopls", "lua_ls", "bash_ls", "rust_analyzer", "pyright" })
 
 ---@param client vim.lsp.Client
 ---@param action string
@@ -107,7 +107,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		end
 	end,
 })
-
 
 
 vim.diagnostic.config({

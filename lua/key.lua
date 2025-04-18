@@ -66,7 +66,8 @@ set("n", "<leader>cc", function()
 			items = {
 				{ text = "file path",      value = file_path },
 				{ text = "directory path", value = dir_path },
-				{ text = "cwd",            value = vim.fn.getcwd() }
+				{ text = "cwd path",       value = vim.fn.getcwd() },
+				{ text = "buffer lines",   value = table.concat(vim.api.nvim_buf_get_lines(0, 0, -1, false), '\n') }
 			},
 			preview = function(buf_id, item)
 				local lines = vim.split(item.value, '\n')
@@ -74,7 +75,8 @@ set("n", "<leader>cc", function()
 			end,
 			choose = function(item)
 				vim.fn.setreg("+", item.value)
-				vim.notify(('copied "%s"'):format(item.value))
+
+				vim.notify(string.format('copied %s to clipboard', item.text))
 			end,
 		},
 	})
@@ -126,7 +128,12 @@ set("n", "<leader>sg", function() MiniPick.builtin.grep_live() end, "picker grep
 
 set("n", "<leader>fe", function()
 	if not MiniFiles.close() then
-		MiniFiles.open(vim.api.nvim_buf_get_name(0), false)
+		if vim.bo.filetype == "ministarter" then
+			MiniFiles.open(nil, false)
+		else
+			local path = vim.api.nvim_buf_get_name(0)
+			MiniFiles.open(path, false)
+		end
 	end
 end, "files toggle")
 
