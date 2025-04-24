@@ -18,8 +18,8 @@ set("n", ",w", vim.cmd.wa)
 set("n", ",q", vim.cmd.q)
 set("n", "<leader>qq", vim.cmd.qa)
 
-set("n", { "L", "<tab>" }, vim.cmd.bnext, { silent = true })
-set("n", { "H", "<s-tab>" }, vim.cmd.bprevious, { silent = true })
+set("n", "L", vim.cmd.bnext, { silent = true })
+set("n", "H", vim.cmd.bprevious, { silent = true })
 set("n", "<leader>bd", vim.cmd.bd, "buffer delete")
 set("n", "<leader>bD", function() vim.cmd([[bd!]]) end, "buffer delete (force)")
 
@@ -51,6 +51,11 @@ set("n", "<leader>ca", vim.lsp.buf.code_action, "code action")
 set("n", "<leader>uh", function()
 	vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
 end, "inlay hint toggle")
+
+set("n", "<leader>ur", function() vim.cmd([[set rnu!]]) end, "toggle relative line numbers")
+set("n", "<leader>ul", function() vim.cmd([[set nu!]]) end, "toggle line numbers")
+
+set("n", "<leader>uz", require("util.zen").toggle, "toggle zen mode")
 
 set("n", "<leader>un", function() MiniNotify.clear() end, "hide notifications")
 
