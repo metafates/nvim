@@ -9,6 +9,10 @@ vim.opt.scrolloff    = 5
 vim.opt.hlsearch     = true
 vim.opt.breakindent  = true
 
+vim.opt.spell        = true
+vim.opt.spelllang    = "en_us,ru"
+vim.opt.spelloptions = "camel"
+
 vim.opt.autoread     = true
 vim.opt.swapfile     = false
 vim.opt.undofile     = true

@@ -55,6 +55,8 @@ end, "inlay hint toggle")
 set("n", "<leader>ur", function() vim.cmd([[set rnu!]]) end, "toggle relative line numbers")
 set("n", "<leader>ul", function() vim.cmd([[set nu!]]) end, "toggle line numbers")
 
+set("n", "<leader>us", function() vim.cmd([[set spell!]]) end)
+
 set("n", "<leader>uz", require("util.zen").toggle, "toggle zen mode")
 
 set("n", "<leader>un", function() MiniNotify.clear() end, "hide notifications")

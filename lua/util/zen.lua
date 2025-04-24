@@ -1,6 +1,5 @@
 local M = {}
 
-
 local prev = {}
 
 local zen = {
@@ -17,6 +16,7 @@ local zen = {
 	ruler = false,
 	showcmd = false,
 }
+
 
 function M.toggle()
 	if not vim.g.zen then
