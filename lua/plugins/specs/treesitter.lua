@@ -28,6 +28,7 @@ local ensure_installed = {
 	"dockerfile",
 
 	"html",
+	"css",
 	"xml",
 
 	"just",
