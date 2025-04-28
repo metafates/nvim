@@ -16,7 +16,7 @@ set("n", "<esc>", vim.cmd.nohlsearch)
 set("i", "jk", "<esc>")
 set("n", ",w", vim.cmd.wa)
 set("n", ",q", vim.cmd.q)
-set("n", "<leader>qq", vim.cmd.qa)
+set("n", "<leader>qq", vim.cmd.qa, "exit")
 
 set("n", "L", vim.cmd.bnext, { silent = true })
 set("n", "H", vim.cmd.bprevious, { silent = true })
@@ -114,12 +114,6 @@ end, "picker diagnostic")
 
 set("n", "<leader>cd", vim.diagnostic.open_float, "diagnostic open float")
 
-set("n", "<leader>sw", function()
-	vim.ui.input({ prompt = "Enter session name: " }, function(input)
-		MiniSessions.write(input)
-	end)
-end, "session write")
-
 set("n", "<leader>fF", function()
 	local path = vim.api.nvim_buf_get_name(0)
 	local cwd = vim.fs.dirname(path)
@@ -163,3 +157,9 @@ set("n", "U", vim.cmd.redo, { silent = true })
 
 set("n", "F", "za")
 set("n", "<leader>qs", function() MiniSessions.select("read") end, "session picker")
+
+set("n", "<leader>qw", function()
+	vim.ui.input({ prompt = "Enter session name: " }, function(input)
+		MiniSessions.write(input)
+	end)
+end, "session write")

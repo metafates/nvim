@@ -29,6 +29,7 @@ return {
 			diagnostics = { globals = { 'vim' } },
 			workspace = { library = library },
 			telemetry = { enable = false },
+			hint = { enable = true }
 		}
 	}
 }
