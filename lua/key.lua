@@ -63,6 +63,16 @@ set("n", "<leader>un", function() MiniNotify.clear() end, "hide notifications")
 
 set("n", "<leader>uw", function() vim.cmd([[set wrap!]]) end, "toggle wrap")
 
+set("n", "<leader>ub", function()
+	if vim.o.background == "dark" then
+		vim.o.background = "light"
+	else
+		vim.o.background = "dark"
+	end
+end, "toggle background")
+
+set("n", "<leader>uc", function() vim.cmd([[set cursorline!]]) end, "toggle cursorline")
+
 set("n", "<leader>cc", function()
 	local file_path = vim.api.nvim_buf_get_name(0)
 	local dir_path = vim.fs.dirname(file_path)
@@ -123,9 +133,12 @@ set("n", "<leader>fF", function()
 	})
 end, "picker files (buffer cwd)")
 
+
 set("n", "<leader>ff", function() MiniPick.builtin.files() end, "picker files")
 set("n", "<leader>fb", function() MiniPick.builtin.buffers() end, "picker buffers")
 set("n", "<leader>sg", function() MiniPick.builtin.grep_live() end, "picker grep live")
+set("n", "<leader>sk", function() MiniExtra.pickers.keymaps() end, "picker keymap")
+set("n", "<leader>sn", function() MiniNotify.show_history() end, "show notify history")
 
 set("n", "<leader>fe", function()
 	if not MiniFiles.close() then
