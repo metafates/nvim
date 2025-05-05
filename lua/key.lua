@@ -16,7 +16,7 @@ set("n", "<esc>", vim.cmd.nohlsearch)
 set("i", "jk", "<esc>")
 set("n", ",w", vim.cmd.wa)
 set("n", ",q", vim.cmd.q)
-set("n", "<leader>qq", vim.cmd.qa)
+set("n", "<leader>qq", vim.cmd.qa, "exit")
 
 set("n", "L", vim.cmd.bnext, { silent = true })
 set("n", "H", vim.cmd.bprevious, { silent = true })
@@ -62,6 +62,16 @@ set("n", "<leader>uz", require("util.zen").toggle, "toggle zen mode")
 set("n", "<leader>un", function() MiniNotify.clear() end, "hide notifications")
 
 set("n", "<leader>uw", function() vim.cmd([[set wrap!]]) end, "toggle wrap")
+
+set("n", "<leader>ub", function()
+	if vim.o.background == "dark" then
+		vim.o.background = "light"
+	else
+		vim.o.background = "dark"
+	end
+end, "toggle background")
+
+set("n", "<leader>uc", function() vim.cmd([[set cursorline!]]) end, "toggle cursorline")
 
 set("n", "<leader>cc", function()
 	local file_path = vim.api.nvim_buf_get_name(0)
@@ -114,12 +124,6 @@ end, "picker diagnostic")
 
 set("n", "<leader>cd", vim.diagnostic.open_float, "diagnostic open float")
 
-set("n", "<leader>sw", function()
-	vim.ui.input({ prompt = "Enter session name: " }, function(input)
-		MiniSessions.write(input)
-	end)
-end, "session write")
-
 set("n", "<leader>fF", function()
 	local path = vim.api.nvim_buf_get_name(0)
 	local cwd = vim.fs.dirname(path)
@@ -129,9 +133,12 @@ set("n", "<leader>fF", function()
 	})
 end, "picker files (buffer cwd)")
 
+
 set("n", "<leader>ff", function() MiniPick.builtin.files() end, "picker files")
 set("n", "<leader>fb", function() MiniPick.builtin.buffers() end, "picker buffers")
 set("n", "<leader>sg", function() MiniPick.builtin.grep_live() end, "picker grep live")
+set("n", "<leader>sk", function() MiniExtra.pickers.keymaps() end, "picker keymap")
+set("n", "<leader>sn", function() MiniNotify.show_history() end, "show notify history")
 
 set("n", "<leader>fe", function()
 	if not MiniFiles.close() then
@@ -163,3 +170,9 @@ set("n", "U", vim.cmd.redo, { silent = true })
 
 set("n", "F", "za")
 set("n", "<leader>qs", function() MiniSessions.select("read") end, "session picker")
+
+set("n", "<leader>qw", function()
+	vim.ui.input({ prompt = "Enter session name: " }, function(input)
+		MiniSessions.write(input)
+	end)
+end, "session write")

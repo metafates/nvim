@@ -9,7 +9,11 @@ vim.lsp.config("*", {
 	root_markers = { ".git", ".arc" },
 })
 
-vim.lsp.enable({ "gopls", "lua_ls", "bash_ls", "rust_analyzer", "pyright" })
+-- load all lsp configs from lsp/
+for path in vim.fs.dir(vim.fs.joinpath(vim.fn.stdpath("config"), "lsp")) do
+	local name = vim.fn.fnamemodify(path, ':t:r')
+	vim.lsp.enable(name)
+end
 
 vim.diagnostic.config({
 	virtual_text = true,
