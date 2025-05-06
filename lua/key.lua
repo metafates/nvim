@@ -34,7 +34,7 @@ set("n", "<leader>bo", function()
 
 	for _, buf in ipairs(bufs) do
 		if buf.bufnr ~= current_buf then
-			MiniBufremove.delete(buf.bufnr)
+			pcall(MiniBufremove.delete, buf.bufnr)
 		end
 	end
 
@@ -77,15 +77,23 @@ set("n", "<leader>cc", function()
 	local file_path = vim.api.nvim_buf_get_name(0)
 	local dir_path = vim.fs.dirname(file_path)
 
+	local items = {
+		{ text = "file path",      value = file_path },
+		{ text = "directory path", value = dir_path },
+		{ text = "cwd path",       value = vim.fn.getcwd() },
+		{ text = "buffer lines",   value = table.concat(vim.api.nvim_buf_get_lines(0, 0, -1, false), '\n') }
+	}
+
+	local diagnostic = require("util.diagnostic").get_under_cursor()
+
+	if diagnostic then
+		table.insert(items, { text = "copy diagnostic under cursor", value = diagnostic })
+	end
+
 	MiniPick.start({
 		source = {
 			name = "Copy to clipboard",
-			items = {
-				{ text = "file path",      value = file_path },
-				{ text = "directory path", value = dir_path },
-				{ text = "cwd path",       value = vim.fn.getcwd() },
-				{ text = "buffer lines",   value = table.concat(vim.api.nvim_buf_get_lines(0, 0, -1, false), '\n') }
-			},
+			items = items,
 			preview = function(buf_id, item)
 				local lines = vim.split(item.value, '\n')
 				vim.api.nvim_buf_set_lines(buf_id, 0, -1, false, lines)
@@ -106,6 +114,7 @@ for lhs, scope in pairs({
 	["gr"] = "references",
 	["gy"] = "type_definition",
 	["<leader>fs"] = "document_symbol",
+	["<leader>fS"] = "workspace_symbol",
 }) do
 	set("n", lhs, function()
 		MiniExtra.pickers.lsp({ scope = scope })
@@ -154,8 +163,8 @@ end, "files toggle")
 set({ "n", "x", "v" }, "<leader>y", [["+y]], "yank selection to system clipboard")
 
 -- comments
-set("n", "<c-c>", "gcc<down>", { remap = true })
-set("v", "<c-c>", "gc", { remap = true })
+set("n", "<c-c>", "gcc<down>", { remap = true, desc = "comment line" })
+set("v", "<c-c>", "gc", { remap = true, desc = "comment line" })
 
 set("n", "<leader>uD", function()
 	local config = assert(vim.diagnostic.config())
@@ -168,11 +177,13 @@ end, "change diagnostic view")
 
 set("n", "U", vim.cmd.redo, { silent = true })
 
-set("n", "F", "za")
+set("n", "F", "za", "toggle fold")
 set("n", "<leader>qs", function() MiniSessions.select("read") end, "session picker")
 
 set("n", "<leader>qw", function()
 	vim.ui.input({ prompt = "Enter session name: " }, function(input)
+		if not input then return end
+
 		MiniSessions.write(input)
 	end)
 end, "session write")
