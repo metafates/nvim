@@ -7,6 +7,10 @@ local ensure_installed = {
 	"markdown",
 	"markdown_inline",
 	"gitignore",
+	"git_config",
+	"gitcommit",
+	"git_rebase",
+	"gitattributes",
 
 	"go",
 	"gomod",
