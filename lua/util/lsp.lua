@@ -6,11 +6,8 @@ local M = {}
 function M.exec_code_action(client, action, timeout_ms)
 	local encoding = "utf-8"
 
-	local params = vim.tbl_extend(
-		"force",
-		vim.lsp.util.make_range_params(nil, encoding),
-		{ context = { only = { action } } }
-	)
+	local params =
+		vim.tbl_extend("force", vim.lsp.util.make_range_params(nil, encoding), { context = { only = { action } } })
 
 	local result, err = client:request_sync("textDocument/codeAction", params, timeout_ms or 3000)
 	if err then

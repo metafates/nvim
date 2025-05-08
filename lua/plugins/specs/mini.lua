@@ -22,14 +22,14 @@ end
 
 local function setup_files()
 	require("mini.files").setup({
-		windows = { preview = true }
+		windows = { preview = true },
 	})
 end
 
 local function setup_pairs()
 	require("mini.pairs").setup({
 		mappings = {
-			[' '] = { action = 'open', pair = '  ', neigh_pattern = '[%(%[{][%)%]}]' },
+			[" "] = { action = "open", pair = "  ", neigh_pattern = "[%(%[{][%)%]}]" },
 		},
 	})
 end
@@ -37,9 +37,9 @@ end
 local function setup_tabline()
 	require("mini.tabline").setup({
 		format = function(buf_id, label)
-			local suffix = vim.bo[buf_id].modified and '+ ' or ''
+			local suffix = vim.bo[buf_id].modified and "+ " or ""
 			return MiniTabline.default_format(buf_id, label) .. suffix
-		end
+		end,
 	})
 end
 
@@ -74,7 +74,7 @@ end
 
 local function setup_indentscope()
 	require("mini.indentscope").setup({
-		symbol = "▏"
+		symbol = "▏",
 	})
 end
 
@@ -88,7 +88,7 @@ end
 
 local function setup_diff()
 	require("mini.diff").setup({
-		view = { style = "sign" }
+		view = { style = "sign" },
 	})
 end
 
@@ -102,15 +102,15 @@ local function setup_clue()
 	clue.setup({
 		window = {
 			delay = 0,
-			config = { width = "auto" }
+			config = { width = "auto" },
 		},
 
 		triggers = {
-			{ mode = 'n', keys = '<leader>' },
-			{ mode = 'v', keys = '<leader>' },
-			{ mode = 'x', keys = '<leader>' },
+			{ mode = "n", keys = "<leader>" },
+			{ mode = "v", keys = "<leader>" },
+			{ mode = "x", keys = "<leader>" },
 
-			{ mode = 'n', keys = '<c-w>' },
+			{ mode = "n", keys = "<c-w>" },
 		},
 
 		clues = {
@@ -121,14 +121,14 @@ local function setup_clue()
 end
 
 local function setup_hipatterns()
-	local hi_words = require('mini.extra').gen_highlighter.words
+	local hi_words = require("mini.extra").gen_highlighter.words
 
-	require('mini.hipatterns').setup({
+	require("mini.hipatterns").setup({
 		highlighters = {
-			todo = hi_words({ 'TODO', 'Todo', 'todo' }, 'MiniHipatternsTodo'),
-			note = hi_words({ 'NOTE', 'Note', 'note' }, 'MiniHipatternsNote'),
-			fixme = hi_words({ 'FIXME', 'Fixme', 'fixme' }, 'MiniHipatternsFixme'),
-			hack = hi_words({ 'HACK', 'Hack', 'hack' }, 'MiniHipatternsHack'),
+			todo = hi_words({ "TODO", "Todo", "todo" }, "MiniHipatternsTodo"),
+			note = hi_words({ "NOTE", "Note", "note" }, "MiniHipatternsNote"),
+			fixme = hi_words({ "FIXME", "Fixme", "fixme" }, "MiniHipatternsFixme"),
+			hack = hi_words({ "HACK", "Hack", "hack" }, "MiniHipatternsHack"),
 		},
 	})
 end

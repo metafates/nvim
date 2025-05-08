@@ -17,7 +17,6 @@ local zen = {
 	showcmd = false,
 }
 
-
 function M.toggle()
 	if not vim.g.zen then
 		for name, value in pairs(zen) do

@@ -9,7 +9,7 @@ local root_markers = {
 }
 
 local library = {
-	["${3rd}/luv/library"] = true
+	["${3rd}/luv/library"] = true,
 }
 
 for _, file in ipairs(vim.api.nvim_get_runtime_file("lua/", true)) do
@@ -24,12 +24,12 @@ return {
 	settings = {
 		Lua = {
 			runtime = {
-				version = 'LuaJIT',
+				version = "LuaJIT",
 			},
-			diagnostics = { globals = { 'vim' } },
+			diagnostics = { globals = { "vim" } },
 			workspace = { library = library },
 			telemetry = { enable = false },
-			hint = { enable = true }
-		}
-	}
+			hint = { enable = true },
+		},
+	},
 }

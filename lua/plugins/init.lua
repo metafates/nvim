@@ -10,7 +10,7 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 	if out.code ~= 0 then
 		vim.api.nvim_echo({
 			{ "Failed to clone lazy.nvim:\n", "ErrorMsg" },
-			{ out,                            "WarningMsg" },
+			{ out, "WarningMsg" },
 			{ "\nPress any key to exit..." },
 		}, true, {})
 
@@ -32,6 +32,6 @@ require("lazy").setup({
 	-- automatically check for plugin updates
 	checker = { enabled = true },
 	performance = {
-		rtp = { disabled_plugins = { "netrwPlugin", "tohtml", "matchit" } }
-	}
+		rtp = { disabled_plugins = { "netrwPlugin", "tohtml", "matchit" } },
+	},
 })

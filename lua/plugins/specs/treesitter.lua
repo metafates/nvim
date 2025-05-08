@@ -45,7 +45,7 @@ return {
 	opts = {
 		highlight = { enable = true },
 		indent = { enable = true },
-		ensure_installed = ensure_installed
+		ensure_installed = ensure_installed,
 	},
 	config = function(_, opts)
 		require("nvim-treesitter.configs").setup(opts)

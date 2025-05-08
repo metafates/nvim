@@ -11,7 +11,7 @@ vim.lsp.config("*", {
 
 -- load all lsp configs from lsp/
 for path in vim.fs.dir(vim.fs.joinpath(vim.fn.stdpath("config"), "lsp")) do
-	local name = vim.fn.fnamemodify(path, ':t:r')
+	local name = vim.fn.fnamemodify(path, ":t:r")
 	vim.lsp.enable(name)
 end
 

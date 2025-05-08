@@ -2,7 +2,9 @@ local set = require("util.keymap").set
 
 set("n", ";", ":")
 
-set("n", "f", function() MiniJump2d.start(MiniJump2d.builtin_opts.word_start) end)
+set("n", "f", function()
+	MiniJump2d.start(MiniJump2d.builtin_opts.word_start)
+end)
 
 -- switch windows
 for _, key in ipairs({ "h", "j", "k", "l" }) do
@@ -21,11 +23,17 @@ set("n", "<leader>qq", vim.cmd.qa, "exit")
 set("n", "L", vim.cmd.bnext, { silent = true })
 set("n", "H", vim.cmd.bprevious, { silent = true })
 set("n", "<leader>bd", vim.cmd.bd, "buffer delete")
-set("n", "<leader>bD", function() vim.cmd([[bd!]]) end, "buffer delete (force)")
+set("n", "<leader>bD", function()
+	vim.cmd([[bd!]])
+end, "buffer delete (force)")
 
-set("n", "<leader>sk", function() MiniExtra.pickers.keymaps() end, "picker keymaps")
+set("n", "<leader>sk", function()
+	MiniExtra.pickers.keymaps()
+end, "picker keymaps")
 
-set("n", "<leader>bz", function() MiniMisc.zoom() end, "zoom")
+set("n", "<leader>bz", function()
+	MiniMisc.zoom()
+end, "zoom")
 
 set("n", "<leader>bo", function()
 	local current_buf = vim.fn.bufnr()
@@ -52,16 +60,26 @@ set("n", "<leader>uh", function()
 	vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
 end, "inlay hint toggle")
 
-set("n", "<leader>ur", function() vim.cmd([[set rnu!]]) end, "toggle relative line numbers")
-set("n", "<leader>ul", function() vim.cmd([[set nu!]]) end, "toggle line numbers")
+set("n", "<leader>ur", function()
+	vim.cmd([[set rnu!]])
+end, "toggle relative line numbers")
+set("n", "<leader>ul", function()
+	vim.cmd([[set nu!]])
+end, "toggle line numbers")
 
-set("n", "<leader>us", function() vim.cmd([[set spell!]]) end)
+set("n", "<leader>us", function()
+	vim.cmd([[set spell!]])
+end)
 
 set("n", "<leader>uz", require("util.zen").toggle, "toggle zen mode")
 
-set("n", "<leader>un", function() MiniNotify.clear() end, "hide notifications")
+set("n", "<leader>un", function()
+	MiniNotify.clear()
+end, "hide notifications")
 
-set("n", "<leader>uw", function() vim.cmd([[set wrap!]]) end, "toggle wrap")
+set("n", "<leader>uw", function()
+	vim.cmd([[set wrap!]])
+end, "toggle wrap")
 
 set("n", "<leader>ub", function()
 	if vim.o.background == "dark" then
@@ -71,17 +89,19 @@ set("n", "<leader>ub", function()
 	end
 end, "toggle background")
 
-set("n", "<leader>uc", function() vim.cmd([[set cursorline!]]) end, "toggle cursorline")
+set("n", "<leader>uc", function()
+	vim.cmd([[set cursorline!]])
+end, "toggle cursorline")
 
 set("n", "<leader>cc", function()
 	local file_path = vim.api.nvim_buf_get_name(0)
 	local dir_path = vim.fs.dirname(file_path)
 
 	local items = {
-		{ text = "file path",      value = file_path },
+		{ text = "file path", value = file_path },
 		{ text = "directory path", value = dir_path },
-		{ text = "cwd path",       value = vim.fn.getcwd() },
-		{ text = "buffer lines",   value = table.concat(vim.api.nvim_buf_get_lines(0, 0, -1, false), '\n') }
+		{ text = "cwd path", value = vim.fn.getcwd() },
+		{ text = "buffer lines", value = table.concat(vim.api.nvim_buf_get_lines(0, 0, -1, false), "\n") },
 	}
 
 	local diagnostic = require("util.diagnostic").get_under_cursor()
@@ -95,13 +115,13 @@ set("n", "<leader>cc", function()
 			name = "Copy to clipboard",
 			items = items,
 			preview = function(buf_id, item)
-				local lines = vim.split(item.value, '\n')
+				local lines = vim.split(item.value, "\n")
 				vim.api.nvim_buf_set_lines(buf_id, 0, -1, false, lines)
 			end,
 			choose = function(item)
 				vim.fn.setreg("+", item.value)
 
-				vim.notify(string.format('copied %s to clipboard', item.text))
+				vim.notify(string.format("copied %s to clipboard", item.text))
 			end,
 		},
 	})
@@ -138,16 +158,25 @@ set("n", "<leader>fF", function()
 	local cwd = vim.fs.dirname(path)
 
 	MiniPick.builtin.files(nil, {
-		source = { cwd = cwd }
+		source = { cwd = cwd },
 	})
 end, "picker files (buffer cwd)")
 
-
-set("n", "<leader>ff", function() MiniPick.builtin.files() end, "picker files")
-set("n", "<leader>fb", function() MiniPick.builtin.buffers() end, "picker buffers")
-set("n", "<leader>sg", function() MiniPick.builtin.grep_live() end, "picker grep live")
-set("n", "<leader>sk", function() MiniExtra.pickers.keymaps() end, "picker keymap")
-set("n", "<leader>sn", function() MiniNotify.show_history() end, "show notify history")
+set("n", "<leader>ff", function()
+	MiniPick.builtin.files()
+end, "picker files")
+set("n", "<leader>fb", function()
+	MiniPick.builtin.buffers()
+end, "picker buffers")
+set("n", "<leader>sg", function()
+	MiniPick.builtin.grep_live()
+end, "picker grep live")
+set("n", "<leader>sk", function()
+	MiniExtra.pickers.keymaps()
+end, "picker keymap")
+set("n", "<leader>sn", function()
+	MiniNotify.show_history()
+end, "show notify history")
 
 set("n", "<leader>fe", function()
 	if not MiniFiles.close() then
@@ -178,11 +207,15 @@ end, "change diagnostic view")
 set("n", "U", vim.cmd.redo, { silent = true })
 
 set("n", "F", "za", "toggle fold")
-set("n", "<leader>qs", function() MiniSessions.select("read") end, "session picker")
+set("n", "<leader>qs", function()
+	MiniSessions.select("read")
+end, "session picker")
 
 set("n", "<leader>qw", function()
 	vim.ui.input({ prompt = "Enter session name: " }, function(input)
-		if not input then return end
+		if not input then
+			return
+		end
 
 		MiniSessions.write(input)
 	end)

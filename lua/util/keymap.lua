@@ -1,6 +1,5 @@
 local M = {}
 
-
 -- Defines a |mapping| of |keycodes| to a function or keycodes.
 ---@param mode string|string[] Mode "short-name" (see |nvim_set_keymap()|), or a list thereof.
 ---@param lhs string|string[]  Left-hand side |{lhs}| of the mapping.
