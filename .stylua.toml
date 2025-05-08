@@ -1,2 +1,1 @@
-[sort_requires]
-enabled = true
+syntax = "LuaJIT"
