@@ -241,3 +241,6 @@ end, { desc = "toggle lazygit", noremap = true, silent = true })
 set({ "n", "v" }, "<leader>g", function()
 	MiniGit.show_at_cursor()
 end)
+
+set({ "n", "v" }, "gh", "^")
+set({ "n", "v" }, "gl", "$")

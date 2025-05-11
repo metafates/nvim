@@ -89,6 +89,11 @@ end
 local function setup_diff()
 	require("mini.diff").setup({
 		view = { style = "sign" },
+
+		mappings = {
+			apply = "",
+			textobject = "",
+		},
 	})
 end
 
