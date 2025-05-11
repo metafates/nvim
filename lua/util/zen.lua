@@ -27,6 +27,9 @@ local zen = {
 		neovide_padding_bottom = 50,
 		neovide_padding_right = 50,
 		neovide_padding_left = 50,
+		neovide_opacity = 1,
+		transparency = 1,
+		neovide_window_blurred = false,
 	},
 }
 
