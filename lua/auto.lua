@@ -63,3 +63,10 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		end
 	end,
 })
+
+vim.api.nvim_create_autocmd("TermEnter", {
+	pattern = "term://*toggleterm#*",
+	callback = function(_)
+		vim.opt_local.spell = false
+	end,
+})

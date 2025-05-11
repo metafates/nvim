@@ -151,7 +151,7 @@ set("n", "<leader>sd", function()
 	MiniExtra.pickers.diagnostic()
 end, "picker diagnostic")
 
-set("n", "<leader>cd", vim.diagnostic.open_float, "diagnostic open float")
+set("n", "<leader>d", vim.diagnostic.open_float, "diagnostic open float")
 
 set("n", "<leader>fF", function()
 	local path = vim.api.nvim_buf_get_name(0)
@@ -220,3 +220,20 @@ set("n", "<leader>qw", function()
 		MiniSessions.write(input)
 	end)
 end, "session write")
+
+---@type Terminal?
+local lazygit_terminal
+
+set({ "n", "t" }, "<D-g>", function()
+	if not lazygit_terminal then
+		local Terminal = require("toggleterm.terminal").Terminal
+
+		lazygit_terminal = Terminal:new({
+			cmd = "lazygit",
+			display_name = "Lazygit",
+			hidden = true,
+		})
+	end
+
+	lazygit_terminal:toggle()
+end, { desc = "toggle lazygit", noremap = true, silent = true })
