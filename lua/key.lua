@@ -69,9 +69,9 @@ end, "toggle line numbers")
 
 set("n", "<leader>us", function()
 	vim.cmd([[set spell!]])
-end)
+end, "toggle spell")
 
-set("n", "<leader>uz", require("util.zen").toggle, "toggle zen mode")
+set("n", { "<leader>uz", "<D-z>" }, require("util.zen").toggle, "toggle zen mode")
 
 set("n", "<leader>un", function()
 	MiniNotify.clear()
@@ -237,3 +237,7 @@ set({ "n", "t" }, "<D-g>", function()
 
 	lazygit_terminal:toggle()
 end, { desc = "toggle lazygit", noremap = true, silent = true })
+
+set({ "n", "v" }, "<leader>g", function()
+	MiniGit.show_at_cursor()
+end)
