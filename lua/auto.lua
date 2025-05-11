@@ -70,3 +70,12 @@ vim.api.nvim_create_autocmd("TermEnter", {
 		vim.opt_local.spell = false
 	end,
 })
+
+vim.api.nvim_create_autocmd("BufEnter", {
+	pattern = "minigit://*",
+	callback = function(args)
+		vim.opt_local.spell = false
+
+		require("util.keymap").set("n", "q", "<cmd>bd<cr>", { buffer = args.buf })
+	end,
+})
