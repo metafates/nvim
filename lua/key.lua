@@ -207,9 +207,14 @@ end, "change diagnostic view")
 set("n", "U", vim.cmd.redo, { silent = true })
 
 set("n", "F", "za", "toggle fold")
+
 set("n", "<leader>qs", function()
 	MiniSessions.select("read")
 end, "session picker")
+
+set("n", "<leader>qd", function()
+	MiniSessions.select("delete")
+end, "session delete")
 
 set("n", "<leader>qw", function()
 	vim.ui.input({ prompt = "Enter session name: " }, function(input)
