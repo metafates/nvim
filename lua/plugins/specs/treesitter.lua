@@ -11,6 +11,7 @@ local ensure_installed = {
 	"gitcommit",
 	"git_rebase",
 	"gitattributes",
+	"python",
 
 	"go",
 	"gomod",
