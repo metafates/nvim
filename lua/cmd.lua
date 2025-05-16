@@ -1,4 +1,6 @@
-vim.api.nvim_create_user_command("SetFiletype", function(opts)
+-- got too used to it in helix =)
+
+vim.api.nvim_create_user_command("Lang", function(opts)
 	if opts.fargs[1] then
 		vim.bo.filetype = opts.fargs[1]
 		return
