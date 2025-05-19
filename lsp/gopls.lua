@@ -11,6 +11,8 @@ return {
 				string = false,
 				number = false,
 			},
+			noSemanticString = true,
+			noSemanticNumber = true,
 			gofumpt = true,
 			usePlaceholders = false,
 			staticcheck = true,

@@ -2,10 +2,9 @@ vim.g.neovide_remember_window_size = true
 vim.g.neovide_input_macos_option_key_is_meta = "both"
 vim.g.neovide_cursor_smooth_blink = true
 vim.g.neovide_refresh_rate = 160
-vim.g.neovide_opacity = 0.9
-vim.g.transparency = 0.9
-vim.g.neovide_window_blurred = true
-vim.g.neovide_show_border = true
+-- vim.g.neovide_opacity = 0.9
+-- vim.g.transparency = 0.9
+-- vim.g.neovide_window_blurred = true
 
 vim.opt.guicursor = "n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,i-ci-ve-r-cr-o:blinkwait700-blinkoff400-blinkon175"
 
