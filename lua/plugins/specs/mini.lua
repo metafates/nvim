@@ -182,7 +182,7 @@ return {
 		setup_diff()
 		setup_trailspace()
 		setup_clue()
-		setup_hipatterns()
+		-- setup_hipatterns()
 		setup_cursorword()
 		setup_jump2d()
 		setup_surround()
