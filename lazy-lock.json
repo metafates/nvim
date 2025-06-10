@@ -7,5 +7,5 @@
   "nvim-dap-go": { "branch": "main", "commit": "8763ced35b19c8dc526e04a70ab07c34e11ad064" },
   "nvim-treesitter": { "branch": "master", "commit": "42fc28ba918343ebfd5565147a42a26580579482" },
   "toggleterm.nvim": { "branch": "main", "commit": "9a88eae817ef395952e08650b3283726786fb5fb" },
-  "treewalker.nvim": { "branch": "main", "commit": "3f5f7b0712444276cbcdbdacb6264ee1ad1b4713" }
+  "treewalker.nvim": { "branch": "main", "commit": "cfae49dedd041dbe867c2b3d0b081fc381a735e9" }
 }
