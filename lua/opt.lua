@@ -11,7 +11,7 @@ vim.opt.hlsearch = true
 vim.opt.breakindent = true
 
 vim.opt.spell = true
-vim.opt.spelllang = "en,ru"
+vim.opt.spelllang = "en_us,en-extra,ru"
 vim.opt.spelloptions = "camel"
 
 vim.opt.autoread = true
