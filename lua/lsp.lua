@@ -6,7 +6,7 @@ vim.lsp.config("*", {
 			},
 		},
 	},
-	root_markers = { ".git", ".arc" },
+	root_markers = { ".git" },
 })
 
 -- load all lsp configs from lsp/
