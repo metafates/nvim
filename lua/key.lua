@@ -23,6 +23,7 @@ set("n", "<leader>qq", vim.cmd.qa, "exit")
 set("n", "L", vim.cmd.bnext, { silent = true })
 set("n", "H", vim.cmd.bprevious, { silent = true })
 set("n", "<leader>bd", vim.cmd.bd, "buffer delete")
+
 set("n", "<leader>bD", function()
 	vim.cmd([[bd!]])
 end, "buffer delete (force)")

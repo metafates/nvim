@@ -1,3 +1,5 @@
+local prettier = { "prettierd", "prettier", stop_after_first = true }
+
 return {
 	"stevearc/conform.nvim",
 	opts = {
@@ -6,6 +8,8 @@ return {
 			sh = { "shfmt" },
 			python = { "black" },
 			typst = { "typstyle" },
+			json = prettier,
+			yaml = prettier,
 		},
 		format_on_save = {
 			-- These options will be passed to conform.format()

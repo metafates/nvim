@@ -132,7 +132,6 @@ local function setup_clue()
 			{ mode = "n", keys = "<leader>" },
 			{ mode = "v", keys = "<leader>" },
 			{ mode = "x", keys = "<leader>" },
-
 			{ mode = "n", keys = "<c-w>" },
 		},
 
