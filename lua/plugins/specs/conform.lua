@@ -8,13 +8,9 @@ return {
 			sh = { "shfmt" },
 			python = { "black" },
 			typst = { "typstyle" },
+			markdown = { "markdownlint" },
 			json = prettier,
 			yaml = prettier,
-		},
-		format_on_save = {
-			-- These options will be passed to conform.format()
-			timeout_ms = 500,
-			lsp_format = "fallback",
 		},
 	},
 }

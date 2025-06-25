@@ -5,9 +5,18 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 })
 
 vim.api.nvim_create_autocmd("BufWritePre", {
-	callback = function()
+	callback = function(args)
 		MiniTrailspace.trim_last_lines()
 		MiniTrailspace.trim()
+
+		require("conform").format({ bufnr = args.buf, timeout_ms = 500, lsp_format = "fallback" })
+		require("lint").try_lint()
+	end,
+})
+
+vim.api.nvim_create_autocmd("BufEnter", {
+	callback = function()
+		require("lint").try_lint()
 	end,
 })
 
