@@ -2,7 +2,7 @@ local function setup_misc()
 	require("mini.misc").setup()
 
 	MiniMisc.setup_auto_root()
-	-- MiniMisc.setup_termbg_sync()
+	MiniMisc.setup_termbg_sync()
 	MiniMisc.setup_restore_cursor()
 end
 
@@ -47,19 +47,7 @@ local function setup_starter()
 	require("mini.starter").setup({
 		evaluate_single = true,
 		footer = "",
-		header = [[
-⢹⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣀⣤⣴⣶⣶⣶⣶⣦⣄
-⠀⢻⣿⣿⣶⣶⣦⣤⣤⣤⣤⣤⣶⣾⣿⣿⠿⠛⢋⣿⣿⣿⣿⡛⢿⣷⣄⠀⠀⠀
-⠀⠀⣿⣿⣿⡿⢿⣿⣿⣿⣿⣿⣿⣭⣁⡀⠀⠀⠸⣿⣿⣿⣿⠇⠀⣘⣿⣿⣦⡄
-⠀⠀⠁⠀⠀⠀⠀⠀⠀⠀⠉⠉⠛⠿⢿⣿⣿⣶⣶⣿⣿⣿⣿⣶⣿⣿⡿⠿⠿⣇
-⠀⠀⠀⠀⠀⠀⠐⣶⣤⡀⠀⠀⠀⠀⠀⠀⠉⠙⠛⣻⣿⣿⣿⡟⠉⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⢀⣶⡿⠿⢿⣿⡆⠀⠀⠀⠀⠀⠀⣀⣴⣿⣿⢿⣿⡅⢸⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⣿⡏⠀⠀⠀⢹⠇⠀⠀⠀⢀⣠⣾⣿⡿⠋⠁⢸⣿⣿⡟⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⢿⣷⡀⠀⠔⠋⢀⣀⣤⣶⣿⡿⠛⠁⠀⠀⠀⢸⣿⡟⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠙⠿⠿⣿⣿⡿⠿⠟⠋⠁⠀⠀⠀⠀⠀⠀⢸⣿⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⣿⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡿⠿⠆⠀⠀⠀⠀⠀⠀
-]],
+		header = "",
 	})
 end
 
@@ -102,8 +90,6 @@ end
 
 local function setup_diff()
 	require("mini.diff").setup({
-		view = { style = "sign" },
-
 		mappings = {
 			apply = "",
 			textobject = "",
@@ -138,19 +124,6 @@ local function setup_clue()
 		clues = {
 			clue.gen_clues.builtin_completion(),
 			clue.gen_clues.windows(),
-		},
-	})
-end
-
-local function setup_hipatterns()
-	local hi_words = require("mini.extra").gen_highlighter.words
-
-	require("mini.hipatterns").setup({
-		highlighters = {
-			todo = hi_words({ "TODO" }, "MiniHipatternsTodo"),
-			note = hi_words({ "NOTE" }, "MiniHipatternsNote"),
-			fixme = hi_words({ "FIXME" }, "MiniHipatternsFixme"),
-			hack = hi_words({ "HACK" }, "MiniHipatternsHack"),
 		},
 	})
 end
@@ -195,7 +168,6 @@ return {
 		setup_diff()
 		setup_trailspace()
 		setup_clue()
-		-- setup_hipatterns()
 		setup_cursorword()
 		setup_jump2d()
 		setup_surround()
