@@ -16,7 +16,7 @@ set({ "n", "x" }, "0", "^", { noremap = true })
 set("n", "<esc>", vim.cmd.nohlsearch)
 
 set("i", "jk", "<esc>")
-set("n", ",w", vim.cmd.wa)
+set("n", ",w", "<cmd>bufdo w<cr>")
 set("n", ",q", vim.cmd.q)
 set("n", "<leader>qq", vim.cmd.qa, "exit")
 
