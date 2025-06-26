@@ -5,7 +5,9 @@ local M = {}
 function M.known_filetypes()
 	local filetypes = {}
 
-	for _, file in ipairs(vim.api.nvim_get_runtime_file("syntax/*.vim", true)) do
+	local glob = vim.fs.joinpath("syntax", "*.vim")
+
+	for _, file in ipairs(vim.api.nvim_get_runtime_file(glob, true)) do
 		local name = vim.fn.fnamemodify(file, ":t:r")
 
 		table.insert(filetypes, name)
