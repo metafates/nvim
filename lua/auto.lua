@@ -1,3 +1,5 @@
+local set = require("util.keymap").set
+
 vim.api.nvim_create_autocmd("TextYankPost", {
 	callback = function()
 		vim.hl.on_yank()
@@ -49,6 +51,15 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
 			vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = true })
 
+			vim.api.nvim_create_autocmd("InsertEnter", {
+				buffer = args.buf,
+				callback = function()
+					vim.lsp.completion.get()
+				end,
+			})
+
+			set("i", "<c-space>", vim.lsp.completion.get)
+
 			for lhs, rhs in pairs({
 				["<tab>"] = "<c-y>",
 				["<c-j>"] = "<c-n>",
@@ -57,7 +68,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 					return "<c-e>" .. MiniPairs.cr()
 				end,
 			}) do
-				vim.keymap.set("i", lhs, function()
+				set("i", lhs, function()
 					if vim.fn.pumvisible() ~= 0 then
 						if type(rhs) == "function" then
 							return rhs()
