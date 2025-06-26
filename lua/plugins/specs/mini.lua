@@ -147,6 +147,10 @@ local function setup_jump2d()
 	})
 end
 
+local function setup_icons()
+	require("mini.icons").setup({})
+end
+
 return {
 	"echasnovski/mini.nvim",
 	version = "*",
@@ -171,5 +175,6 @@ return {
 		setup_cursorword()
 		setup_jump2d()
 		setup_surround()
+		setup_icons()
 	end,
 }
