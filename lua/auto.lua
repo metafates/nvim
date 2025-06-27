@@ -96,6 +96,6 @@ vim.api.nvim_create_autocmd("BufEnter", {
 	callback = function(args)
 		vim.opt_local.spell = false
 
-		require("util.keymap").set("n", "q", "<cmd>bd<cr>", { buffer = args.buf })
+		set("n", "q", vim.cmd.bd, { buffer = args.buf })
 	end,
 })
