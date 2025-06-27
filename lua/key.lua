@@ -1,5 +1,7 @@
 local set = require("util.keymap").set
 
+vim.g.mapleader = " "
+
 set("n", ";", ":")
 
 set("n", "f", function()
@@ -151,6 +153,10 @@ end, "diagnostic toggle")
 set("n", "<leader>sd", function()
 	MiniExtra.pickers.diagnostic()
 end, "picker diagnostic")
+
+set("n", "<leader>st", function()
+	require("util.theme").picker()
+end)
 
 set("n", "<leader>d", vim.diagnostic.open_float, "diagnostic open float")
 

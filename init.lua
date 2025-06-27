@@ -1,12 +1,15 @@
-vim.loader.enable()
+vim.loader.enable(true)
 
-require("auto")
-require("opt")
 require("key")
+require("opt")
+require("auto")
 require("lsp")
-require("plugins")
 require("cmd")
 
 if vim.g.neovide then
 	require("gui")
 end
+
+require("plugins")
+
+require("util.theme").load()

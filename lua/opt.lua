@@ -1,5 +1,3 @@
-vim.g.mapleader = " "
-
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.tabstop = 4
@@ -42,5 +40,3 @@ vim.cmd.filetype("plugin indent on")
 
 -- vim.opt.winborder = 'shadow'
 vim.opt.winborder = "single"
-
-vim.cmd.colorscheme("retrobox")
