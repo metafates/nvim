@@ -11,6 +11,7 @@ return {
 			markdown = { "markdownlint" },
 			json = prettier,
 			yaml = prettier,
+			bib = { "bibtex-tidy" },
 		},
 	},
 }
