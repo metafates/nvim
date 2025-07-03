@@ -5,6 +5,7 @@ return {
 
 		lint.linters_by_ft = {
 			markdown = { "markdownlint", "vale" },
+			yaml = { "yamllint" },
 		}
 
 		lint.linters.markdownlint.args = {

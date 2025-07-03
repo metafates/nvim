@@ -56,12 +56,7 @@ local function setup_sessions()
 end
 
 local function setup_notify()
-	require("mini.notify").setup({
-		lsp_progress = {
-			enable = true,
-			duration_last = 1000,
-		},
-	})
+	require("mini.notify").setup()
 
 	vim.notify = MiniNotify.make_notify()
 end
