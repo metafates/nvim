@@ -1,4 +1,4 @@
-MiniDeps.add("file:///Users/vzbarashchenko/code/github/muffin.nvim")
+MiniDeps.add("metafates/muffin.nvim")
 
 require("muffin").setup({})
 
