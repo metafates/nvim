@@ -18,7 +18,8 @@ set({ "n", "x" }, "0", "^", { noremap = true })
 set("n", "<esc>", vim.cmd.nohlsearch)
 
 set("i", "jk", "<esc>")
-set("n", ",w", vim.cmd.wall)
+set("n", ",w", vim.cmd.write)
+set("n", ",W", vim.cmd.wall)
 set("n", ",q", vim.cmd.q)
 set("n", "<leader>qq", vim.cmd.qa, "exit")
 
