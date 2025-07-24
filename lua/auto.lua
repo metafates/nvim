@@ -51,12 +51,12 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
 			vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = true })
 
-			vim.api.nvim_create_autocmd("InsertEnter", {
-				buffer = args.buf,
-				callback = function()
-					vim.lsp.completion.get()
-				end,
-			})
+			-- vim.api.nvim_create_autocmd("InsertEnter", {
+			-- 	buffer = args.buf,
+			-- 	callback = function()
+			-- 		vim.lsp.completion.get()
+			-- 	end,
+			-- })
 
 			set("i", "<c-space>", vim.lsp.completion.get)
 
