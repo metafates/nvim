@@ -1,6 +1,6 @@
 local M = {}
 
-M.THEMES = { "tokyonight", "retrobox" }
+M.THEMES = { "tokyonight", "retrobox", "everforest", "kanagawa" }
 
 local PATH = vim.fs.joinpath(vim.fn.stdpath("data"), "theme")
 
