@@ -22,6 +22,7 @@ set("n", ",w", vim.cmd.write)
 set("n", ",a", vim.cmd.wall)
 set("n", ",q", vim.cmd.q)
 set("n", "<leader>qq", vim.cmd.qa, "exit")
+set("n", "<leader>qQ", "<cmd>qa!<cr>", "exit")
 
 set("n", "L", vim.cmd.bnext, { silent = true })
 set("n", "H", vim.cmd.bprevious, { silent = true })
