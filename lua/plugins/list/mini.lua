@@ -70,8 +70,17 @@ local function setup_bufremove()
 end
 
 local function setup_indentscope()
-	require("mini.indentscope").setup({
+	local indent = require("mini.indentscope")
+
+	indent.setup({
 		symbol = "▏",
+		options = {
+			try_as_border = true,
+		},
+		draw = {
+			delay = 0,
+			animation = indent.gen_animation.none(),
+		},
 	})
 end
 
