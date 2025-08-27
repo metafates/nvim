@@ -40,3 +40,5 @@ vim.cmd.filetype("plugin indent on")
 
 -- vim.opt.winborder = 'shadow'
 vim.opt.winborder = "single"
+
+vim.opt.colorcolumn = "80,120"
