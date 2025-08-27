@@ -235,23 +235,6 @@ set("n", "<leader>qw", function()
 	end)
 end, "session write")
 
----@type Terminal?
-local lazygit_terminal
-
-set({ "n", "t" }, "<D-g>", function()
-	if not lazygit_terminal then
-		local Terminal = require("toggleterm.terminal").Terminal
-
-		lazygit_terminal = Terminal:new({
-			cmd = "lazygit",
-			display_name = "Lazygit",
-			hidden = true,
-		})
-	end
-
-	lazygit_terminal:toggle()
-end, { desc = "toggle lazygit", noremap = true, silent = true })
-
 set({ "n", "v" }, "<leader>g", function()
 	MiniGit.show_at_cursor()
 end)
