@@ -1,13 +1,11 @@
 local M = {}
 
-M.THEMES = { "tokyonight", "retrobox", "everforest", "kanagawa" }
-
 local PATH = vim.fs.joinpath(vim.fn.stdpath("data"), "theme")
 
 function M.load()
 	local ok, lines = pcall(vim.fn.readfile, PATH, "", 1)
 
-	local theme = M.THEMES[1]
+	local theme = "retrobox"
 
 	if ok and #lines and lines[1] ~= "" then
 		theme = lines[1]
@@ -23,10 +21,8 @@ function M.write()
 end
 
 function M.picker()
-	MiniPick.start({
+	MiniExtra.pickers.colorschemes(nil, {
 		source = {
-			name = "Select theme",
-			items = M.THEMES,
 			choose = function(item)
 				vim.cmd.colorscheme(item)
 				M.write()

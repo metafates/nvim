@@ -155,7 +155,7 @@ local function setup_icons()
 	require("mini.icons").setup({})
 end
 
-MiniDeps.add("echasnovski/mini.nvim")
+MiniDeps.add("nvim-mini/mini.nvim")
 
 setup_extra()
 setup_misc()
