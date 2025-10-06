@@ -43,3 +43,36 @@ end)
 set(ALL_MODES, "<D-0>", function()
 	vim.g.neovide_scale_factor = 1.0
 end)
+
+---@type Terminal
+local shell
+
+set(ALL_MODES, "<D-t>", function()
+	if shell == nil then
+		local Terminal = require("toggleterm.terminal").Terminal
+
+		shell = Terminal:new()
+	end
+
+	shell:toggle()
+end, { noremap = true, silent = true })
+
+---@type Terminal
+local lazygit
+
+set(ALL_MODES, "<D-g>", function()
+	if lazygit == nil then
+		local Terminal = require("toggleterm.terminal").Terminal
+
+		lazygit = Terminal:new({
+			cmd = "lazygit",
+			dir = "git_dir",
+			direction = "float",
+			on_open = function(term)
+				set("n", "q", vim.cmd.close, { noremap = true, silent = true, buffer = term.bufnr })
+			end,
+		})
+	end
+
+	lazygit:toggle()
+end, { noremap = true, silent = true })
