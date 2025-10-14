@@ -7,7 +7,10 @@ local function setup_misc()
 end
 
 local function setup_pick()
-	require("mini.pick").setup({
+	local pick = require("mini.pick")
+
+	pick.setup({
+		source = { show = pick.default_show },
 		options = {
 			use_cache = true,
 		},
@@ -23,6 +26,7 @@ end
 local function setup_files()
 	require("mini.files").setup({
 		windows = { preview = true },
+		content = { prefix = function() end },
 	})
 end
 
@@ -85,7 +89,32 @@ local function setup_indentscope()
 end
 
 local function setup_statusline()
-	require("mini.statusline").setup()
+	require("mini.statusline").setup({
+		content = {
+			active = function()
+				local st = MiniStatusline
+
+				local mode, mode_hl = st.section_mode({ trunc_width = 120 })
+				local git = st.section_git({ trunc_width = 40 })
+				local filename = st.section_filename({ trunc_width = 140 })
+				local fileinfo = st.section_fileinfo({ trunc_width = 120 })
+				local location = st.section_location({ trunc_width = 75 })
+				local search = st.section_searchcount({ trunc_width = 75 })
+
+				return st.combine_groups({
+					{ hl = mode_hl, strings = { mode } },
+					{ hl = "MiniStatuslineDevinfo", strings = { git } },
+					"%<", -- Mark general truncate point
+					{ hl = "MiniStatuslineFilename", strings = { filename } },
+					"%=", -- End left alignment
+					{ hl = "MiniStatuslineFileinfo", strings = { fileinfo } },
+					{ hl = mode_hl, strings = { search, location } },
+				})
+			end,
+		},
+
+		use_icons = false,
+	})
 end
 
 local function setup_git()
@@ -152,7 +181,9 @@ local function setup_jump2d()
 end
 
 local function setup_icons()
-	require("mini.icons").setup({})
+	require("mini.icons").setup({
+		style = "ascii",
+	})
 end
 
 MiniDeps.add("nvim-mini/mini.nvim")
@@ -177,4 +208,4 @@ setup_clue()
 setup_cursorword()
 setup_jump2d()
 setup_surround()
-setup_icons()
+-- setup_icons()

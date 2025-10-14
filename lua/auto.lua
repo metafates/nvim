@@ -1,5 +1,19 @@
 local set = require("util.keymap").set
 
+---@generic T
+---@param arr T[]
+---@param e T
+---@return boolean
+local function contains(arr, e)
+	for _, v in ipairs(arr) do
+		if v == e then
+			return true
+		end
+	end
+
+	return false
+end
+
 vim.api.nvim_create_autocmd("TextYankPost", {
 	callback = function()
 		vim.hl.on_yank()
@@ -45,7 +59,11 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		if client:supports_method("textDocument/completion") then
 			local chars = {}
 			for i = 32, 126 do
-				table.insert(chars, string.char(i))
+				local ch = string.char(i)
+
+				if not contains({ " ", '"', "'", "[", "]", "(", ")", "{", "}" }, ch) then
+					table.insert(chars, ch)
+				end
 			end
 			client.server_capabilities.completionProvider.triggerCharacters = chars
 
@@ -57,6 +75,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 				["<tab>"] = "<c-y>",
 				["<c-j>"] = "<c-n>",
 				["<c-k>"] = "<c-p>",
+				-- ["<cr>"] = "<c-e>",
 				["<cr>"] = function()
 					return "<c-e>" .. MiniPairs.cr()
 				end,
@@ -78,7 +97,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
 })
 
 vim.api.nvim_create_autocmd({ "TermEnter", "TermOpen" }, {
-	-- pattern = "term://*toggleterm#*",
 	callback = function(_)
 		vim.opt_local.spell = false
 	end,
