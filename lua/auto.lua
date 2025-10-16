@@ -70,28 +70,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
 			vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = true })
 
 			set("i", "<c-space>", vim.lsp.completion.get)
-
-			for lhs, rhs in pairs({
-				["<tab>"] = "<c-y>",
-				["<c-j>"] = "<c-n>",
-				["<c-k>"] = "<c-p>",
-				-- ["<cr>"] = "<c-e>",
-				["<cr>"] = function()
-					return "<c-e>" .. MiniPairs.cr()
-				end,
-			}) do
-				set("i", lhs, function()
-					if vim.fn.pumvisible() ~= 0 then
-						if type(rhs) == "function" then
-							return rhs()
-						end
-
-						return rhs
-					end
-
-					return lhs
-				end, { expr = true, buffer = args.buf })
-			end
 		end
 	end,
 })

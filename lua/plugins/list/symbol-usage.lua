@@ -2,6 +2,7 @@ MiniDeps.add("Wansmer/symbol-usage.nvim")
 
 local SymbolKind = vim.lsp.protocol.SymbolKind
 
+---@diagnostic disable-next-line: missing-fields
 require("symbol-usage").setup({
 	kinds = {
 		SymbolKind.Function,

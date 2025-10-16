@@ -18,11 +18,12 @@ set({ "n", "x" }, "0", "^", { noremap = true })
 set("n", "<esc>", vim.cmd.nohlsearch)
 
 set("i", "jk", "<esc>")
-set("n", ",w", vim.cmd.write, { silent = true })
-set("n", ",a", vim.cmd.wall, { silent = true })
-set("n", ",q", vim.cmd.q)
-set("n", "<leader>qq", vim.cmd.qa, "exit")
-set("n", "<leader>qQ", "<cmd>qa!<cr>", "exit")
+set("n", ",w", vim.cmd.write, { silent = true, desc = "write" })
+set("n", ",a", vim.cmd.wall, { silent = true, desc = "write all" })
+set("n", ",q", vim.cmd.q, { desc = "quit" })
+set("n", ",Q", vim.cmd.q, { desc = "quit!" })
+set("n", "<leader>qq", vim.cmd.qa, "quit all")
+set("n", "<leader>qQ", "<cmd>qa!<cr>", "quit all!")
 
 set("n", "L", vim.cmd.bnext, { silent = true })
 set("n", "H", vim.cmd.bprevious, { silent = true })
@@ -59,7 +60,7 @@ for _, lhs in pairs({ "gra", "gri", "grn", "grr" }) do
 	pcall(vim.keymap.del, "n", lhs)
 end
 
-set("n", "<leader>ca", vim.lsp.buf.code_action, "code action")
+set("n", "<leader>a", vim.lsp.buf.code_action, "code action")
 
 set("n", "<leader>uh", function()
 	vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
@@ -135,9 +136,9 @@ end, "copy")
 for lhs, scope in pairs({
 	["gd"] = "definition",
 	["gD"] = "declaration",
-	["gi"] = "implementation",
-	["gr"] = "references",
-	["gy"] = "type_definition",
+	["I"] = "implementation",
+	["R"] = "references",
+	["Y"] = "type_definition",
 	["<leader>fs"] = "document_symbol",
 	["<leader>fS"] = "workspace_symbol",
 }) do
@@ -146,7 +147,7 @@ for lhs, scope in pairs({
 	end, "picker lsp " .. scope)
 end
 
-set("n", "<leader>cr", vim.lsp.buf.rename, "lsp rename")
+set("n", "<leader>r", vim.lsp.buf.rename, "lsp rename")
 
 set("n", "<leader>ud", function()
 	vim.diagnostic.enable(not vim.diagnostic.is_enabled())
@@ -241,3 +242,39 @@ end)
 
 set({ "n", "v" }, "gh", "^")
 set({ "n", "v" }, "gl", "$")
+
+set("n", "B", "<c-6>", { remap = true })
+
+for lhs, rhs in pairs({
+	["<tab>"] = "<c-y>",
+	["<c-j>"] = "<c-n>",
+	["<c-k>"] = "<c-p>",
+}) do
+	set("i", lhs, function()
+		if vim.fn.pumvisible() ~= 0 then
+			return rhs
+		end
+
+		return lhs
+	end, { expr = true })
+end
+
+set("i", "<cr>", function()
+	local pairs = require("nvim-autopairs")
+
+	if vim.fn.pumvisible() ~= 0 then
+		return pairs.esc("<c-e>") .. pairs.autopairs_cr()
+	end
+
+	return pairs.autopairs_cr()
+end, { expr = true })
+
+set("i", "<bs>", function()
+	local pairs = require("nvim-autopairs")
+
+	if vim.fn.pumvisible() ~= 0 and vim.fn.complete_info({ "mode" }).mode == "eval" then
+		return pairs.esc("<c-e>") .. pairs.autopairs_bs()
+	end
+
+	return pairs.autopairs_bs()
+end, { expr = true })

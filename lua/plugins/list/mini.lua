@@ -26,7 +26,6 @@ end
 local function setup_files()
 	require("mini.files").setup({
 		windows = { preview = true },
-		content = { prefix = function() end },
 	})
 end
 
@@ -42,6 +41,7 @@ local function setup_tabline()
 	require("mini.tabline").setup({
 		format = function(buf_id, label)
 			local suffix = vim.bo[buf_id].modified and "+ " or ""
+
 			return MiniTabline.default_format(buf_id, label) .. suffix
 		end,
 	})
@@ -149,6 +149,7 @@ local function setup_clue()
 
 		triggers = {
 			{ mode = "n", keys = "<leader>" },
+			{ mode = "n", keys = "," },
 			{ mode = "v", keys = "<leader>" },
 			{ mode = "x", keys = "<leader>" },
 			{ mode = "n", keys = "<c-w>" },
@@ -181,9 +182,7 @@ local function setup_jump2d()
 end
 
 local function setup_icons()
-	require("mini.icons").setup({
-		style = "ascii",
-	})
+	require("mini.icons").setup()
 end
 
 MiniDeps.add("nvim-mini/mini.nvim")
@@ -192,7 +191,7 @@ setup_extra()
 setup_misc()
 setup_pick()
 setup_files()
-setup_pairs()
+-- setup_pairs()
 setup_tabline()
 setup_starter()
 setup_sessions()
@@ -208,4 +207,4 @@ setup_clue()
 setup_cursorword()
 setup_jump2d()
 setup_surround()
--- setup_icons()
+setup_icons()
