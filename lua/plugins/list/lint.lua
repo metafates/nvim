@@ -3,7 +3,7 @@ MiniDeps.add("mfussenegger/nvim-lint")
 local lint = require("lint")
 
 lint.linters_by_ft = {
-	markdown = { "markdownlint", "vale" },
+	markdown = { "markdownlint" },
 	yaml = { "yamllint" },
 }
 

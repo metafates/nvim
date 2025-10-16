@@ -25,7 +25,10 @@ end
 
 local function setup_files()
 	require("mini.files").setup({
-		windows = { preview = true },
+		windows = {
+			preview = true,
+			width_preview = 50,
+		},
 	})
 end
 
