@@ -188,6 +188,16 @@ local function setup_icons()
 	require("mini.icons").setup()
 end
 
+local function setup_hipatterns()
+	local hipatterns = require("mini.hipatterns")
+
+	hipatterns.setup({
+		highlighters = {
+			hex_color = hipatterns.gen_highlighter.hex_color(),
+		},
+	})
+end
+
 MiniDeps.add("nvim-mini/mini.nvim")
 
 setup_extra()
@@ -211,3 +221,4 @@ setup_cursorword()
 setup_jump2d()
 setup_surround()
 setup_icons()
+setup_hipatterns()

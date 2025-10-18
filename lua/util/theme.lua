@@ -15,7 +15,11 @@ function M.load()
 end
 
 function M.write()
-	local theme = vim.g.colors_name or M.THEMES[1]
+	local theme = vim.g.colors_name
+
+	if not theme then
+		return
+	end
 
 	vim.fn.writefile({ theme }, PATH, "")
 end
