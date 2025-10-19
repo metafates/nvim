@@ -149,6 +149,8 @@ end
 
 set("n", "<leader>r", vim.lsp.buf.rename, "lsp rename")
 
+set({ "n", "i" }, "<c-s>", vim.lsp.buf.signature_help, "lsp signature help")
+
 set("n", "<leader>ud", function()
 	vim.diagnostic.enable(not vim.diagnostic.is_enabled())
 end, "diagnostic toggle")
