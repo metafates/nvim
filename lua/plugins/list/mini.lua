@@ -198,6 +198,10 @@ local function setup_hipatterns()
 	})
 end
 
+local function setup_cmdline()
+	require("mini.cmdline").setup({})
+end
+
 MiniDeps.add("nvim-mini/mini.nvim")
 
 setup_extra()
@@ -222,3 +226,4 @@ setup_jump2d()
 setup_surround()
 setup_icons()
 setup_hipatterns()
+setup_cmdline()

@@ -17,6 +17,8 @@ vim.opt.infercase = true
 vim.opt.smartcase = true
 vim.opt.smartindent = true
 
+vim.opt.cursorline = true
+
 vim.opt.signcolumn = "yes"
 
 vim.opt.completeopt:append({ "fuzzy", "menuone", "preview", "noinsert" })
