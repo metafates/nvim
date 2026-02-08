@@ -280,3 +280,7 @@ set("i", "<bs>", function()
 
 	return pairs.autopairs_bs()
 end, { expr = true })
+
+set("n", "T", function()
+	Muffin.toggle()
+end, { desc = "Toggle Muffin popup" })
