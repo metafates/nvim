@@ -61,6 +61,7 @@ for _, lhs in pairs({ "gra", "gri", "grn", "grr" }) do
 end
 
 set("n", "<leader>a", vim.lsp.buf.code_action, "code action")
+set({ "n", "i" }, "<c-i>", vim.lsp.buf.signature_help, "signature help")
 
 set("n", "<leader>uh", function()
 	vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
