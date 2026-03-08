@@ -4,7 +4,7 @@ MiniDeps.add("rebelot/kanagawa.nvim")
 require("tokyonight").setup({
 	transparent = false,
 	styles = {
-		comments = { italic = false },
+		comments = { italic = true },
 		keywords = { italic = false },
 	},
 })
