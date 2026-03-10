@@ -8,7 +8,7 @@ MiniDeps.add({
 })
 
 ---@diagnostic disable-next-line: missing-fields
-require("nvim-treesitter.configs").setup({
+require("nvim-treesitter").setup({
 	highlight = { enable = true },
 	indent = { enable = true },
 })
