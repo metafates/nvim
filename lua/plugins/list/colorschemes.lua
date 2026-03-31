@@ -1,12 +1,4 @@
-MiniDeps.add("folke/tokyonight.nvim")
-MiniDeps.add("rebelot/kanagawa.nvim")
+vim.pack.add({ "https://github.com/folke/tokyonight.nvim", "https://github.com/rebelot/kanagawa.nvim" })
 
-require("tokyonight").setup({
-	transparent = false,
-	styles = {
-		comments = { italic = true },
-		keywords = { italic = false },
-	},
-})
-
+require("tokyonight").setup({})
 require("kanagawa").setup({})

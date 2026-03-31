@@ -1,6 +1,6 @@
 local prettier = { "prettierd", "prettier", stop_after_first = true }
 
-MiniDeps.add("stevearc/conform.nvim")
+vim.pack.add({ "https://github.com/stevearc/conform.nvim" })
 
 require("conform").formatters.markdownlint = {
 	append_args = { "--disable", "MD010" },

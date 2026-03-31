@@ -1,3 +1,3 @@
-MiniDeps.add("metafates/muffin.nvim")
+vim.pack.add({ "https://github.com/metafates/muffin.nvim" })
 
 require("muffin").setup()

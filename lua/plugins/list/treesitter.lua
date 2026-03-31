@@ -1,14 +1,17 @@
-MiniDeps.add({
-	source = "nvim-treesitter/nvim-treesitter",
-	hooks = {
-		post_checkout = function()
-			vim.cmd.TSUpdate()
-		end,
-	},
-})
+vim.pack.add({ "https://github.com/nvim-treesitter/nvim-treesitter" })
 
----@diagnostic disable-next-line: missing-fields
-require("nvim-treesitter").setup({
-	highlight = { enable = true },
-	indent = { enable = true },
+require("nvim-treesitter").install({
+	"go",
+	"gotmpl",
+	"gomod",
+	"gowork",
+	"gosum",
+	"lua",
+	"html",
+	"xml",
+	"json",
+	"yaml",
+	"toml",
+	"markdown",
+	"markdown_inline",
 })

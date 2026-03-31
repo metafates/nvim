@@ -202,7 +202,7 @@ local function setup_cmdline()
 	require("mini.cmdline").setup({})
 end
 
-MiniDeps.add("nvim-mini/mini.nvim")
+vim.pack.add({ "https://github.com/nvim-mini/mini.nvim" })
 
 setup_extra()
 setup_misc()

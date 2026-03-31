@@ -1,4 +1,4 @@
-MiniDeps.add("Wansmer/symbol-usage.nvim")
+vim.pack.add({ "https://github.com/Wansmer/symbol-usage.nvim" })
 
 local SymbolKind = vim.lsp.protocol.SymbolKind
 
