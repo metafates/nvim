@@ -2,8 +2,15 @@ local prettier = { "prettierd", "prettier", stop_after_first = true }
 
 vim.pack.add({ "https://github.com/stevearc/conform.nvim" })
 
-require("conform").formatters.markdownlint = {
+local conform = require("conform")
+
+conform.formatters.markdownlint = {
 	append_args = { "--disable", "MD010" },
+}
+
+conform.formatters.mbake = {
+	command = "mbake",
+	args = { "format", "--stdin" },
 }
 
 require("conform").setup({
@@ -18,5 +25,6 @@ require("conform").setup({
 		json = prettier,
 		yaml = prettier,
 		bib = { "bibtex-tidy" },
+		make = { "mbake" },
 	},
 })

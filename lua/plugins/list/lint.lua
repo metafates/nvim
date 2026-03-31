@@ -5,6 +5,7 @@ local lint = require("lint")
 lint.linters_by_ft = {
 	markdown = { "markdownlint" },
 	yaml = { "yamllint" },
+	make = { "mbake" },
 }
 
 lint.linters.markdownlint.args = {
