@@ -14,4 +14,10 @@ require("nvim-treesitter").install({
 	"toml",
 	"markdown",
 	"markdown_inline",
+	"make",
+	"just",
+	"bash",
+	"fish",
+	"gitignore",
+	"python",
 })
