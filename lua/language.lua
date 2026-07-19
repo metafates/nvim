@@ -1,0 +1,27 @@
+---@class editor.Language
+---@field name     string
+---@field patterns string[]
+---@field lsps     string[]
+---@field pkgs     string[]
+
+---@param l editor.Language
+---@return editor.Language
+local function lang(l)
+	return l
+end
+
+local M = {}
+
+M.Lua = lang { name = "lua", patterns = { "*.lua" }, lsps = { "emmylua_ls" }, pkgs = { "emmylua_ls" } }
+M.Go = lang { name = "go", patterns = { "*.go" }, lsps = { "gopls" }, pkgs = { "gopls" } }
+M.Markdown = lang { name = "markdown", patterns = { "*.md" }, lsps = { "marksman" }, pkgs = { "marksman" } }
+M.JSON = lang { name = "json", patterns = { "*.json" }, lsps = { "jsonls" }, pkgs = { "json-lsp" } }
+M.Bash = lang {
+	name = "bash",
+	patterns = { "*.sh" },
+	lsps = { "bashls" },
+	pkgs = { "bash-language-server", "shellcheck" }
+}
+M.Make = lang { name = "make", patterns = { "Makefile" } }
+
+return M
