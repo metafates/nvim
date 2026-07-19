@@ -5,6 +5,8 @@ local prev = {
 	g = {},
 }
 
+local PADDING = 70
+
 local zen = {
 	o = {
 		nu = false,
@@ -23,10 +25,10 @@ local zen = {
 	},
 	g = {
 		neovide_scale_factor = 1.3,
-		neovide_padding_top = 50,
-		neovide_padding_bottom = 50,
-		neovide_padding_right = 50,
-		neovide_padding_left = 50,
+		neovide_padding_top = PADDING,
+		neovide_padding_bottom = PADDING,
+		neovide_padding_right = PADDING,
+		neovide_padding_left = PADDING,
 		neovide_opacity = 1,
 		transparency = 1,
 		neovide_window_blurred = false,

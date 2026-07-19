@@ -210,12 +210,16 @@ setup_pick()
 setup_files()
 -- setup_pairs()
 setup_tabline()
-setup_starter()
 setup_sessions()
 setup_extra()
 setup_notify()
 setup_bufremove()
-setup_indentscope()
+
+if not vim.g.vscode then
+	setup_starter()
+	setup_indentscope()
+end
+
 setup_statusline()
 setup_git()
 setup_diff()

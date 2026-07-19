@@ -13,5 +13,6 @@ lint.linters.markdownlint.args = {
 	"MD033", -- inline html
 	"MD013", -- line length 80
 	"MD010", -- hard tabs
+	"MD024", -- duplicate headings
 	"--stdin",
 }

@@ -16,7 +16,7 @@ return {
 			gofumpt = true,
 			usePlaceholders = false,
 			staticcheck = true,
-			buildFlags = { "-tags", "mage,integration,example,e2e,smoke,functional" },
+			buildFlags = { "-tags", "mage,integration,example,e2e,smoke,functional,e2e_testo" },
 			templateExtensions = { ".gohtml", ".tmpl" },
 			vulncheck = "Imports",
 			symbolScope = "workspace",
