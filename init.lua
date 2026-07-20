@@ -164,6 +164,7 @@ section("options", function()
 		vim.opt.scrolloff = 5
 		vim.opt.hlsearch = true
 		vim.opt.breakindent = true
+		vim.opt.background = "dark"
 	end)
 
 	section("file", function()
@@ -199,8 +200,10 @@ section("languages", function()
 	---@type editor.LanguageServer[]
 	local lsps = {}
 
-	for _, lang in ipairs(require("language").all()) do
-		table.insert(names, lang.name)
+	for _, lang in pairs(require("language").all()) do
+		for _, name in ipairs(lang.treesitter) do
+			table.insert(names, name)
+		end
 
 		for _, lsp in ipairs(lang.lsps or {}) do
 			table.insert(lsps, lsp)
@@ -273,8 +276,8 @@ section("autocmds", function()
 	end)
 
 	section("lsp", function()
-		for _, lang in ipairs(require("language").all()) do
-			section(lang.name, function()
+		for name, lang in pairs(require("language").all()) do
+			section(name, function()
 				vim.api.nvim_create_autocmd("LspAttach", {
 					pattern = lang.patterns,
 					callback = function(lsp_attach)
@@ -323,3 +326,43 @@ section("autocmds", function()
 		end
 	end)
 end)
+
+if vim.g.neovide then
+	section("options", function()
+		vim.g.neovide_remember_window_size = true
+		vim.g.neovide_input_macos_option_key_is_meta = "both"
+		vim.g.neovide_cursor_smooth_blink = true
+		vim.g.neovide_refresh_rate = 120
+		vim.g.neovide_show_border = true
+	end)
+
+	section("gui", function()
+		local ANY = { "n", "v", "s", "x", "o", "i", "l", "c", "t" }
+
+		section("keys", function()
+			vim.keymap.set(ANY, "<D-v>", function()
+				local reg = vim.fn.getreg("+") --[[@as string]]
+
+				vim.api.nvim_paste(reg, true, -1)
+			end, { noremap = true, silent = true }
+			)
+
+			vim.g.neovide_scale_factor = 1.0
+			local change_scale_factor = function(delta)
+				vim.g.neovide_scale_factor = vim.g.neovide_scale_factor * delta
+			end
+
+			vim.keymap.set(ANY, "<D-=>", function()
+				change_scale_factor(1.25)
+			end)
+
+			vim.keymap.set(ANY, "<D-->", function()
+				change_scale_factor(1 / 1.25)
+			end)
+
+			vim.keymap.set(ANY, "<D-0>", function()
+				vim.g.neovide_scale_factor = 1.0
+			end)
+		end)
+	end)
+end

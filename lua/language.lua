@@ -1,15 +1,16 @@
+local language = require("vim.treesitter.language")
 ---@class editor.LanguageServer
----@field name   string
----@field config vim.lsp.Config?
+---@field name   string          name of the server matching lspconfig file stem from lua/ directory
+---@field config vim.lsp.Config? additional config for the server
 
 ---@class editor.Language
----@field name     string
----@field patterns string[]
----@field lsps     editor.LanguageServer[]?
----@field pkgs     string[]?
----@field on_save  string[]?
+---@field treesitter string[]                 treesitter parsers name
+---@field patterns   string[]                 file patterns for the language, supports glob
+---@field lsps       editor.LanguageServer[]? list of language servers for the language
+---@field pkgs       string[]?                packages to install for the language from mason
+---@field on_save    string[]?                code actions on save
 
----@type editor.Language[]
+---@type table<string, editor.Language>
 local languages = {}
 
 local dir = vim.fs.joinpath(vim.fn.stdpath("config"), "langs")
@@ -21,10 +22,9 @@ for name, t in vim.fs.dir(dir) do
 		local ok, res = pcall(dofile, path)
 
 		if ok then
-			table.insert(
-				languages,
-				res --[[@as editor.Language]]
-			)
+			local stem = vim.fn.fnamemodify(name, ":t:r")
+
+			languages[stem] = res --[[@as editor.Language]]
 		else
 			vim.notify("failed to load " .. path .. ": " .. res, vim.log.levels.ERROR)
 		end
@@ -33,7 +33,7 @@ end
 
 local M = {}
 
----@return editor.Language[]
+---@return table<string, editor.Language>
 function M.all()
 	return languages
 end

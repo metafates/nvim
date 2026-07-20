@@ -1,2 +1,2 @@
 ---@type editor.Language
-return { name = "make", patterns = { "Makefile" } }
+return { treesitter = { "make" }, patterns = { "Makefile" } }

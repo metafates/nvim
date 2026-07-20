@@ -1,6 +1,6 @@
 ---@type editor.Language
 return {
-	name = "go",
+	treesitter = { "go", "gomod", "gosum" },
 	patterns = { "*.go" },
 	lsps = {
 		{
