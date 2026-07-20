@@ -11,24 +11,51 @@ section("theme", function()
 	vim.cmd.colorscheme "retrobox"
 end)
 
-section("mini", function()
-	require("mini.pick").setup {}
-	require("mini.cmdline").setup {}
-	require("mini.tabline").setup {}
-	require("mini.files").setup {}
-	require("mini.pairs").setup {}
-	require("mini.notify").setup {}
-	require("mini.icons").setup {}
-	require("mini.bufremove").setup {}
-	require("mini.basics").setup {
-		options = {
-			extra_ui = true
-		},
-		mappings = {
-			windows = true
+section(
+	"mini",
+	function()
+		section("pick", function()
+			local pick = require("mini.pick")
+
+			pick.setup({
+				source = { show = pick.default_show },
+				options = {
+					use_cache = true
+				},
+				mappings = {
+					move_down = "<c-j>",
+					move_up = "<c-k>"
+				},
+				window = {
+					config = function() return { width = vim.o.columns, height = math.max(
+						5, math.floor(0.3 * vim.o.lines)
+					) } end
+				}
+			})
+
+			vim.ui.select = pick.ui_select
+		end)
+
+		require("mini.cmdline").setup {}
+		require("mini.tabline").setup {}
+		require("mini.files").setup { windows = { preview = true } }
+		require("mini.pairs").setup {}
+		require("mini.notify").setup {}
+		require("mini.statusline").setup {}
+		require("mini.icons").setup {}
+		require("mini.git").setup {}
+		require("mini.diff").setup {}
+		require("mini.bufremove").setup {}
+		require("mini.basics").setup {
+			options = {
+				extra_ui = true
+			},
+			mappings = {
+				windows = true
+			}
 		}
-	}
-end)
+	end
+)
 
 section("keys", function()
 	vim.g.mapleader = " "
@@ -39,6 +66,7 @@ section("keys", function()
 	set("n", ";", ":", { noremap = true })
 	set({ "n", "x" }, "0", "^", { noremap = true })
 	set({ "n", "x", "v" }, "<leader>y", [["+y]])
+	set("n", "U", vim.cmd.redo, { silent = true })
 
 	section("buffers", function()
 		set("n", "L", vim.cmd.bnext, { silent = true })
@@ -59,15 +87,35 @@ section("keys", function()
 		end)
 	end)
 
-	set("n", "<leader>f", require("mini.pick").builtin.files)
+	section("pickers", function()
+		section("lsp", function()
+			set("n", "R", vim.lsp.buf.rename)
+			set("n", "<leader>a", vim.lsp.buf.code_action)
+
+			for key, scope in pairs {
+				["gd"] = "definition",
+				["<leader>r"] = "references",
+				["<leader>D"] = "type_definition",
+				["<leader>s"] = "document_symbol",
+				["<leader>S"] = "workspace_symbol_live",
+				["<leader>i"] = "implementation"
+			} do
+				set("n", key, function()
+					require("mini.extra").pickers.lsp({ scope = scope })
+				end)
+			end
+		end)
+
+		set("n", "<leader>f", require("mini.pick").builtin.files)
+		set("n", "<leader>/", require("mini.extra").pickers.buf_lines)
+		set("n", "<leader>g", require("mini.pick").builtin.grep_live)
+	end)
+
 	set("n", ",w", vim.cmd.write)
 	set("n", ",q", vim.cmd.quit)
 
-	section("lsp", function()
-		set("n", "gd", vim.lsp.buf.definition)
-		set("n", "<leader>r", vim.lsp.buf.rename)
-		set("n", "<leader>a", vim.lsp.buf.code_action)
-	end)
+	set("n", "<c-c>", "gcc<down>", { remap = true })
+	set("v", "<c-c>", "gc", { remap = true })
 
 	set("n", "f", function()
 		local files = require("mini.files")
@@ -133,27 +181,18 @@ section("options", function()
 end)
 
 section("languages", function()
-	local language = require("language")
-
 	local names = {}
-	local patterns = {}
 	local packages = {}
 	local lsps = {}
 
-	for _, lang in ipairs {
-		language.Lua, language.Go, language.Markdown, language.Bash, language.JSON, language.TOML, language.Vim
-	} do
+	for _, lang in ipairs(require("language").all()) do
 		table.insert(names, lang.name)
 
-		for _, lsp in ipairs(lang.lsps) do
+		for _, lsp in ipairs(lang.lsps or {}) do
 			table.insert(lsps, lsp)
 		end
 
-		for _, pattern in ipairs(lang.patterns) do
-			table.insert(patterns, pattern)
-		end
-
-		for _, pkg in ipairs(lang.pkgs) do
+		for _, pkg in ipairs(lang.pkgs or {}) do
 			table.insert(packages, pkg)
 		end
 	end
@@ -184,16 +223,19 @@ section("languages", function()
 			end
 		end
 
-		vim.lsp.enable(lsps)
-	end)
-
-	section("formatters", function()
-		vim.api.nvim_create_autocmd("BufWritePre", {
-			pattern = patterns,
-			callback = function()
-				vim.lsp.buf.format()
-			end
+		vim.lsp.config("*", {
+			---@diagnostic disable-next-line: assign-type-mismatch
+			capabilities = {
+				textDocument = {
+					---@diagnostic disable-next-line: missing-fields
+					semanticTokens = {
+						multilineTokenSupport = true
+					}
+				}
+			}
 		})
+
+		vim.lsp.enable(lsps)
 	end)
 
 	section("diagnostics", function()
@@ -211,35 +253,53 @@ section("autocmds", function()
 	end)
 
 	section("lsp", function()
-		vim.api.nvim_create_autocmd("LspAttach", {
-			callback = function(args)
-				local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
+		for _, lang in ipairs(require("language").all()) do
+			section(lang.name, function()
+				vim.api.nvim_create_autocmd("LspAttach", {
+					pattern = lang.patterns,
+					callback = function(lsp_attach)
+						local client = assert(vim.lsp.get_client_by_id(lsp_attach.data.client_id))
 
-				if client:supports_method("textDocument/foldingRange") then
-					local win = vim.api.nvim_get_current_win()
+						vim.api.nvim_create_autocmd("BufWritePre", {
+							pattern = lang.patterns,
+							callback = function(buf_write_pre)
+								if lang.on_save and #lang.on_save > 0 then
+									require("util").exec_code_action(client, lang.on_save)
+								end
 
-					vim.wo[win][0].foldexpr = "v:lua.vim.lsp.foldexpr()"
-				end
+								if client:supports_method("textDocument/formatting") then
+									vim.lsp.buf.format({ bufnr = buf_write_pre.buf, id = client.id })
+								end
+							end
+						})
 
-				if client:supports_method("textDocument/completion") then
-					local chars = {}
-					for i = 32, 126 do
-						local ch = string.char(i)
+						if client:supports_method("textDocument/foldingRange") then
+							local win = vim.api.nvim_get_current_win()
 
-						if not string.find(" \"'[](){}", ch, 1, true) then
-							table.insert(chars, ch)
+							vim.wo[win][0].foldexpr = "v:lua.vim.lsp.foldexpr()"
+						end
+
+						if client:supports_method("textDocument/completion") then
+							local chars = {}
+							for i = 32, 126 do
+								local ch = string.char(i)
+
+								if not string.find(" \"'[](){}", ch, 1, true) then
+									table.insert(chars, ch)
+								end
+							end
+
+							if client.server_capabilities and client.server_capabilities.completionProvider then
+								client.server_capabilities.completionProvider.triggerCharacters = chars
+							end
+
+							vim.lsp.completion.enable(true, client.id, lsp_attach.buf, { autotrigger = true })
+
+							vim.keymap.set("i", "<c-space>", vim.lsp.completion.get)
 						end
 					end
-
-					if client.server_capabilities and client.server_capabilities.completionProvider then
-						client.server_capabilities.completionProvider.triggerCharacters = chars
-					end
-
-					vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = true })
-
-					vim.keymap.set("i", "<c-space>", vim.lsp.completion.get)
-				end
-			end
-		})
+				})
+			end)
+		end
 	end)
 end)
