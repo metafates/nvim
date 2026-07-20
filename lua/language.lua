@@ -16,7 +16,7 @@ local languages = {}
 local dir = vim.fs.joinpath(vim.fn.stdpath("config"), "langs")
 
 for name, t in vim.fs.dir(dir) do
-	path = vim.fs.joinpath(dir, name)
+	local path = vim.fs.joinpath(dir, name)
 
 	if t == "file" then
 		local ok, res = pcall(dofile, path)
