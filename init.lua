@@ -181,8 +181,13 @@ section("options", function()
 end)
 
 section("languages", function()
+	---@type string[]
 	local names = {}
+
+	---@type string[]
 	local packages = {}
+
+	---@type editor.LanguageServer[]
 	local lsps = {}
 
 	for _, lang in ipairs(require("language").all()) do
@@ -235,7 +240,13 @@ section("languages", function()
 			}
 		})
 
-		vim.lsp.enable(lsps)
+		for _, lsp in ipairs(lsps) do
+			if lsp.config then
+				vim.lsp.config(lsp.name, lsp.config)
+			end
+
+			vim.lsp.enable(lsp.name)
+		end
 	end)
 
 	section("diagnostics", function()
