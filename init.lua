@@ -40,7 +40,7 @@ section("keys", function()
 	set({ "n", "x" }, "0", "^", { noremap = true })
 	set({ "n", "x", "v" }, "<leader>y", [["+y]])
 
-	section("buffer", function()
+	section("buffers", function()
 		set("n", "L", vim.cmd.bnext, { silent = true })
 		set("n", "H", vim.cmd.bprevious, { silent = true })
 		set("n", "<leader>bd", vim.cmd.bd)
@@ -95,6 +95,7 @@ section("keys", function()
 			vim.cmd([[set wrap!]])
 		end)
 		set("n", "F", "za") -- toggle fold
+		set("n", "<leader>d", vim.diagnostic.open_float)
 	end)
 end)
 
@@ -117,8 +118,7 @@ section("options", function()
 	end)
 
 	section("completion", function()
-		vim.opt.autocomplete = true
-		vim.opt.completeopt:append { "fuzzy", "menuone", "preview", "noinsert" }
+		vim.opt.completeopt = { "fuzzy", "menu", "menuone", "noinsert", "popup" }
 	end)
 
 	section("fold", function()
@@ -222,15 +222,18 @@ section("autocmds", function()
 				end
 
 				if client:supports_method("textDocument/completion") then
-					-- local chars = {}
-					-- for i = 32, 126 do
-					-- 	local ch = string.char(i)
-					--
-					-- 	if not contains({ " ", '"', "'", "[", "]", "(", ")", "{", "}" }, ch) then
-					-- 		table.insert(chars, ch)
-					-- 	end
-					-- end
-					-- client.server_capabilities.completionProvider.triggerCharacters = chars
+					local chars = {}
+					for i = 32, 126 do
+						local ch = string.char(i)
+
+						if not string.find(" \"'[](){}", ch, 1, true) then
+							table.insert(chars, ch)
+						end
+					end
+
+					if client.server_capabilities and client.server_capabilities.completionProvider then
+						client.server_capabilities.completionProvider.triggerCharacters = chars
+					end
 
 					vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = true })
 
