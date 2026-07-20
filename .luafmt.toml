@@ -1,7 +1,14 @@
 [syntax]
 level = "LuaJIT"
 
+[indent]
+kind = "Tab"
+width = 4
+
 [output]
-# single_arg_call_parens = "Omit"
+single_arg_call_parens = "Preserve"
 simple_lambda_single_line = "Always"
 quote_style = "Double"
+
+[spacing]
+space_before_lambda_func_paren = false

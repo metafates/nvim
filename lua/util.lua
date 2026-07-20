@@ -25,15 +25,4 @@ function M.section(name, body)
 	section = old
 end
 
----@return []string
-function H.library_paths()
-	local paths = {}
-
-	for _, p in ipairs(vim.api.nvim_get_runtime_file("lua/", true)) do
-		table.insert(paths, p)
-	end
-
-	return paths
-end
-
 return M
