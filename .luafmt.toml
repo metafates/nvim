@@ -1,0 +1,7 @@
+[syntax]
+level = "LuaJIT"
+
+[output]
+# single_arg_call_parens = "Omit"
+simple_lambda_single_line = "Always"
+quote_style = "Double"

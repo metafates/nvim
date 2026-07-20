@@ -2,10 +2,10 @@ local section = require("util").section
 
 section("packages", function ()
 	vim.pack.add({
-		'https://github.com/nvim-mini/mini.nvim',
-		'https://github.com/neovim/nvim-lspconfig',
-		'https://github.com/mason-org/mason.nvim',
-		'https://github.com/nvim-treesitter/nvim-treesitter'
+		"https://github.com/nvim-mini/mini.nvim",
+		"https://github.com/neovim/nvim-lspconfig",
+		"https://github.com/mason-org/mason.nvim",
+		"https://github.com/nvim-treesitter/nvim-treesitter"
 	})
 end)
 
@@ -103,7 +103,8 @@ section("languages", function ()
 		language.Go,
 		language.Markdown,
 		language.Bash,
-		language.JSON
+		language.JSON,
+		language.TOML
 	}) do
 		table.insert(names, lang.name)
 
@@ -121,9 +122,9 @@ section("languages", function ()
 	end
 
 	section("treesitter", function ()
-		require('nvim-treesitter').install(names)
+		require("nvim-treesitter").install(names)
 
-		vim.api.nvim_create_autocmd('FileType', {
+		vim.api.nvim_create_autocmd("FileType", {
 			pattern = names,
 			callback = function ()
 				vim.treesitter.start()
@@ -150,7 +151,7 @@ section("languages", function ()
 	end)
 
 	section("formatters", function ()
-		vim.api.nvim_create_autocmd('BufWritePre', {
+		vim.api.nvim_create_autocmd("BufWritePre", {
 			pattern = patterns,
 			callback = function ()
 				vim.lsp.buf.format()

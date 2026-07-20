@@ -23,5 +23,6 @@ M.Bash = lang {
 	pkgs = { "bash-language-server", "shellcheck" }
 }
 M.Make = lang { name = "make", patterns = { "Makefile" } }
+M.TOML = lang { name = "toml", patterns = { "*.toml" }, lsps = { "tombi" }, pkgs = { "tombi" } }
 
 return M
