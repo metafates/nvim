@@ -1,4 +1,4 @@
-spell/
+.emmyrc.json
 
 # Compiled Lua sources
 luac.out
