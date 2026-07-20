@@ -21,6 +21,7 @@ section("mini", function ()
 	require("mini.pairs").setup({})
 	require("mini.notify").setup({})
 	require("mini.icons").setup({})
+	require("mini.bufremove").setup({})
 	require("mini.snippets").setup({})
 	require("mini.completion").setup({})
 	require("mini.basics").setup({
@@ -36,20 +37,43 @@ end)
 section("keys", function ()
 	vim.g.mapleader = " "
 
-	vim.keymap.set("i", "jk", "<esc>")
-	vim.keymap.set("n", ";", ":", { noremap = true })
-	vim.keymap.set("n", "L", vim.cmd.bnext, { silent = true })
-	vim.keymap.set("n", "H", vim.cmd.bprevious, { silent = true })
-	vim.keymap.set("n", "<leader>f", require("mini.pick").builtin.files)
-	vim.keymap.set("n", ",w", vim.cmd.write)
-	vim.keymap.set("n", ",q", vim.cmd.quit)
+	local set = vim.keymap.set
 
-	section("lsp", function ()
-		vim.keymap.set("n", "gd", vim.lsp.buf.definition)
-		vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename)
+	set("i", "jk", "<esc>")
+	set("n", ";", ":", { noremap = true })
+	set({ "n", "x" }, "0", "^", { noremap = true })
+	set({ "n", "x", "v" }, "<leader>y", [["+y]])
+
+	section("buffer", function ()
+		set("n", "L", vim.cmd.bnext, { silent = true })
+		set("n", "H", vim.cmd.bprevious, { silent = true })
+		set("n", "<leader>bd", vim.cmd.bd)
+		set("n", "<leader>bo", function ()
+			local current_buf = vim.fn.bufnr()
+			local current_win = vim.fn.win_getid()
+			local bufs = vim.fn.getbufinfo({ buflisted = 1 })
+
+			for _, buf in ipairs(bufs) do
+				if buf.bufnr ~= current_buf then
+					pcall(require("mini.bufremove").delete, buf.bufnr)
+				end
+			end
+
+			vim.fn.win_gotoid(current_win)
+		end)
 	end)
 
-	vim.keymap.set("n", "f", function ()
+	set("n", "<leader>f", require("mini.pick").builtin.files)
+	set("n", ",w", vim.cmd.write)
+	set("n", ",q", vim.cmd.quit)
+
+	section("lsp", function ()
+		set("n", "gd", vim.lsp.buf.definition)
+		set("n", "<leader>r", vim.lsp.buf.rename)
+		set("n", "<leader>a", vim.lsp.buf.code_action)
+	end)
+
+	set("n", "f", function ()
 		local files = require("mini.files")
 
 		if not files.close() then files.open() end
@@ -61,7 +85,7 @@ section("keys", function ()
 			["<c-j>"] = "<c-n>",
 			["<c-k>"] = "<c-p>"
 		}) do
-			vim.keymap.set("i", lhs, function ()
+			set("i", lhs, function ()
 				if vim.fn.pumvisible() ~= 0 then
 					return rhs
 				end
@@ -70,6 +94,15 @@ section("keys", function ()
 			end, { expr = true }
 			)
 		end
+	end)
+
+	section("ui", function ()
+		set("n", "<esc>", vim.cmd.nohlsearch)
+		set("n", "<leader>un", require("mini.notify").clear)
+		set("n", "<leader>uw", function ()
+			vim.cmd([[set wrap!]])
+		end)
+		set("n", "F", "za") -- toggle fold
 	end)
 end)
 
@@ -88,6 +121,14 @@ section("options", function ()
 	vim.opt.writebackup = false
 
 	vim.opt.completeopt:append({ "fuzzy", "menuone", "preview", "noinsert" })
+
+	vim.opt.foldenable = true
+	vim.opt.foldlevel = 99
+	vim.opt.foldmethod = "expr"
+	vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()" -- redefined with lsp on attach
+	vim.opt.foldtext = ""
+	vim.opt.foldcolumn = "0"
+	vim.opt.fillchars:append({ eob = " ", fold = " " })
 end)
 
 section("languages", function ()
@@ -104,7 +145,8 @@ section("languages", function ()
 		language.Markdown,
 		language.Bash,
 		language.JSON,
-		language.TOML
+		language.TOML,
+		language.Vim
 	}) do
 		table.insert(names, lang.name)
 
@@ -165,4 +207,12 @@ section("languages", function ()
 			update_in_insert = false
 		})
 	end)
+end)
+
+section("autocmds", function ()
+	vim.api.nvim_create_autocmd("TextYankPost", {
+		callback = function ()
+			vim.hl.on_yank()
+		end
+	})
 end)

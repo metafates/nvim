@@ -24,5 +24,6 @@ M.Bash = lang {
 }
 M.Make = lang { name = "make", patterns = { "Makefile" } }
 M.TOML = lang { name = "toml", patterns = { "*.toml" }, lsps = { "tombi" }, pkgs = { "tombi" } }
+M.Vim = lang { name = "vim", patterns = { "*.vim", "*.lua" }, lsps = { "vimls" }, pkgs = { "vim-language-server" } }
 
 return M
