@@ -36,6 +36,14 @@ section(
 			vim.ui.select = pick.ui_select
 		end)
 
+		section("misc", function()
+			local misc = require("mini.misc")
+
+			misc.setup_auto_root()
+			misc.setup_termbg_sync()
+			misc.setup_restore_cursor()
+		end)
+
 		require("mini.cmdline").setup {}
 		require("mini.tabline").setup {}
 		require("mini.files").setup { windows = { preview = true } }
@@ -112,6 +120,7 @@ section("keys", function()
 	end)
 
 	set("n", ",w", vim.cmd.write)
+	set("n", ",a", vim.cmd.wall)
 	set("n", ",q", vim.cmd.quit)
 
 	set("n", "<c-c>", "gcc<down>", { remap = true })
