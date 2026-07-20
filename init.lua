@@ -1,11 +1,9 @@
 local section = require("util").section
 
-section("packages", function()
-	vim.pack.add {
-		"https://github.com/nvim-mini/mini.nvim", "https://github.com/neovim/nvim-lspconfig",
-		"https://github.com/mason-org/mason.nvim", "https://github.com/nvim-treesitter/nvim-treesitter"
-	}
-end)
+vim.pack.add {
+	"https://github.com/nvim-mini/mini.nvim", "https://github.com/neovim/nvim-lspconfig",
+	"https://github.com/mason-org/mason.nvim", "https://github.com/nvim-treesitter/nvim-treesitter"
+}
 
 section("theme", function()
 	vim.cmd.colorscheme "retrobox"
@@ -38,6 +36,8 @@ section(
 
 		section("misc", function()
 			local misc = require("mini.misc")
+
+			misc.setup()
 
 			misc.setup_auto_root()
 			misc.setup_termbg_sync()

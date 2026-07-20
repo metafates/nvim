@@ -14,6 +14,8 @@ function M.section(name, body)
 		section = name
 	end
 
+	require("mini.misc").log_add("loading section", section)
+
 	local ok, msg = pcall(body)
 
 	if not ok then

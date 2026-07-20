@@ -1,0 +1,3 @@
+# nvim
+
+Tiny neovim config.
