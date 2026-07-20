@@ -99,28 +99,37 @@ section("keys", function()
 end)
 
 section("options", function()
-	vim.opt.tabstop = 4
-	vim.opt.softtabstop = 4
-	vim.opt.shiftwidth = 4
-	vim.opt.scrolloff = 5
-	vim.opt.hlsearch = true
-	vim.opt.breakindent = true
+	section("ui", function()
+		vim.opt.tabstop = 4
+		vim.opt.softtabstop = 4
+		vim.opt.shiftwidth = 4
+		vim.opt.scrolloff = 5
+		vim.opt.hlsearch = true
+		vim.opt.breakindent = true
+	end)
 
-	vim.opt.autoread = true
-	vim.opt.swapfile = false
-	vim.opt.undofile = true
-	vim.opt.backup = false
-	vim.opt.writebackup = false
+	section("file", function()
+		vim.opt.autoread = true
+		vim.opt.swapfile = false
+		vim.opt.undofile = true
+		vim.opt.backup = false
+		vim.opt.writebackup = false
+	end)
 
-	vim.opt.completeopt:append { "fuzzy", "menuone", "preview", "noinsert" }
+	section("completion", function()
+		vim.opt.autocomplete = true
+		vim.opt.completeopt:append { "fuzzy", "menuone", "preview", "noinsert" }
+	end)
 
-	vim.opt.foldenable = true
-	vim.opt.foldlevel = 99
-	vim.opt.foldmethod = "expr"
-	vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()" -- redefined with lsp on attach
-	vim.opt.foldtext = ""
-	vim.opt.foldcolumn = "0"
-	vim.opt.fillchars:append { eob = " ", fold = " " }
+	section("fold", function()
+		vim.opt.foldenable = true
+		vim.opt.foldlevel = 99
+		vim.opt.foldmethod = "expr"
+		vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()" -- redefined with lsp on attach
+		vim.opt.foldtext = ""
+		vim.opt.foldcolumn = "0"
+		vim.opt.fillchars:append { eob = " ", fold = " " }
+	end)
 end)
 
 section("languages", function()
