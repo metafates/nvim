@@ -46,9 +46,11 @@ section(
 
 		require("mini.cmdline").setup {}
 		require("mini.tabline").setup {}
+		require("mini.cursorword").setup {}
 		require("mini.files").setup { windows = { preview = true } }
 		require("mini.pairs").setup {}
 		require("mini.notify").setup {}
+		require("mini.trailspace").setup {}
 		require("mini.statusline").setup {}
 		require("mini.icons").setup {}
 		require("mini.git").setup {}
@@ -165,6 +167,7 @@ section("options", function()
 		vim.opt.hlsearch = true
 		vim.opt.breakindent = true
 		vim.opt.background = "dark"
+		vim.opt.confirm = true
 	end)
 
 	section("file", function()
@@ -271,6 +274,17 @@ section("autocmds", function()
 		vim.api.nvim_create_autocmd("TextYankPost", {
 			callback = function()
 				vim.hl.on_yank()
+			end
+		})
+	end)
+
+	section("trim whitespace", function()
+		vim.api.nvim_create_autocmd("BufWritePre", {
+			callback = function()
+				local trailspace = require("mini.trailspace")
+
+				trailspace.trim_last_lines()
+				trailspace.trim()
 			end
 		})
 	end)
