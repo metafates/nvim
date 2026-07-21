@@ -1,7 +1,7 @@
 ---@type editor.Language
 return {
-	treesitter = { "typescript" },
-	patterns = { "*.ts" },
+	treesitter = { "javascript" },
+	patterns = { "*.js", "*.mjs" },
 	lsps = {
 		{ name = "vtsls" }
 	},
