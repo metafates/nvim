@@ -52,6 +52,7 @@ section(
 		require("mini.notify").setup {}
 		require("mini.trailspace").setup {}
 		require("mini.statusline").setup {}
+		require("mini.visits").setup {}
 		require("mini.icons").setup {}
 		require("mini.git").setup {}
 		require("mini.diff").setup {}
@@ -119,6 +120,7 @@ section("keys", function()
 		set("n", "<leader>f", require("mini.pick").builtin.files)
 		set("n", "<leader>/", require("mini.extra").pickers.buf_lines)
 		set("n", "<leader>g", require("mini.pick").builtin.grep_live)
+		set("n", "<leader>v", require("mini.extra").pickers.visit_paths)
 	end)
 
 	set("n", ",w", vim.cmd.write)
