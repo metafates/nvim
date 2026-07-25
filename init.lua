@@ -102,11 +102,12 @@ section("keys", function()
 		section("lsp", function()
 			set("n", "R", vim.lsp.buf.rename)
 			set("n", "<leader>a", vim.lsp.buf.code_action)
+			set("n", "<leader>D", require("mini.extra").pickers.diagnostic)
 
 			for key, scope in pairs {
 				["gd"] = "definition",
 				["<leader>r"] = "references",
-				["<leader>D"] = "type_definition",
+				["<leader>t"] = "type_definition",
 				["<leader>s"] = "document_symbol",
 				["<leader>S"] = "workspace_symbol_live",
 				["<leader>i"] = "implementation"
@@ -133,7 +134,9 @@ section("keys", function()
 	set("n", "f", function()
 		local files = require("mini.files")
 
-		if not files.close() then files.open() end
+		if not files.close() then
+			files.open(vim.api.nvim_buf_get_name(0), false)
+		end
 	end)
 
 	section("popup menu", function()
